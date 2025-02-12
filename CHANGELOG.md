@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.5](https://github.com/AnnatarHe/lake-ui/compare/v0.0.4...v0.0.5) (2025-02-12)
+
+
+### Bug Fixes
+
+* **build:** fix config ([1e2dba4](https://github.com/AnnatarHe/lake-ui/commit/1e2dba42be607f143a6185a589aa206afbf6ea46))
+
 ## [0.0.4](https://github.com/AnnatarHe/lake-ui/compare/v0.0.3...v0.0.4) (2025-02-12)
 
 

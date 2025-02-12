@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.6](https://github.com/AnnatarHe/lake-ui/compare/v0.0.5...v0.0.6) (2025-02-12)
+
+
+### Bug Fixes
+
+* **build:** add missing dts ([8048f46](https://github.com/AnnatarHe/lake-ui/commit/8048f4645b46a93d656076068bae655df6eab90f))
+
 ## [0.0.5](https://github.com/AnnatarHe/lake-ui/compare/v0.0.4...v0.0.5) (2025-02-12)
 
 

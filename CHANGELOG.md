@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.7](https://github.com/AnnatarHe/lake-ui/compare/v0.0.6...v0.0.7) (2025-02-12)
+
+
+### Bug Fixes
+
+* **license:** add license to pkg ([f6b60af](https://github.com/AnnatarHe/lake-ui/commit/f6b60af1fdc3ba815de6e263ccdc76bc827e4c2f))
+
 ## [0.0.6](https://github.com/AnnatarHe/lake-ui/compare/v0.0.5...v0.0.6) (2025-02-12)
 
 

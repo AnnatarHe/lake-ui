@@ -1,0 +1,64 @@
+name: Publish
+on:
+  push:
+    branches:
+      - master
+  #   tags:
+  #     - '*'
+permissions: {}
+jobs:
+  publish:
+    permissions:
+      contents: write # to create release commit (google-github-actions/release-please-action)
+      # contents: read
+      pull-requests: write # to create release PR (google-github-actions/release-please-action)
+      id-token: write
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        node-version: [23.x]
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: node
+          manifest-file: ./packages.manifest.json
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          registry-url: "https://registry.npmjs.org"
+          cache: "pnpm"
+      - name: Build
+        run: pnpm install && pnpm run build
+      - run: pnpm run test:coverage
+      - name: Codecov
+        uses: codecov/codecov-action@v4.5.0
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: AnnatarHe/lake-ui
+      - name: Publish to NPM
+        run: pnpm publish --access public
+        if: ${{ steps.release.outputs.release_created }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      - name: Upgrade JSR Version
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
+          export VERSION=$(jq -r '.version' package.json)
+          echo `jq --arg v "$VERSION" '.version=$v' jsr.json` > jsr.json
+      - name: Update resources
+        uses: test-room-7/action-update-file@v1
+        if: ${{ steps.release.outputs.release_created }}
+        with:
+          file-path: jsr.json
+          commit-msg: "chore(jsr): update jsr version"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish to JSR
+        if: ${{ steps.release.outputs.release_created }}
+        run: pnpm dlx jsr publish --allow-dirty

@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.2](https://github.com/AnnatarHe/lake-ui/compare/v0.0.1...v0.0.2) (2025-02-12)
+
+
+### Bug Fixes
+
+* **ci:** ignore coverage file ([0279e13](https://github.com/AnnatarHe/lake-ui/commit/0279e136ec309f3ae1b8dcbc9c321dcdea92b575))
+
 ## 0.0.1 (2025-02-12)
 
 

@@ -4,3 +4,5 @@ src/
 CHANGELOG.md
 vitest.config.ts
 tests/
+coverage/
+codecov*

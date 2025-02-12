@@ -1,0 +1,6 @@
+.github/
+.vscode/
+src/
+CHANGELOG.md
+vitest.config.ts
+tests/

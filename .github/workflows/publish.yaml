@@ -41,7 +41,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: AnnatarHe/lake-ui
       - name: Publish to NPM
-        run: pnpm publish --access public
+        run: pnpm publish --access public --no-git-checks
         if: ${{ steps.release.outputs.release_created }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

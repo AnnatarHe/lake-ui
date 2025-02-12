@@ -1,3 +1,4 @@
-import Card from './card/card'
+import Card from './card'
+import Modal from './modal'
 
-export { Card }
+export { Card, Modal }

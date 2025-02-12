@@ -1,6 +1,7 @@
 'use client'
 
 import { X } from 'lucide-react'
+import { JSX } from 'react'
 import ReactDOM from 'react-dom'
 
 type Props = {
@@ -11,7 +12,7 @@ type Props = {
   children: React.ReactNode
 }
 
-function ModalInner(props: Props) {
+function ModalInner(props: Props): JSX.Element | null {
   const { isOpen, onClose, children, title } = props
   if (!isOpen) return null
 
@@ -34,7 +35,7 @@ function ModalInner(props: Props) {
 }
 
 
-function Modal(props: Props) {
+function Modal(props: Props): JSX.Element | null {
   const { selector = '[data-st-role=modal]' } = props
   const modalRoot = typeof document !== 'undefined' ? document.querySelector(selector) : null
   if (!modalRoot) return null

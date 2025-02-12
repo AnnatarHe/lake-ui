@@ -14,7 +14,7 @@ describe('Modal Component', () => {
     render(
       <Modal
         isOpen={false}
-        onClose={() => {}}
+        onClose={vi.fn()}
         title="Test Modal"
       >
         <div>Modal Content</div>
@@ -29,7 +29,7 @@ describe('Modal Component', () => {
     render(
       <Modal
         isOpen={true}
-        onClose={() => {}}
+        onClose={vi.fn()}
         title="Test Modal"
       >
         <div>Modal Content</div>
@@ -65,7 +65,7 @@ describe('Modal Component', () => {
     render(
       <Modal
         isOpen={true}
-        onClose={() => {}}
+        onClose={vi.fn()}
         title="Test Modal"
         selector="#custom-modal"
       >
@@ -81,7 +81,7 @@ describe('Modal Component', () => {
     render(
       <Modal
         isOpen={true}
-        onClose={() => {}}
+        onClose={vi.fn()}
         title={titleComponent}
       >
         <div>Modal Content</div>

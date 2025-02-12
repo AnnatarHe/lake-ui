@@ -4,6 +4,7 @@ import { X } from 'lucide-react'
 import ReactDOM from 'react-dom'
 
 type Props = {
+  selector?: string
   title: string | React.ReactNode
   isOpen: boolean
   onClose: () => void
@@ -34,7 +35,8 @@ function ModalInner(props: Props) {
 
 
 function Modal(props: Props) {
-  const modalRoot = typeof document !== 'undefined' ? document.querySelector('[data-st-role=modal]') : null
+  const { selector = '[data-st-role=modal]' } = props
+  const modalRoot = typeof document !== 'undefined' ? document.querySelector(selector) : null
   if (!modalRoot) return null
   return ReactDOM.createPortal(<ModalInner {...props} />, modalRoot)
 }

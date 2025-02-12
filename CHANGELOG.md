@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.0.4](https://github.com/AnnatarHe/lake-ui/compare/v0.0.3...v0.0.4) (2025-02-12)
+
+
+### Bug Fixes
+
+* **build:** update build config ([753eac9](https://github.com/AnnatarHe/lake-ui/commit/753eac90f95d53995ccadf48349c0a5cf4a1b1e6))
+* **ci:** update config ([14e0a07](https://github.com/AnnatarHe/lake-ui/commit/14e0a07b1d944989fde7eedf5f1b263aac7ede58))
+* **ci:** update npm config ([0333f09](https://github.com/AnnatarHe/lake-ui/commit/0333f09d3d71bc65f2056977f278c2a9fc28af63))
+* **ts:** fix ts return type ([35db70d](https://github.com/AnnatarHe/lake-ui/commit/35db70d9233e8f3dc783fe0fd16d8a52371537a8))
+
 ## [0.0.3](https://github.com/AnnatarHe/lake-ui/compare/v0.0.2...v0.0.3) (2025-02-12)
 
 

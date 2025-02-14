@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.0.8](https://github.com/AnnatarHe/lake-ui/compare/v0.0.7...v0.0.8) (2025-02-14)
+
+
+### Features
+
+* **app:** add form, navbar components ([084d4f5](https://github.com/AnnatarHe/lake-ui/commit/084d4f54fa56049b98348e096f414f1eabe2ce7b))
+
+
+### Bug Fixes
+
+* **build:** add alias config in vite ([f4ddca8](https://github.com/AnnatarHe/lake-ui/commit/f4ddca837af2044b39e6dd9a099e4639ac2291a1))
+
+
+### Miscellaneous Chores
+
+* release 0.0.8 ([a902d63](https://github.com/AnnatarHe/lake-ui/commit/a902d63a56944c5b8883b08eebc0974063500fd8))
+
 ## [0.0.7](https://github.com/AnnatarHe/lake-ui/compare/v0.0.6...v0.0.7) (2025-02-12)
 
 

@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.0.11](https://github.com/AnnatarHe/lake-ui/compare/v0.0.10...v0.0.11) (2025-02-14)
+
+
+### Features
+
+* **tooltip:** add tooltip ([703e61f](https://github.com/AnnatarHe/lake-ui/commit/703e61f5c80a3e73953d83700b1d5067b485fc9b))
+
+
+### Miscellaneous Chores
+
+* release 0.0.11 ([ed44891](https://github.com/AnnatarHe/lake-ui/commit/ed4489117eb789c26dbe91518509ba0807451970))
+
 ## [0.0.10](https://github.com/AnnatarHe/lake-ui/compare/v0.0.9...v0.0.10) (2025-02-14)
 
 

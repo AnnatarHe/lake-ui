@@ -8,6 +8,7 @@ import {
 } from './form'
 import Modal from './modal'
 import { NavbarContainer } from './navbar'
+import Tooltip from './tooltip'
 
 export {
   Card,
@@ -18,4 +19,5 @@ export {
   NumberField,
   SelectField,
   SwitchField,
+  Tooltip,
 }

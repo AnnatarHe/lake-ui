@@ -9,7 +9,7 @@ export default defineConfig({
     dts({
       rollupTypes: true,
       tsconfigPath: 'tsconfig.app.json',
-    })
+    }),
   ],
   build: {
     lib: {

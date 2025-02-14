@@ -26,7 +26,7 @@ interface MultiSelectProps {
   error?: string
 }
 
-export function MultiSelect(props: MultiSelectProps) {
+function MultiSelect(props: MultiSelectProps) {
   const {
     options: propsOptions,
     value: propsValue,
@@ -48,7 +48,7 @@ export function MultiSelect(props: MultiSelectProps) {
 
   const onChange = (value: string[]) => {
     if (isSingleSelect) {
-      propsOnChange((value).length === 0 ? undefined : (value![0] as string))
+      propsOnChange(value.length === 0 ? undefined : (value![0] as string))
     } else {
       propsOnChange(value)
     }
@@ -82,7 +82,7 @@ export function MultiSelect(props: MultiSelectProps) {
     return options.filter(
       (option) =>
         option.label.toLowerCase().includes(debouncedSearchQuery) ||
-        option.value.toLowerCase().includes(debouncedSearchQuery)
+        option.value.toLowerCase().includes(debouncedSearchQuery),
     )
   }, [options, debouncedSearchQuery])
 
@@ -134,7 +134,7 @@ export function MultiSelect(props: MultiSelectProps) {
     useCallback(() => {
       setIsOpen(false)
       setSearchQuery('')
-    }, [])
+    }, []),
   )
 
   return (
@@ -154,7 +154,12 @@ export function MultiSelect(props: MultiSelectProps) {
           </span>
         )}
       </label>
-      <div className={cn('relative rounded-lg border border-gray-700 bg-gray-800', error && 'border-red-500')}>
+      <div
+        className={cn(
+          'relative rounded-lg border border-gray-700 bg-gray-800',
+          error && 'border-red-500',
+        )}
+      >
         <button
           type='button'
           className='flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-gray-300 hover:bg-gray-700/50 focus:outline-none focus:ring-2 focus:ring-blue-500'
@@ -228,7 +233,7 @@ export function MultiSelect(props: MultiSelectProps) {
                       key={option.value}
                       className={cn(
                         'flex cursor-pointer items-center px-3 py-2 text-gray-300 hover:bg-gray-700/50',
-                        isDisabled && 'cursor-not-allowed opacity-50'
+                        isDisabled && 'cursor-not-allowed opacity-50',
                       )}
                       onClick={() => !isDisabled && toggleOption(option.value)}
                     >
@@ -253,7 +258,9 @@ export function MultiSelect(props: MultiSelectProps) {
           </div>
         )}
       </div>
-      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+      {error && <p className='text-red-500 text-sm mt-1'>{error}</p>}
     </div>
   )
 }
+
+export default MultiSelect

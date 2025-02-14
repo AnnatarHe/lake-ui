@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.9](https://github.com/AnnatarHe/lake-ui/compare/v0.0.8...v0.0.9) (2025-02-14)
+
+
+### Bug Fixes
+
+* **ci:** remove jsr support ([645dab3](https://github.com/AnnatarHe/lake-ui/commit/645dab3c076c8cbedc2db3be5734591249b17a5f))
+* **form:** add multip-select component ([6a9123a](https://github.com/AnnatarHe/lake-ui/commit/6a9123a3fe3e04ce8cf1a5bc97944484064d606d))
+
 ## [0.0.8](https://github.com/AnnatarHe/lake-ui/compare/v0.0.7...v0.0.8) (2025-02-14)
 
 

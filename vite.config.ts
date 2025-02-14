@@ -11,6 +11,11 @@ export default defineConfig({
       tsconfigPath: 'tsconfig.app.json',
     }),
   ],
+  resolve: {
+    alias: {
+      '@': '/src',
+    },
+  },
   build: {
     lib: {
       entry: 'src/index.ts',

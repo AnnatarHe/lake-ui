@@ -1,5 +1,11 @@
 import Card from './card'
-import { InputField, NumberField, SelectField, SwitchField } from './form'
+import {
+  InputField,
+  MultiSelect,
+  NumberField,
+  SelectField,
+  SwitchField,
+} from './form'
 import Modal from './modal'
 import { NavbarContainer } from './navbar'
 
@@ -7,6 +13,7 @@ export {
   Card,
   InputField,
   Modal,
+  MultiSelect,
   NavbarContainer,
   NumberField,
   SelectField,

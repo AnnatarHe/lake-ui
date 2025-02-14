@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.10](https://github.com/AnnatarHe/lake-ui/compare/v0.0.9...v0.0.10) (2025-02-14)
+
+
+### Bug Fixes
+
+* **form:** add missing multip-select ([fdc307b](https://github.com/AnnatarHe/lake-ui/commit/fdc307b295c51d3cee7533a016e98291446f9605))
+
 ## [0.0.9](https://github.com/AnnatarHe/lake-ui/compare/v0.0.8...v0.0.9) (2025-02-14)
 
 

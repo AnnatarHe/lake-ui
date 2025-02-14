@@ -45,11 +45,11 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-      - name: Upgrade JSR Version
-        if: ${{ steps.release.outputs.release_created }}
-        run: |
-          export VERSION=$(jq -r '.version' package.json)
-          echo `jq --arg v "$VERSION" '.version=$v' jsr.json` > jsr.json
+      # - name: Upgrade JSR Version
+        # if: ${{ steps.release.outputs.release_created }}
+        # run: |
+          # export VERSION=$(jq -r '.version' package.json)
+          # echo `jq --arg v "$VERSION" '.version=$v' jsr.json` > jsr.json
       - name: Update resources
         uses: test-room-7/action-update-file@v1
         if: ${{ steps.release.outputs.release_created }}
@@ -57,6 +57,6 @@ jobs:
           file-path: jsr.json
           commit-msg: "chore(jsr): update jsr version"
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Publish to JSR
-        if: ${{ steps.release.outputs.release_created }}
-        run: pnpm dlx jsr publish --allow-dirty
+      # - name: Publish to JSR
+        # if: ${{ steps.release.outputs.release_created }}
+        # run: pnpm dlx jsr publish --allow-dirty

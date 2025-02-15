@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.0.12](https://github.com/AnnatarHe/lake-ui/compare/v0.0.11...v0.0.12) (2025-02-15)
+
+
+### Bug Fixes
+
+* **build:** ignore test files ([df24154](https://github.com/AnnatarHe/lake-ui/commit/df24154c8cecc424fc52a6826369a898705acf14))
+* **modal:** disable scrollbar when modal shown ([da26cf8](https://github.com/AnnatarHe/lake-ui/commit/da26cf8ceba8cda6a818fd342957ca68059d8110))
+* update build script and dist ([a191457](https://github.com/AnnatarHe/lake-ui/commit/a191457494cbc343790d0a33fca8db009c1a0e65))
+
 ## [0.0.11](https://github.com/AnnatarHe/lake-ui/compare/v0.0.10...v0.0.11) (2025-02-14)
 
 

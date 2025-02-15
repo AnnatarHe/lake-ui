@@ -1,4 +1,8 @@
 import react from '@vitejs/plugin-react-swc'
+import { glob } from 'glob'
+
+import { fileURLToPath } from 'node:url'
+import { extname, relative } from 'path'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 
@@ -24,6 +28,20 @@ export default defineConfig({
     },
     rollupOptions: {
       external: ['react', 'react/jsx-runtime', 'lucide-react'],
+      input: Object.fromEntries(
+        glob
+          .sync('src/**/*.{ts,tsx}', {
+            ignore: ['src/**/*.d.ts', 'src/**/*.stories.tsx'],
+          })
+          .map((file) => [
+            relative('src', file.slice(0, file.length - extname(file).length)),
+            fileURLToPath(new URL(file, import.meta.url)),
+          ]),
+      ),
+      output: {
+        assetFileNames: 'assets/[name][extname]',
+        entryFileNames: '[name].js',
+      },
     },
   },
 })

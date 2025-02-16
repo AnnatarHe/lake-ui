@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.14](https://github.com/AnnatarHe/lake-ui/compare/v0.0.13...v0.0.14) (2025-02-16)
+
+
+### Bug Fixes
+
+* **docs:** update docs ([1cd06d0](https://github.com/AnnatarHe/lake-ui/commit/1cd06d0cdc06b4d554f6bd1cac2e2be07f8027d9))
+
 ## [0.0.13](https://github.com/AnnatarHe/lake-ui/compare/v0.0.12...v0.0.13) (2025-02-16)
 
 

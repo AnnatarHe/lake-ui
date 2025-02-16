@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.13](https://github.com/AnnatarHe/lake-ui/compare/v0.0.12...v0.0.13) (2025-02-16)
+
+
+### Bug Fixes
+
+* **build:** keep 'use client' direction ([f292949](https://github.com/AnnatarHe/lake-ui/commit/f292949985a28784c8ae5fadc9aebb2663c4a699))
+* **vite:** support tree-shark in library ([c57d5f1](https://github.com/AnnatarHe/lake-ui/commit/c57d5f12beb0aabe9348b4e5ac2c50475faf1221))
+
 ## [0.0.12](https://github.com/AnnatarHe/lake-ui/compare/v0.0.11...v0.0.12) (2025-02-15)
 
 

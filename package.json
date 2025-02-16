@@ -14,24 +14,24 @@
       "types": "./dist/src/card/index.d.ts"
     },
     "./form-input-field": {
-      "import": "./dist/form/input-field/input-field.js",
-      "types": "./dist/src/form/input-field/input-field.d.ts"
+      "import": "./dist/form/input-field.js",
+      "types": "./dist/src/form/input-field.d.ts"
     },
     "./form-number-field": {
-      "import": "./dist/form/number-field/number-field.js",
-      "types": "./dist/src/form/number-field/number-field.d.ts"
+      "import": "./dist/form/number-field.js",
+      "types": "./dist/src/form/number-field.d.ts"
     },
     "./form-multi-select": {
-      "import": "./dist/form/multi-select/multi-select.js",
-      "types": "./dist/src/form/multi-select/multi-select.d.ts"
+      "import": "./dist/form/multi-select.js",
+      "types": "./dist/src/form/multi-select.d.ts"
     },
     "./form-select-field": {
-      "import": "./dist/form/select-field/select-field.js",
-      "types": "./dist/src/form/select-field/select-field.d.ts"
+      "import": "./dist/form/select-field.js",
+      "types": "./dist/src/form/select-field.d.ts"
     },
     "./form-switch-field": {
-      "import": "./dist/form/switch-field/switch-field.js",
-      "types": "./dist/src/form/switch-field/switch-field.d.ts"
+      "import": "./dist/form/switch-field.js",
+      "types": "./dist/src/form/switch-field.d.ts"
     },
     "./modal": {
       "import": "./dist/modal/index.js",

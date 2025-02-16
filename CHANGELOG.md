@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.15](https://github.com/AnnatarHe/lake-ui/compare/v0.0.14...v0.0.15) (2025-02-16)
+
+
+### Bug Fixes
+
+* **pkg:** fix import path ([3d0344a](https://github.com/AnnatarHe/lake-ui/commit/3d0344a85db46fa5e6f6c460ad4e9f1b966899f9))
+
 ## [0.0.14](https://github.com/AnnatarHe/lake-ui/compare/v0.0.13...v0.0.14) (2025-02-16)
 
 

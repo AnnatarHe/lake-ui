@@ -1,15 +1,17 @@
 import react from '@vitejs/plugin-react-swc'
 import { glob } from 'glob'
+import preserveDirectives from 'rollup-preserve-directives'
 
 import { fileURLToPath } from 'node:url'
 import { extname, relative } from 'path'
-import { defineConfig } from 'vite'
+import { Plugin, defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
+    preserveDirectives() as Plugin,
     dts({
       rollupTypes: false,
       tsconfigPath: 'tsconfig.app.json',

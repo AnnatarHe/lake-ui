@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { addDays, fromUnixTime, startOfDay, toUnixTime } from '../utils/date'
 
 import { percentilesOf } from '../utils/percentiles'

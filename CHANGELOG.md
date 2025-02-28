@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.17](https://github.com/AnnatarHe/lake-ui/compare/v0.0.16...v0.0.17) (2025-02-28)
+
+
+### Bug Fixes
+
+* **pnpm:** update lock file and deps ([044ee99](https://github.com/AnnatarHe/lake-ui/commit/044ee9991dc67e6d65f70902692ebc0802dd51db))
+
 ## [0.0.16](https://github.com/AnnatarHe/lake-ui/compare/v0.0.15...v0.0.16) (2025-02-28)
 
 

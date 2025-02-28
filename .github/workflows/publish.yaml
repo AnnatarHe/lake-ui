@@ -13,7 +13,7 @@ jobs:
       # contents: read
       pull-requests: write # to create release PR (google-github-actions/release-please-action)
       id-token: write
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [23.x]

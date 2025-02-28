@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.0.16](https://github.com/AnnatarHe/lake-ui/compare/v0.0.15...v0.0.16) (2025-02-28)
+
+
+### Features
+
+* **contribution-wall:** add contribution wall ([ec06180](https://github.com/AnnatarHe/lake-ui/commit/ec06180fd552f19ccab7b2f3e551acd8b4af0c31))
+
+
+### Miscellaneous Chores
+
+* release 0.0.16 ([e2799f6](https://github.com/AnnatarHe/lake-ui/commit/e2799f6763aa4f1fbff159e57509e834bdd2289e))
+
 ## [0.0.15](https://github.com/AnnatarHe/lake-ui/compare/v0.0.14...v0.0.15) (2025-02-16)
 
 

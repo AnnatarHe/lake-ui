@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.18](https://github.com/AnnatarHe/lake-ui/compare/v0.0.17...v0.0.18) (2025-02-28)
+
+
+### Bug Fixes
+
+* **lint:** fix lint issue ([30baa13](https://github.com/AnnatarHe/lake-ui/commit/30baa13ad785855d69e1594b7a61a0da59f8b550))
+
 ## [0.0.17](https://github.com/AnnatarHe/lake-ui/compare/v0.0.16...v0.0.17) (2025-02-28)
 
 

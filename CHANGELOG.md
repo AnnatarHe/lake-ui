@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.20](https://github.com/AnnatarHe/lake-ui/compare/v0.0.19...v0.0.20) (2025-03-01)
+
+
+### Bug Fixes
+
+* **tooltip:** render tooltip with correct root dom ([e5113e8](https://github.com/AnnatarHe/lake-ui/commit/e5113e843bf7c2c9b734e69d11818ade03c3ee4d))
+
 ## [0.0.19](https://github.com/AnnatarHe/lake-ui/compare/v0.0.18...v0.0.19) (2025-03-01)
 
 

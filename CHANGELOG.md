@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.19](https://github.com/AnnatarHe/lake-ui/compare/v0.0.18...v0.0.19) (2025-03-01)
+
+
+### Bug Fixes
+
+* **select-field:** update props in SelectField ([3bd9b23](https://github.com/AnnatarHe/lake-ui/commit/3bd9b2373542d500a41afa75c8b5bd055e357c1a))
+
 ## [0.0.18](https://github.com/AnnatarHe/lake-ui/compare/v0.0.17...v0.0.18) (2025-02-28)
 
 

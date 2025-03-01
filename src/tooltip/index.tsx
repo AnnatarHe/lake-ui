@@ -12,7 +12,7 @@ import {
   useHover,
   useInteractions,
 } from '@floating-ui/react'
-import React, { useMemo } from 'react'
+import React from 'react'
 
 import { cn } from '@/utils/cn'
 
@@ -46,10 +46,10 @@ function Tooltip(props: TooltipProps) {
     ],
   })
 
-  const rootDom = useMemo<HTMLElement | null>(() => {
-    if (typeof window === 'undefined') return null
-    return document.querySelector('[data-st-role=tooltip]')
-  }, [])
+  const rootDom =
+    typeof window === 'undefined'
+      ? null
+      : (document.querySelector('[data-st-role=tooltip]') as HTMLElement)
   const hover = useHover(context)
   const focus = useFocus(context)
   useInteractions([hover, focus])

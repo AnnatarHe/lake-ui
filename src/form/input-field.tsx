@@ -2,7 +2,7 @@ import { Loader2 } from 'lucide-react'
 import { cn } from '@/utils/cn'
 
 interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label?: string
+  label?: string | React.ReactNode
   error?: string
   loading?: boolean
 }

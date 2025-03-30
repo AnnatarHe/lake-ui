@@ -3,7 +3,7 @@ import { Loader2 } from 'lucide-react'
 import React from 'react'
 
 interface NumberFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string
+  label: string | React.ReactNode
   disabled?: boolean
   ref?: React.Ref<HTMLInputElement>
   error?: string

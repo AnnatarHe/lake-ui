@@ -15,7 +15,7 @@ interface MultiSelectProps {
   disabled?: boolean
   value?: string[] | string
   onChange: (value?: string[] | string) => void
-  label: string
+  label: string | React.ReactNode
   placeholder?: string
   maxValues?: number
   searchable?: boolean

@@ -4,7 +4,7 @@ import React from 'react'
 import { cn } from '@/utils/cn'
 
 interface SwitchFieldProps {
-  label: string
+  label: string | React.ReactNode
   loading?: boolean
   value: boolean
   onChange: (value: boolean) => Promise<unknown> | void

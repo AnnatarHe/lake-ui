@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.22](https://github.com/AnnatarHe/lake-ui/compare/v0.0.21...v0.0.22) (2025-03-30)
+
+
+### Bug Fixes
+
+* **form:** support label in form element ([77f69d7](https://github.com/AnnatarHe/lake-ui/commit/77f69d712e84f519c64256bce1f89dd1d8f79d65))
+
 ## [0.0.21](https://github.com/AnnatarHe/lake-ui/compare/v0.0.20...v0.0.21) (2025-03-30)
 
 

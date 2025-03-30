@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.21](https://github.com/AnnatarHe/lake-ui/compare/v0.0.20...v0.0.21) (2025-03-30)
+
+
+### Bug Fixes
+
+* **form:** support labels, loading and disabled in form fields ([1ea8e46](https://github.com/AnnatarHe/lake-ui/commit/1ea8e462cb778dbab0887bac7c3b1b5c97d71816))
+
 ## [0.0.20](https://github.com/AnnatarHe/lake-ui/compare/v0.0.19...v0.0.20) (2025-03-01)
 
 

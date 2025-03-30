@@ -64,7 +64,6 @@ function SwitchField(props: SwitchFieldProps) {
               onChange(!value)
             }}
             aria-checked={value}
-            aria-label={label}
           >
             <span
               className={cn(

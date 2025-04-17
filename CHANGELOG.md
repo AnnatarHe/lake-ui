@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.0.24](https://github.com/AnnatarHe/lake-ui/compare/v0.0.23...v0.0.24) (2025-04-17)
+
+
+### Bug Fixes
+
+* **form:** add storybook for form ([008f405](https://github.com/AnnatarHe/lake-ui/commit/008f405ab7a32a8868d544484c5a17075ec1ce34))
+* **select:** custom select with new api ([de52b52](https://github.com/AnnatarHe/lake-ui/commit/de52b52d876f91bf6570c04c65b68256de20eab2))
+* **storybook:** add storybook for test and preview ([9e8284b](https://github.com/AnnatarHe/lake-ui/commit/9e8284ba8493cac810f1f0f2a8a7e23cdcaaee9f))
+
 ## [0.0.23](https://github.com/AnnatarHe/lake-ui/compare/v0.0.22...v0.0.23) (2025-03-30)
 
 

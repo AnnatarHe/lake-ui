@@ -1,0 +1,172 @@
+/* Main select element */
+.select,
+.select::picker(select) {
+  appearance: base-select;
+  cursor: pointer;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* Custom scrollbar styling */
+.select::picker(select)::-webkit-scrollbar {
+  width: 4px;
+  background-color: transparent;
+}
+
+.select::picker(select)::-webkit-scrollbar-thumb {
+  background-color: rgba(156, 163, 175, 0.4);
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.select::picker(select)::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(156, 163, 175, 0.6);
+}
+
+.select::picker(select)::-webkit-scrollbar-track {
+  background-color: rgba(229, 231, 235, 0.1);
+  border-radius: 8px;
+}
+
+/* Select button appearance */
+.select::picker(select-button) {
+  font-weight: 400;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  transition: all 0.15s ease-in-out;
+}
+
+/* Dropdown base style */
+.select::picker(listbox) {
+  border-radius: 0.375rem;
+  padding: 0.25rem 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background-color: var(--select-listbox-background, #fff);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  max-height: 15rem;
+  overflow-y: auto;
+  margin-top: 0.25rem;
+}
+
+/* Styling for the option group */
+.select::picker(option-group) {
+  padding-left: 0.5rem;
+}
+
+/* Styling for the option group label */
+.select::picker(group-label) {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--select-group-label-color, #6b7280);
+  padding: 0.375rem 0.75rem;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+/* Individual option styling */
+.select option {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+/* Hover state for options */
+.select option:hover {
+  background-color: rgba(59, 130, 246, 0.08);
+}
+
+/* Selected option indicator */
+.select option:checked {
+  background-color: rgba(59, 130, 246, 0.12);
+  color: #3b82f6;
+  font-weight: 500;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading::picker-icon {
+  content: url("../assets/loader-circle.svg");
+  animation: spin 1.5s linear infinite;
+  display: inline-block;
+}
+
+.normal::picker-icon {
+  content: url("../assets/chevron-down.svg");
+}
+
+/* Dropdown arrow icon customization */
+.select::picker-icon {
+  height: 24px;
+  width: 24px;
+  position: absolute;
+  right: 0.75rem;
+  --select-icon-color: #6b7280;
+  color: var(--select-icon-color, #6b7280);
+  transform-origin: center;
+  transition: transform 0.2s ease;
+}
+
+/* Open state transformation for dropdown icon */
+.select:open::picker-icon {
+  transform: rotate(180deg);
+}
+
+/* Disabled state styles */
+.select:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .select::picker(select) {
+    border: 0;
+    background-color: var(--color-gray-800);
+  }
+
+  .loading::picker-icon {
+    content: url("../assets/loader-circle.white.svg");
+    animation: spin 1.5s linear infinite;
+    display: inline-block;
+  }
+
+  .normal::picker-icon {
+    content: url("../assets/chevron-down.white.svg");
+  }
+
+  .select::picker(listbox) {
+    --select-listbox-background: #1f2937;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .select::picker(group-label) {
+    --select-group-label-color: #9ca3af;
+  }
+
+  .select::picker-icon {
+    /* --select-icon-color: #9ca3af; */
+    --select-icon-color: white;
+  }
+
+  .select option {
+    color: white;
+  }
+
+  .select option:hover {
+    background-color: rgba(59, 130, 246, 0.15);
+  }
+
+  .select option:checked {
+    background-color: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+  }
+}

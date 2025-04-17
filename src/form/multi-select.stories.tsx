@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { ref } from 'process'
 import { useRef, useState } from 'react'
 import MultiSelect from './multi-select'
 

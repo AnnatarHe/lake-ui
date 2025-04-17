@@ -9,6 +9,9 @@
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
+    "./style": {
+      "import": "./dist/style.css"
+    },
     "./card": {
       "import": "./dist/card/index.js",
       "types": "./dist/src/card/index.d.ts"

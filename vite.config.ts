@@ -23,6 +23,7 @@ export default defineConfig({
     },
   },
   build: {
+    cssCodeSplit: false,
     lib: {
       entry: 'src/index.ts',
       fileName: 'index',

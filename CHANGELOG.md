@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.25](https://github.com/AnnatarHe/lake-ui/compare/v0.0.24...v0.0.25) (2025-04-19)
+
+
+### Bug Fixes
+
+* **css:** fix css import path ([e9f5c4d](https://github.com/AnnatarHe/lake-ui/commit/e9f5c4d572acb38c14755ce64d73dfc80254976f))
+
 ## [0.0.24](https://github.com/AnnatarHe/lake-ui/compare/v0.0.23...v0.0.24) (2025-04-17)
 
 

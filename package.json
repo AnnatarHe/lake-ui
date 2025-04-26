@@ -36,6 +36,10 @@
       "import": "./dist/form/switch-field.js",
       "types": "./dist/src/form/switch-field.d.ts"
     },
+    "./form-textarea-field": {
+      "import": "./dist/form/textarea-field.js",
+      "types": "./dist/src/form/textarea-field.d.ts"
+    },
     "./modal": {
       "import": "./dist/modal/index.js",
       "types": "./dist/src/modal/index.d.ts"

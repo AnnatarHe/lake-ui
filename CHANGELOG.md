@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.0.26](https://github.com/AnnatarHe/lake-ui/compare/v0.0.25...v0.0.26) (2025-04-26)
+
+
+### Features
+
+* **textarea:** add textarea-field ([7e80950](https://github.com/AnnatarHe/lake-ui/commit/7e80950a71d52040e0c8c05d79e3b9231fb8d8cc))
+
+
+### Bug Fixes
+
+* **textarea:** add entry ([12f3d5c](https://github.com/AnnatarHe/lake-ui/commit/12f3d5c8a613504d942945dcb6f6b347163cd90a))
+
+
+### Miscellaneous Chores
+
+* release 0.0.26 ([3942d97](https://github.com/AnnatarHe/lake-ui/commit/3942d975ecce4b179e039a14e7c18e6b29ffd51e))
+
 ## [0.0.25](https://github.com/AnnatarHe/lake-ui/compare/v0.0.24...v0.0.25) (2025-04-19)
 
 

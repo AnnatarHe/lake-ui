@@ -23,7 +23,7 @@ export function startOfDay(date: Date): Date {
   const result = new Date(Date.UTC(
     date.getUTCFullYear(),
     date.getUTCMonth(),
-    date.getUTCDate()
+    date.getUTCDate(),
   ));
   return result;
 }

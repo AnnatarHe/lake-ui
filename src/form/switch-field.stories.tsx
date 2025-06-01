@@ -28,7 +28,7 @@ export const Default: Story = {
       <SwitchField
         {...args}
         value={value}
-        onChange={(newValue) => setValue(newValue)}
+        onChange={newValue => setValue(newValue)}
       />
     )
   },
@@ -44,7 +44,7 @@ export const Checked: Story = {
       <SwitchField
         {...args}
         value={value}
-        onChange={(newValue) => setValue(newValue)}
+        onChange={newValue => setValue(newValue)}
       />
     )
   },
@@ -61,7 +61,7 @@ export const WithDescription: Story = {
       <SwitchField
         {...args}
         value={value}
-        onChange={(newValue) => setValue(newValue)}
+        onChange={newValue => setValue(newValue)}
       />
     )
   },
@@ -78,7 +78,7 @@ export const WithError: Story = {
       <SwitchField
         {...args}
         value={value}
-        onChange={(newValue) => setValue(newValue)}
+        onChange={newValue => setValue(newValue)}
       />
     )
   },
@@ -96,7 +96,7 @@ export const Disabled: Story = {
       <SwitchField
         {...args}
         value={value}
-        onChange={(newValue) => setValue(newValue)}
+        onChange={newValue => setValue(newValue)}
       />
     )
   },
@@ -113,7 +113,7 @@ export const Loading: Story = {
       <SwitchField
         {...args}
         value={value}
-        onChange={(newValue) => setValue(newValue)}
+        onChange={newValue => setValue(newValue)}
       />
     )
   },
@@ -129,7 +129,7 @@ export const WithChildren: Story = {
       <SwitchField
         {...args}
         value={value}
-        onChange={(newValue) => setValue(newValue)}
+        onChange={newValue => setValue(newValue)}
       >
         <span className='ml-2 text-xs text-gray-500 dark:text-gray-400'>
           {value ? 'Enabled' : 'Disabled'}

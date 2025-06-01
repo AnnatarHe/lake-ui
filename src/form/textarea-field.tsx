@@ -44,10 +44,10 @@ function TextareaField(props: TextareaFieldProps) {
             'dark:border-gray-700 dark:bg-gray-800/50 dark:text-gray-200 dark:placeholder-gray-500',
             'focus:outline-none focus:ring-2 focus:border-transparent',
             'focus:ring-blue-400 dark:focus:ring-blue-500',
-            error &&
-              'border-red-500 focus:ring-red-400 dark:border-red-500/70 dark:focus:ring-red-500',
-            (disabled || loading) &&
-              'opacity-60 cursor-not-allowed bg-gray-100 dark:bg-gray-700/50',
+            error
+            && 'border-red-500 focus:ring-red-400 dark:border-red-500/70 dark:focus:ring-red-500',
+            (disabled || loading)
+            && 'opacity-60 cursor-not-allowed bg-gray-100 dark:bg-gray-700/50',
             className,
           )}
           {...rest}

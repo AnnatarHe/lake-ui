@@ -45,9 +45,9 @@ describe('DailyActivityChart Component', () => {
 
     // Verify that we have cells with activity counts
     const cellsWithActivity = Array.from(rects).filter(
-      (rect) =>
-        rect.getAttribute('data-count') === '5' ||
-        rect.getAttribute('data-count') === '10',
+      rect =>
+        rect.getAttribute('data-count') === '5'
+        || rect.getAttribute('data-count') === '10',
     )
 
     expect(cellsWithActivity.length).toBe(2)
@@ -59,7 +59,7 @@ describe('DailyActivityChart Component', () => {
     })
 
     const cs = Array.from(rects).filter(
-      (x) => x.getAttribute('fill') !== emptyCellColor,
+      x => x.getAttribute('fill') !== emptyCellColor,
     )
 
     expect(cs.length).toBe(2)
@@ -95,13 +95,13 @@ describe('DailyActivityChart Component', () => {
 
     // Find cells with specific activity counts
     const emptyCells = Array.from(rects).filter(
-      (rect) => rect.getAttribute('data-count') === '0',
+      rect => rect.getAttribute('data-count') === '0',
     )
     const lowActivityCells = Array.from(rects).filter(
-      (rect) => rect.getAttribute('data-count') === '1',
+      rect => rect.getAttribute('data-count') === '1',
     )
     const highActivityCells = Array.from(rects).filter(
-      (rect) => rect.getAttribute('data-count') === '20',
+      rect => rect.getAttribute('data-count') === '20',
     )
 
     // Check that different activity levels have different colors
@@ -132,7 +132,7 @@ describe('DailyActivityChart Component', () => {
 
     // Find the cell with today's data
     const todayCell = Array.from(document.querySelectorAll('rect')).find(
-      (rect) => rect.getAttribute('data-count') === '10',
+      rect => rect.getAttribute('data-count') === '10',
     )
 
     // Check that the title (tooltip) contains the correct information

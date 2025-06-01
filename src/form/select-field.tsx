@@ -53,7 +53,7 @@ function SelectField(props: SelectFieldProps) {
           disabled={disabled || loading}
           {...rest}
         >
-          {options.map((option) => (
+          {options.map(option => (
             <option
               key={option.value}
               value={option.value}

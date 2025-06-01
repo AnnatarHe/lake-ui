@@ -29,7 +29,7 @@ export const Default: Story = {
       <InputField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },
@@ -46,7 +46,7 @@ export const WithValue: Story = {
       <InputField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },
@@ -64,7 +64,7 @@ export const WithError: Story = {
       <InputField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },
@@ -82,7 +82,7 @@ export const Disabled: Story = {
       <InputField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },
@@ -100,7 +100,7 @@ export const Loading: Story = {
       <InputField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },
@@ -116,7 +116,7 @@ export const WithoutLabel: Story = {
       <InputField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },

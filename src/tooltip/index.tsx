@@ -46,8 +46,8 @@ function Tooltip(props: TooltipProps) {
     ],
   })
 
-  const rootDom =
-    typeof window === 'undefined'
+  const rootDom
+    = typeof window === 'undefined'
       ? null
       : (document.querySelector('[data-st-role=tooltip]') as HTMLElement)
   const hover = useHover(context)

@@ -25,11 +25,11 @@ function getColor(
 function DailyActivityChart(props: Props) {
   const { data, startDate } = props
 
-  const percentiles = percentilesOf(data.map((d) => d.count))
+  const percentiles = percentilesOf(data.map(d => d.count))
 
   const processedData = useMemo(() => {
     // Create an array for the last 365 days
-    const days: { date: number; count: number }[] = []
+    const days: { date: number, count: number }[] = []
     // Fill the array with the last 365 days
     for (let i = 0; i <= 365; i++) {
       const date = addDays(startDate, i)
@@ -40,12 +40,12 @@ function DailyActivityChart(props: Props) {
     }
     // Map the actual data to the days array
     const dataMap = new Map(
-      data.map((item) => [
+      data.map(item => [
         toUnixTime(startOfDay(fromUnixTime(item.date))),
         item.count,
       ]),
     )
-    return days.map((day) => ({
+    return days.map(day => ({
       ...day,
       count: dataMap.get(day.date) || 0,
     }))
@@ -109,7 +109,7 @@ function DailyActivityChart(props: Props) {
       <div className='mt-4 flex items-center justify-start text-xs text-gray-400 flex-wrap gap-2'>
         <div className='flex items-center'>
           <span className='mr-2'>Less</span>
-          {[0, 5, 10, 20, 30].map((level) => (
+          {[0, 5, 10, 20, 30].map(level => (
             <div
               key={level}
               className='w-3 h-3 mr-1 rounded-sm'
@@ -122,7 +122,10 @@ function DailyActivityChart(props: Props) {
         <div className='ml-auto text-gray-500 text-xs'>
           {processedData[0] && processedData[processedData.length - 1] && (
             <span>
-              {formatDate(processedData[0].date)} -{' '}
+              {formatDate(processedData[0].date)}
+              {' '}
+              -
+              {' '}
               {formatDate(processedData[processedData.length - 1].date)}
               <span className='ml-1 text-gray-700 text-xs'>(UTC)</span>
             </span>

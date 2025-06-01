@@ -29,7 +29,7 @@ export const Default: Story = {
       <NumberField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },
@@ -46,7 +46,7 @@ export const WithValue: Story = {
       <NumberField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },
@@ -65,7 +65,7 @@ export const WithMinMax: Story = {
       <NumberField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },
@@ -83,7 +83,7 @@ export const WithError: Story = {
       <NumberField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },
@@ -101,7 +101,7 @@ export const Disabled: Story = {
       <NumberField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },
@@ -119,7 +119,7 @@ export const Loading: Story = {
       <NumberField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },

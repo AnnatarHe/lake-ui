@@ -34,7 +34,7 @@ export const Default: Story = {
       <SelectField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },
@@ -56,7 +56,7 @@ export const WithPreselectedValue: Story = {
       <SelectField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },
@@ -84,7 +84,7 @@ export const WithManyOptions: Story = {
       <SelectField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },
@@ -102,7 +102,7 @@ export const WithError: Story = {
       <SelectField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },
@@ -120,7 +120,7 @@ export const Disabled: Story = {
       <SelectField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },
@@ -138,7 +138,7 @@ export const Loading: Story = {
       <SelectField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },

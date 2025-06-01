@@ -45,7 +45,7 @@ export const Default: Story = {
       <MultiSelect
         {...args}
         value={value}
-        onChange={(newValue) => setValue(newValue as string[])}
+        onChange={newValue => setValue(newValue as string[])}
         ref={(r) => {
           ref.current = r
         }}
@@ -69,7 +69,7 @@ export const WithPreselectedValues: Story = {
       <MultiSelect
         {...args}
         value={value}
-        onChange={(newValue) => setValue(newValue as string[])}
+        onChange={newValue => setValue(newValue as string[])}
         ref={(r) => {
           ref.current = r
         }}
@@ -94,7 +94,7 @@ export const SingleSelect: Story = {
       <MultiSelect
         {...args}
         value={value}
-        onChange={(newValue) => setValue(newValue as string)}
+        onChange={newValue => setValue(newValue as string)}
         ref={(r) => {
           ref.current = r
         }}
@@ -119,7 +119,7 @@ export const WithMaxValues: Story = {
       <MultiSelect
         {...args}
         value={value}
-        onChange={(newValue) => setValue(newValue as string[])}
+        onChange={newValue => setValue(newValue as string[])}
         ref={(r) => {
           ref.current = r
         }}
@@ -143,7 +143,7 @@ export const WithStringOptions: Story = {
       <MultiSelect
         {...args}
         value={value}
-        onChange={(newValue) => setValue(newValue as string[])}
+        onChange={newValue => setValue(newValue as string[])}
         ref={(r) => {
           ref.current = r
         }}
@@ -168,7 +168,7 @@ export const WithError: Story = {
       <MultiSelect
         {...args}
         value={value}
-        onChange={(newValue) => setValue(newValue as string[])}
+        onChange={newValue => setValue(newValue as string[])}
         ref={(r) => {
           ref.current = r
         }}
@@ -191,7 +191,7 @@ export const Disabled: Story = {
       <MultiSelect
         {...args}
         value={value}
-        onChange={(newValue) => setValue(newValue as string[])}
+        onChange={newValue => setValue(newValue as string[])}
         ref={(r) => {
           ref.current = r
         }}
@@ -214,7 +214,7 @@ export const Loading: Story = {
       <MultiSelect
         {...args}
         value={value}
-        onChange={(newValue) => setValue(newValue as string[])}
+        onChange={newValue => setValue(newValue as string[])}
         ref={(r) => {
           ref.current = r
         }}

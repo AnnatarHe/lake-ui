@@ -15,35 +15,35 @@ type Story = StoryObj<typeof DailyActivityChart>
 const generateMockData = (count: number) => {
   const today = new Date()
   const data = []
-  
+
   for (let i = 0; i < 365; i++) {
     const date = addDays(today, -365 + i)
     data.push({
       date: date.getTime() / 1000,
-      count: Math.floor(Math.random() * count)
+      count: Math.floor(Math.random() * count),
     })
   }
-  
+
   return data
 }
 
 export const Default: Story = {
   args: {
     data: generateMockData(10),
-    startDate: addDays(new Date(), -365)
-  }
+    startDate: addDays(new Date(), -365),
+  },
 }
 
 export const HighActivity: Story = {
   args: {
     data: generateMockData(50),
-    startDate: addDays(new Date(), -365)
-  }
+    startDate: addDays(new Date(), -365),
+  },
 }
 
 export const Empty: Story = {
   args: {
     data: [],
-    startDate: addDays(new Date(), -365)
-  }
+    startDate: addDays(new Date(), -365),
+  },
 }

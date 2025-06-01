@@ -17,7 +17,8 @@ function ModalInner(props: Props): JSX.Element | null {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
-    } else {
+    }
+    else {
       document.body.style.overflow = 'unset'
     }
 
@@ -50,8 +51,8 @@ function ModalInner(props: Props): JSX.Element | null {
 
 function Modal(props: Props): JSX.Element | null {
   const { selector = '[data-st-role=modal]' } = props
-  const modalRoot =
-    typeof document !== 'undefined' ? document.querySelector(selector) : null
+  const modalRoot
+    = typeof document !== 'undefined' ? document.querySelector(selector) : null
   if (!modalRoot) return null
   return ReactDOM.createPortal(<ModalInner {...props} />, modalRoot)
 }

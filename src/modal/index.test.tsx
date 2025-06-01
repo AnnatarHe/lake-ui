@@ -15,10 +15,10 @@ describe('Modal Component', () => {
       <Modal
         isOpen={false}
         onClose={vi.fn()}
-        title="Test Modal"
+        title='Test Modal'
       >
         <div>Modal Content</div>
-      </Modal>
+      </Modal>,
     )
 
     expect(screen.queryByText('Test Modal')).toBeNull()
@@ -30,10 +30,10 @@ describe('Modal Component', () => {
       <Modal
         isOpen={true}
         onClose={vi.fn()}
-        title="Test Modal"
+        title='Test Modal'
       >
         <div>Modal Content</div>
-      </Modal>
+      </Modal>,
     )
 
     expect(screen.getByText('Test Modal')).toBeInTheDocument()
@@ -46,10 +46,10 @@ describe('Modal Component', () => {
       <Modal
         isOpen={true}
         onClose={onClose}
-        title="Test Modal"
+        title='Test Modal'
       >
         <div>Modal Content</div>
-      </Modal>
+      </Modal>,
     )
 
     const closeButton = screen.getByRole('button')
@@ -66,18 +66,18 @@ describe('Modal Component', () => {
       <Modal
         isOpen={true}
         onClose={vi.fn()}
-        title="Test Modal"
-        selector="#custom-modal"
+        title='Test Modal'
+        selector='#custom-modal'
       >
         <div>Modal Content</div>
-      </Modal>
+      </Modal>,
     )
 
     expect(screen.getByText('Test Modal')).toBeInTheDocument()
   })
 
   it('should render ReactNode title', () => {
-    const titleComponent = <span data-testid="custom-title">Custom Title</span>
+    const titleComponent = <span data-testid='custom-title'>Custom Title</span>
     render(
       <Modal
         isOpen={true}
@@ -85,7 +85,7 @@ describe('Modal Component', () => {
         title={titleComponent}
       >
         <div>Modal Content</div>
-      </Modal>
+      </Modal>,
     )
 
     expect(screen.getByTestId('custom-title')).toBeInTheDocument()

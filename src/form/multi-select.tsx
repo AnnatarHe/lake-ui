@@ -33,8 +33,8 @@ function MultiSelect(props: MultiSelectProps) {
     value: propsValue,
     onChange: propsOnChange,
     disabled,
-    clearable,
-    searchable,
+    // clearable,
+    // searchable,
     label,
     placeholder = 'Select options...',
     maxValues: maxSelections,
@@ -51,7 +51,8 @@ function MultiSelect(props: MultiSelectProps) {
   const onChange = (value: string[]) => {
     if (isSingleSelect) {
       propsOnChange(value.length === 0 ? undefined : (value![0] as string))
-    } else {
+    }
+    else {
       propsOnChange(value)
     }
   }
@@ -82,9 +83,9 @@ function MultiSelect(props: MultiSelectProps) {
   const filteredOptions = React.useMemo(() => {
     if (!debouncedSearchQuery) return options
     return options.filter(
-      (option) =>
-        option.label.toLowerCase().includes(debouncedSearchQuery) ||
-        option.value.toLowerCase().includes(debouncedSearchQuery),
+      option =>
+        option.label.toLowerCase().includes(debouncedSearchQuery)
+        || option.value.toLowerCase().includes(debouncedSearchQuery),
     )
   }, [options, debouncedSearchQuery])
 
@@ -94,7 +95,7 @@ function MultiSelect(props: MultiSelectProps) {
     }
 
     if (value.includes(optionValue)) {
-      onChange(value.filter((v) => v !== optionValue))
+      onChange(value.filter(v => v !== optionValue))
       return
     }
 
@@ -117,7 +118,7 @@ function MultiSelect(props: MultiSelectProps) {
 
   const selectedLabels = value
     .map((v) => {
-      const option = options.find((opt) => opt.value === v)
+      const option = options.find(opt => opt.value === v)
       if (option) {
         return option.labelElement ?? option.label
       }
@@ -157,7 +158,11 @@ function MultiSelect(props: MultiSelectProps) {
         {label}
         {maxSelections && !isSingleSelect && (
           <span className='ml-1 text-gray-500 dark:text-gray-400'>
-            ({value.length}/{maxSelections})
+            (
+            {value.length}
+            /
+            {maxSelections}
+            )
           </span>
         )}
       </label>
@@ -178,39 +183,43 @@ function MultiSelect(props: MultiSelectProps) {
           disabled={disabled || loading}
         >
           <div className='flex-1 truncate'>
-            {value.length === 0 ? (
-              <span className='text-gray-400 dark:text-gray-500'>
-                {placeholder}
-              </span>
-            ) : (
-              <div className='flex flex-wrap gap-1'>
-                {selectedLabels.map((label, index) => (
-                  <span
-                    key={index}
-                    className='inline-flex items-center rounded px-1.5 text-sm bg-blue-400/20 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400'
-                  >
-                    {label}
+            {value.length === 0
+              ? (
+                  <span className='text-gray-400 dark:text-gray-500'>
+                    {placeholder}
                   </span>
-                ))}
-              </div>
-            )}
+                )
+              : (
+                  <div className='flex flex-wrap gap-1'>
+                    {selectedLabels.map((label, index) => (
+                      <span
+                        key={index}
+                        className='inline-flex items-center rounded px-1.5 text-sm bg-blue-400/20 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400'
+                      >
+                        {label}
+                      </span>
+                    ))}
+                  </div>
+                )}
           </div>
           <div className='ml-2 flex items-center gap-2'>
-            {loading ? (
-              <Loader2 className='h-4 w-4 animate-spin text-gray-500 dark:text-gray-400' />
-            ) : (
-              <>
-                {value.length > 0 && (
-                  <button
-                    onClick={clearSelection}
-                    className='rounded-full p-1 transition-colors hover:bg-gray-200 dark:hover:bg-gray-700'
-                  >
-                    <X className='h-4 w-4 text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300' />
-                  </button>
+            {loading
+              ? (
+                  <Loader2 className='h-4 w-4 animate-spin text-gray-500 dark:text-gray-400' />
+                )
+              : (
+                  <>
+                    {value.length > 0 && (
+                      <button
+                        onClick={clearSelection}
+                        className='rounded-full p-1 transition-colors hover:bg-gray-200 dark:hover:bg-gray-700'
+                      >
+                        <X className='h-4 w-4 text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300' />
+                      </button>
+                    )}
+                    <ChevronsUpDown className='h-4 w-4 opacity-50 text-gray-500 dark:text-gray-400' />
+                  </>
                 )}
-                <ChevronsUpDown className='h-4 w-4 opacity-50 text-gray-500 dark:text-gray-400' />
-              </>
-            )}
           </div>
         </button>
 
@@ -223,7 +232,7 @@ function MultiSelect(props: MultiSelectProps) {
                   ref={searchInputRef}
                   type='text'
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={e => setSearchQuery(e.target.value)}
                   className='w-full rounded-md py-1.5 pl-8 pr-4 text-sm focus:outline-none focus:ring-2 bg-gray-100/70 text-gray-700 focus:ring-blue-400 dark:bg-gray-900/50 dark:text-gray-300 dark:focus:ring-blue-500'
                   placeholder='Search options...'
                 />
@@ -231,49 +240,51 @@ function MultiSelect(props: MultiSelectProps) {
             </div>
 
             <div className='max-h-60 overflow-auto'>
-              {filteredOptions.length === 0 ? (
-                <div className='px-3 py-2 text-center text-sm text-gray-500 dark:text-gray-400'>
-                  No options found
-                </div>
-              ) : (
-                filteredOptions.map((option) => {
-                  const isSelected = value.includes(option.value)
-                  let isDisabled =
-                    !isSelected &&
-                    maxSelections &&
-                    value.length >= maxSelections
-
-                  if (isSingleSelect) {
-                    isDisabled = false
-                  }
-
-                  return (
-                    <div
-                      key={option.value}
-                      className={cn(
-                        'flex cursor-pointer items-center px-3 py-2 transition-colors',
-                        'text-gray-700 hover:bg-gray-100/80 dark:text-gray-300 dark:hover:bg-gray-700/50',
-                        isDisabled && 'cursor-not-allowed opacity-50',
-                      )}
-                      onClick={() => !isDisabled && toggleOption(option.value)}
-                    >
-                      {!isSingleSelect && (
-                        <div className='mr-2 flex h-4 w-4 items-center justify-center rounded border border-gray-400 dark:border-gray-600'>
-                          {isSelected && (
-                            <Check className='h-3 w-3 text-blue-500 dark:text-blue-400' />
-                          )}
-                        </div>
-                      )}
-                      {option.labelElement ?? option.label}
-                      {isDisabled && (
-                        <span className='ml-auto text-xs text-gray-500 dark:text-gray-400'>
-                          Max limit reached
-                        </span>
-                      )}
+              {filteredOptions.length === 0
+                ? (
+                    <div className='px-3 py-2 text-center text-sm text-gray-500 dark:text-gray-400'>
+                      No options found
                     </div>
                   )
-                })
-              )}
+                : (
+                    filteredOptions.map((option) => {
+                      const isSelected = value.includes(option.value)
+                      let isDisabled
+                    = !isSelected
+                      && maxSelections
+                      && value.length >= maxSelections
+
+                      if (isSingleSelect) {
+                        isDisabled = false
+                      }
+
+                      return (
+                        <div
+                          key={option.value}
+                          className={cn(
+                            'flex cursor-pointer items-center px-3 py-2 transition-colors',
+                            'text-gray-700 hover:bg-gray-100/80 dark:text-gray-300 dark:hover:bg-gray-700/50',
+                            isDisabled && 'cursor-not-allowed opacity-50',
+                          )}
+                          onClick={() => !isDisabled && toggleOption(option.value)}
+                        >
+                          {!isSingleSelect && (
+                            <div className='mr-2 flex h-4 w-4 items-center justify-center rounded border border-gray-400 dark:border-gray-600'>
+                              {isSelected && (
+                                <Check className='h-3 w-3 text-blue-500 dark:text-blue-400' />
+                              )}
+                            </div>
+                          )}
+                          {option.labelElement ?? option.label}
+                          {isDisabled && (
+                            <span className='ml-auto text-xs text-gray-500 dark:text-gray-400'>
+                              Max limit reached
+                            </span>
+                          )}
+                        </div>
+                      )
+                    })
+                  )}
             </div>
           </div>
         )}

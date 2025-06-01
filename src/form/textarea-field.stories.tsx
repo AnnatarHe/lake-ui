@@ -31,7 +31,7 @@ export const Default: Story = {
       <TextareaField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },
@@ -49,7 +49,7 @@ export const WithValue: Story = {
       <TextareaField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },
@@ -68,7 +68,7 @@ export const WithError: Story = {
       <TextareaField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },
@@ -87,7 +87,7 @@ export const Disabled: Story = {
       <TextareaField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },
@@ -106,7 +106,7 @@ export const Loading: Story = {
       <TextareaField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },
@@ -123,7 +123,7 @@ export const WithoutLabel: Story = {
       <TextareaField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },
@@ -141,7 +141,7 @@ export const CustomRows: Story = {
       <TextareaField
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
       />
     )
   },

@@ -1,4 +1,4 @@
-import { JSX } from "react"
+import { JSX } from 'react'
 
 function Card(): JSX.Element {
   return (

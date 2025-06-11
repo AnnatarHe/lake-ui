@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.0.27](https://github.com/AnnatarHe/lake-ui/compare/v0.0.26...v0.0.27) (2025-06-11)
+
+
+### Bug Fixes
+
+* **docs:** update library description to highlight AI-powered features ([41c69b3](https://github.com/AnnatarHe/lake-ui/commit/41c69b331f073328d4a116bf66cb1ce86ebbb85c))
+* **lint:** remove Biome linter and formatter in favor of ESLint ([65d6ee7](https://github.com/AnnatarHe/lake-ui/commit/65d6ee7b1b33f7a160296b3ce0e2f7b8eee3ce8c))
+* **storybook:** upgrade storybook ([dd59605](https://github.com/AnnatarHe/lake-ui/commit/dd59605d91de569f7bcf0a9054b909d39cd23d1d))
+* **style:** standardize arrow function syntax and formatting across codebase ([74e01a6](https://github.com/AnnatarHe/lake-ui/commit/74e01a654d273ab74dfc6591f6acbd903a3cae0e))
+
 ## [0.0.26](https://github.com/AnnatarHe/lake-ui/compare/v0.0.25...v0.0.26) (2025-04-26)
 
 

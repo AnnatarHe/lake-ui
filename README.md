@@ -46,6 +46,7 @@ import { NumberField } from '@annatarhe/lake-ui/form-number-field'
 #### Select Field
 ```tsx
 import { SelectField } from '@annatarhe/lake-ui/form-select-field'
+import '@annatarhe/lake-ui/style.css'
 
 <SelectField 
   label="Category"

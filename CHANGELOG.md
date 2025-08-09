@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.0.27](https://github.com/AnnatarHe/lake-ui/compare/v0.0.26...v0.0.27) (2025-08-09)
+
+
+### Features
+
+* **claude:** add Claude Code integration and project documentation ([fce43fc](https://github.com/AnnatarHe/lake-ui/commit/fce43fce46fde5b9d99b6e3c867b57dd31323676))
+* **deps:** update all dependencies to latest versions ([6e56cdf](https://github.com/AnnatarHe/lake-ui/commit/6e56cdf30cbdc04a278e868d79ea722d421b1cf4))
+* **theme:** implement elegant light theme across all components ([57072bb](https://github.com/AnnatarHe/lake-ui/commit/57072bbedc163521b235affe430a7e293889260b))
+
+
+### Bug Fixes
+
+* **docs:** add missing CSS import instruction in README example ([71ea154](https://github.com/AnnatarHe/lake-ui/commit/71ea154c66d5223e599ac3f7b5375a9e1c62434b))
+* **docs:** update library description to highlight AI-powered features ([41c69b3](https://github.com/AnnatarHe/lake-ui/commit/41c69b331f073328d4a116bf66cb1ce86ebbb85c))
+* **lint:** remove Biome linter and formatter in favor of ESLint ([65d6ee7](https://github.com/AnnatarHe/lake-ui/commit/65d6ee7b1b33f7a160296b3ce0e2f7b8eee3ce8c))
+* **storybook:** upgrade storybook ([dd59605](https://github.com/AnnatarHe/lake-ui/commit/dd59605d91de569f7bcf0a9054b909d39cd23d1d))
+* **style:** standardize arrow function syntax and formatting across codebase ([74e01a6](https://github.com/AnnatarHe/lake-ui/commit/74e01a654d273ab74dfc6591f6acbd903a3cae0e))
+
+
+### Miscellaneous Chores
+
+* release 0.0.27 ([8ced882](https://github.com/AnnatarHe/lake-ui/commit/8ced882912d49612605a6dba18df5b54da29615e))
+
 ## [0.0.26](https://github.com/AnnatarHe/lake-ui/compare/v0.0.25...v0.0.26) (2025-04-26)
 
 

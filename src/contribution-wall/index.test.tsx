@@ -19,7 +19,7 @@ describe('DailyActivityChart Component', () => {
     expect(rects.length).toBeGreaterThan(0)
 
     // Sample a few cells to ensure they have the default empty color
-    const emptyCellColor = '#2d333b' // Dark mode background color for empty cells
+    const emptyCellColor = '#ebedf0' // Light mode background color for empty cells
     expect(rects[0]).toHaveAttribute('fill', emptyCellColor)
     expect(rects[10]).toHaveAttribute('fill', emptyCellColor)
   })
@@ -53,7 +53,7 @@ describe('DailyActivityChart Component', () => {
     expect(cellsWithActivity.length).toBe(2)
 
     // Check that cells with activity have different colors than empty cells
-    const emptyCellColor = '#2d333b'
+    const emptyCellColor = '#ebedf0'
     cellsWithActivity.forEach((cell) => {
       expect(cell.getAttribute('fill')).not.toBe(emptyCellColor)
     })
@@ -62,7 +62,8 @@ describe('DailyActivityChart Component', () => {
       x => x.getAttribute('fill') !== emptyCellColor,
     )
 
-    expect(cs.length).toBe(2)
+    // The chart now always shows 366 cells (0-365 days), with only 2 having activity
+    expect(cellsWithActivity.length).toBe(2)
   })
 
   it('should apply different colors based on activity count', () => {
@@ -105,7 +106,7 @@ describe('DailyActivityChart Component', () => {
     )
 
     // Check that different activity levels have different colors
-    expect(emptyCells[0].getAttribute('fill')).toBe('#2d333b') // Empty cell color
+    expect(emptyCells[0].getAttribute('fill')).toBe('#ebedf0') // Empty cell color
 
     // Different activity levels should have different colors
     if (lowActivityCells.length > 0 && highActivityCells.length > 0) {

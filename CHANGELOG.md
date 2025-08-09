@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.28](https://github.com/AnnatarHe/lake-ui/compare/v0.0.27...v0.0.28) (2025-08-09)
+
+
+### Bug Fixes
+
+* **contribution-wall:** remove unused variable in test ([605365f](https://github.com/AnnatarHe/lake-ui/commit/605365f5417b1ecaabca48a88233ee6ee2eb2c5c))
+
 ## [0.0.27](https://github.com/AnnatarHe/lake-ui/compare/v0.0.26...v0.0.27) (2025-08-09)
 
 

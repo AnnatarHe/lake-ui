@@ -32,19 +32,21 @@ function SelectField(props: SelectFieldProps) {
       </label>
       <div
         className={cn(
-          'relative rounded-lg border transition-colors',
-          'border-gray-300 bg-white dark:border-gray-700 dark:bg-gray-800/50',
-          error && 'border-red-500 dark:border-red-500/70',
-          (disabled || loading) && 'opacity-60',
+          'relative rounded-lg border transition-all duration-200',
+          'border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm',
+          'dark:border-gray-700 dark:bg-gray-800/50',
+          error && 'border-red-400 dark:border-red-500/70',
+          (disabled || loading) && 'opacity-60 hover:border-gray-200 hover:shadow-none',
         )}
       >
         <select
           className={cn(
-            'w-full rounded-lg py-2 px-3 pr-8 transition-colors',
-            'text-gray-700 dark:text-gray-200',
+            'w-full rounded-lg py-2.5 px-3.5 pr-8 transition-colors',
+            'text-gray-900 dark:text-gray-200',
             'bg-transparent',
-            'focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-500 focus:border-transparent',
-            'hover:bg-gray-100/80 dark:hover:bg-gray-700/50',
+            'focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500',
+            'dark:focus:ring-blue-500/30 dark:focus:border-blue-400',
+            'hover:bg-gray-50/50 dark:hover:bg-gray-700/50',
             styles.select,
             loading ? styles.loading : styles.normal,
             error && 'focus:ring-red-400 dark:focus:ring-red-500',

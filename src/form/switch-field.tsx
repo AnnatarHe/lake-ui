@@ -48,14 +48,14 @@ function SwitchField(props: SwitchFieldProps) {
           <button
             type='button'
             className={cn(
-              'relative inline-flex h-6 w-11 items-center rounded-full transition-colors',
+              'relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-300',
               value
-                ? 'bg-blue-500 dark:bg-blue-600'
-                : 'bg-gray-300 dark:bg-gray-700',
+                ? 'bg-blue-500 shadow-md shadow-blue-500/20 dark:bg-blue-600 dark:shadow-blue-600/20'
+                : 'bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600',
               'focus:outline-none focus:ring-2',
-              'focus:ring-blue-500 focus:ring-offset-1 focus:ring-offset-white',
-              'dark:focus:ring-blue-600 dark:focus:ring-offset-2 dark:focus:ring-offset-gray-900',
-              disabled && 'opacity-50 cursor-not-allowed',
+              'focus:ring-blue-500/30 focus:ring-offset-2 focus:ring-offset-white',
+              'dark:focus:ring-blue-600/30 dark:focus:ring-offset-gray-900',
+              disabled && 'opacity-50 cursor-not-allowed hover:bg-gray-200',
               error && 'ring-2 ring-red-400 dark:ring-red-500',
             )}
             role='switch'

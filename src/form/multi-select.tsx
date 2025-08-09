@@ -168,16 +168,19 @@ function MultiSelect(props: MultiSelectProps) {
       </label>
       <div
         className={cn(
-          'relative rounded-lg border transition-colors border-gray-300 bg-white dark:border-gray-700 dark:bg-gray-800/50',
-          error && 'border-red-500 dark:border-red-500/70',
+          'relative rounded-lg border transition-all duration-200',
+          'border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm',
+          'dark:border-gray-700 dark:bg-gray-800/50',
+          error && 'border-red-400 dark:border-red-500/70',
         )}
       >
         <button
           type='button'
           className={cn(
-            'flex w-full items-center justify-between rounded-lg px-3 py-2 text-left transition-colors',
-            'text-gray-700 hover:bg-gray-100/80 dark:text-gray-300 dark:hover:bg-gray-700/50',
-            'focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-500',
+            'flex w-full items-center justify-between rounded-lg px-3.5 py-2.5 text-left transition-colors',
+            'text-gray-900 hover:bg-gray-50/50 dark:text-gray-300 dark:hover:bg-gray-700/50',
+            'focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500',
+            'dark:focus:ring-blue-500/30 dark:focus:border-blue-400',
           )}
           onClick={() => setIsOpen(!isOpen)}
           disabled={disabled || loading}
@@ -194,7 +197,7 @@ function MultiSelect(props: MultiSelectProps) {
                     {selectedLabels.map((label, index) => (
                       <span
                         key={index}
-                        className='inline-flex items-center rounded px-1.5 text-sm bg-blue-400/20 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400'
+                        className='inline-flex items-center rounded-md px-2 py-0.5 text-sm bg-blue-50 text-blue-700 border border-blue-200/50 dark:bg-blue-500/20 dark:text-blue-400 dark:border-blue-500/30'
                       >
                         {label}
                       </span>

@@ -69,18 +69,20 @@ function Tooltip(props: TooltipProps) {
           <div ref={refs.setFloating} style={floatingStyles} className='z-50'>
             <div
               className={cn(
-                'bg-opacity-90 px-3 py-1.5 text-sm backdrop:blur-lg',
-                'rounded-lg bg-gray-900 text-gray-200 shadow-lg',
-                'duration-200',
+                'px-3 py-2 text-sm backdrop-blur-md',
+                'rounded-lg shadow-xl border',
+                'bg-white/95 text-gray-700 border-gray-200',
+                'dark:bg-gray-900/95 dark:text-gray-200 dark:border-gray-700',
+                'transition-all duration-200',
                 className,
                 noWrap && 'whitespace-nowrap',
-                'animate-in fade-in-50 slide-in-from-top-2',
+                'animate-in fade-in-50 slide-in-from-top-1',
               )}
             >
               <FloatingArrow
                 ref={arrowRef}
                 context={context}
-                className='fill-gray-900 opacity-70'
+                className='fill-white dark:fill-gray-900 [&>path:first-of-type]:stroke-gray-200 dark:[&>path:first-of-type]:stroke-gray-700'
               />
               {content}
             </div>

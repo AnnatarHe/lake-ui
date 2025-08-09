@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { addDays, fromUnixTime, startOfDay, toUnixTime } from '../utils/date'
-
+import { cn } from '@/utils/cn'
 import { percentilesOf } from '../utils/percentiles'
 
 interface Props {
@@ -9,21 +9,46 @@ interface Props {
     count: number
   }[]
   startDate: Date
+  colorScheme?: 'green' | 'blue' | 'purple' | 'orange'
+  className?: string
 }
 
 function getColor(
   count: number,
   percentiles: ReturnType<typeof percentilesOf>,
+  colorScheme: string = 'green',
+  isDark: boolean = false
 ): string {
-  if (count === 0) return '#2d333b' // Dark mode background
-  if (count < percentiles.p25) return '#0e4429' // Darker shade of green
-  if (count < percentiles.p50) return '#006d32' // Dark green
-  if (count < percentiles.p75) return '#26a641' // Medium green
-  return '#39d353'
+  const schemes = {
+    green: {
+      light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
+      dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353']
+    },
+    blue: {
+      light: ['#ebedf0', '#c1e0ff', '#79b8ff', '#2188ff', '#0366d6'],
+      dark: ['#161b22', '#0c2d6b', '#0860ca', '#1f6feb', '#58a6ff']
+    },
+    purple: {
+      light: ['#ebedf0', '#e1bee7', '#ba68c8', '#9c27b0', '#6a1b9a'],
+      dark: ['#161b22', '#4a148c', '#6a1b9a', '#8e24aa', '#ab47bc']
+    },
+    orange: {
+      light: ['#ebedf0', '#ffcc80', '#ffb74d', '#ff9800', '#f57c00'],
+      dark: ['#161b22', '#e65100', '#ef6c00', '#f57c00', '#ff9800']
+    }
+  }
+  
+  const colors = isDark ? schemes[colorScheme as keyof typeof schemes].dark : schemes[colorScheme as keyof typeof schemes].light
+  
+  if (count === 0) return colors[0]
+  if (count < percentiles.p25) return colors[1]
+  if (count < percentiles.p50) return colors[2]
+  if (count < percentiles.p75) return colors[3]
+  return colors[4]
 }
 
 function DailyActivityChart(props: Props) {
-  const { data, startDate } = props
+  const { data, startDate, colorScheme = 'green', className } = props
 
   const percentiles = percentilesOf(data.map(d => d.count))
 
@@ -69,7 +94,13 @@ function DailyActivityChart(props: Props) {
   }
 
   return (
-    <div className='shadow-xl w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6'>
+    <div className={cn(
+      'w-full rounded-xl p-4 sm:p-6',
+      'bg-white dark:bg-gray-900',
+      'border border-gray-200 dark:border-gray-700',
+      'shadow-sm hover:shadow-md transition-shadow duration-200',
+      className
+    )}>
       <div className='overflow-x-auto'>
         <div className='min-w-full w-fit'>
           <svg
@@ -88,7 +119,7 @@ function DailyActivityChart(props: Props) {
                     y={dayIndex * 13}
                     width='10'
                     height='10'
-                    fill={getColor(day.count, percentiles)}
+                    fill={getColor(day.count, percentiles, colorScheme, typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches)}
                     rx='2'
                     ry='2'
                     data-count={day.count}
@@ -106,20 +137,20 @@ function DailyActivityChart(props: Props) {
         </div>
       </div>
 
-      <div className='mt-4 flex items-center justify-start text-xs text-gray-400 flex-wrap gap-2'>
+      <div className='mt-4 flex items-center justify-start text-xs text-gray-600 dark:text-gray-400 flex-wrap gap-2'>
         <div className='flex items-center'>
           <span className='mr-2'>Less</span>
           {[0, 5, 10, 20, 30].map(level => (
             <div
               key={level}
               className='w-3 h-3 mr-1 rounded-sm'
-              style={{ backgroundColor: getColor(level, percentiles) }}
+              style={{ backgroundColor: getColor(level, percentiles, colorScheme, typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) }}
             />
           ))}
           <span className='ml-1'>More</span>
         </div>
 
-        <div className='ml-auto text-gray-500 text-xs'>
+        <div className='ml-auto text-gray-500 dark:text-gray-400 text-xs'>
           {processedData[0] && processedData[processedData.length - 1] && (
             <span>
               {formatDate(processedData[0].date)}
@@ -127,7 +158,7 @@ function DailyActivityChart(props: Props) {
               -
               {' '}
               {formatDate(processedData[processedData.length - 1].date)}
-              <span className='ml-1 text-gray-700 text-xs'>(UTC)</span>
+              <span className='ml-1 text-gray-400 dark:text-gray-500 text-xs'>(UTC)</span>
             </span>
           )}
         </div>

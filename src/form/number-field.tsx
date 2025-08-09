@@ -29,15 +29,17 @@ function NumberField(props: NumberFieldProps) {
           ref={ref}
           disabled={disabled || loading}
           className={cn(
-            'w-full rounded-lg border py-2 px-3 transition-colors',
-            'border-gray-300 bg-white text-gray-900 placeholder-gray-400',
+            'w-full rounded-lg border py-2.5 px-3.5 transition-all duration-200',
+            'border-gray-200 bg-white text-gray-900 placeholder-gray-400',
+            'hover:border-gray-300 hover:shadow-sm',
             'dark:border-gray-700 dark:bg-gray-800/50 dark:text-gray-200 dark:placeholder-gray-500',
             'focus:outline-none focus:ring-2 focus:border-transparent',
-            'focus:ring-blue-400 dark:focus:ring-blue-500',
+            'focus:ring-blue-500/20 focus:border-blue-500 focus:shadow-md',
+            'dark:focus:ring-blue-500/30 dark:focus:border-blue-400',
             error
-            && 'border-red-500 focus:ring-red-400 dark:border-red-500/70 dark:focus:ring-red-500',
+            && 'border-red-400 focus:ring-red-400/20 focus:border-red-400 dark:border-red-500/70 dark:focus:ring-red-500/30',
             (disabled || loading)
-            && 'opacity-60 cursor-not-allowed bg-gray-100 dark:bg-gray-700/50',
+            && 'opacity-60 cursor-not-allowed bg-gray-50 hover:border-gray-200 hover:shadow-none dark:bg-gray-700/50',
           )}
           {...restProps}
         />

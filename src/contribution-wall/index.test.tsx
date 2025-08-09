@@ -58,10 +58,6 @@ describe('DailyActivityChart Component', () => {
       expect(cell.getAttribute('fill')).not.toBe(emptyCellColor)
     })
 
-    const cs = Array.from(rects).filter(
-      x => x.getAttribute('fill') !== emptyCellColor,
-    )
-
     // The chart now always shows 366 cells (0-365 days), with only 2 having activity
     expect(cellsWithActivity.length).toBe(2)
   })

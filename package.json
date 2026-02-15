@@ -59,6 +59,10 @@
     "./contribution-wall": {
       "import": "./dist/contribution-wall/index.js",
       "types": "./dist/src/contribution-wall/index.d.ts"
+    },
+    "./hooks/use-in-viewport": {
+      "import": "./dist/hooks/useInViewport.js",
+      "types": "./dist/src/hooks/useInViewport.d.ts"
     }
   },
   "scripts": {

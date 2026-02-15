@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.0.29](https://github.com/AnnatarHe/lake-ui/compare/v0.0.28...v0.0.29) (2026-02-15)
+
+
+### Features
+
+* **table:** add sub-component architecture, glass variant, and infinite scroll ([ddf2181](https://github.com/AnnatarHe/lake-ui/commit/ddf218125eab4d24cdabdddce209479d55cd15ec))
+* **table:** add sub-components, glass variant, and infinite scroll ([36cc5fe](https://github.com/AnnatarHe/lake-ui/commit/36cc5fe819ba679f84a43dcf6af96cf534b28356))
+
+
+### Bug Fixes
+
+* **table:** improve dark theme and mobile responsiveness ([5b928d6](https://github.com/AnnatarHe/lake-ui/commit/5b928d6cf16d0b61c6be8e6e3fdac46f8b66087d))
+* **tooltip:** fix arrow placement and add Storybook stories ([d8ae525](https://github.com/AnnatarHe/lake-ui/commit/d8ae52535334f8a3c3f3da23d5f1b3fef0df9c75))
+* **tooltip:** fix arrow placement and add Storybook stories ([6d304b4](https://github.com/AnnatarHe/lake-ui/commit/6d304b4c1f5ba5a1c3daafad73c74139e1fe33d7))
+* **tooltip:** respect side placement prop and use autoPlacement ([2235181](https://github.com/AnnatarHe/lake-ui/commit/22351814abb31206d7858557e3b79514486f82f4))
+
+
+### Miscellaneous Chores
+
+* release 0.0.29 ([91c9c91](https://github.com/AnnatarHe/lake-ui/commit/91c9c91d0c9b474df7eceef8bfe0154ea4528b8f))
+
 ## [0.0.28](https://github.com/AnnatarHe/lake-ui/compare/v0.0.27...v0.0.28) (2025-08-09)
 
 

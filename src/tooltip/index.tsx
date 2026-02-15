@@ -4,7 +4,7 @@ import {
   FloatingPortal,
   arrow,
   autoUpdate,
-  flip,
+  autoPlacement,
   offset,
   shift,
   useFloating,
@@ -30,20 +30,21 @@ function Tooltip(props: TooltipProps) {
   const [isOpen, setIsOpen] = React.useState(false)
   const arrowRef = React.useRef(null)
   const { refs, floatingStyles, context } = useFloating({
+    placement: props.side ?? 'top',
     open: isOpen && !disabled,
     onOpenChange: setIsOpen,
     transform: true,
     whileElementsMounted: autoUpdate,
     middleware: [
-      flip(),
+      offset({
+        mainAxis: 8,
+      }),
+      props.side ? undefined : autoPlacement(),
       shift(),
       arrow({
         element: arrowRef,
       }),
-      offset({
-        mainAxis: 8,
-      }),
-    ],
+    ].filter(x => x),
   })
 
   const rootDom
@@ -60,13 +61,17 @@ function Tooltip(props: TooltipProps) {
         className='inline-block'
         aria-describedby='tooltip'
         popoverTarget='tooltip'
-        ref={refs.setReference}
       >
         {children}
       </div>
       {isOpen && !disabled && (
         <FloatingPortal root={rootDom}>
-          <div ref={refs.setFloating} style={floatingStyles} className='z-50'>
+          <div ref={refs.setFloating} style={floatingStyles} className='z-50 animate-in fade-in-50'>
+            <FloatingArrow
+              ref={arrowRef}
+              context={context}
+              className='fill-white dark:fill-gray-900 [&>path:first-of-type]:stroke-gray-200 dark:[&>path:first-of-type]:stroke-gray-700 z-[51]'
+            />
             <div
               className={cn(
                 'px-3 py-2 text-sm backdrop-blur-md',
@@ -79,11 +84,6 @@ function Tooltip(props: TooltipProps) {
                 'animate-in fade-in-50 slide-in-from-top-1',
               )}
             >
-              <FloatingArrow
-                ref={arrowRef}
-                context={context}
-                className='fill-white dark:fill-gray-900 [&>path:first-of-type]:stroke-gray-200 dark:[&>path:first-of-type]:stroke-gray-700'
-              />
               {content}
             </div>
           </div>

@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.31](https://github.com/AnnatarHe/lake-ui/compare/v0.0.30...v0.0.31) (2026-02-15)
+
+
+### Bug Fixes
+
+* **build:** use src/* glob in npmignore to preserve src directory ([d4ad1be](https://github.com/AnnatarHe/lake-ui/commit/d4ad1be79ba7ffe18561486addd80b957950be1f))
+
 ## [0.0.30](https://github.com/AnnatarHe/lake-ui/compare/v0.0.29...v0.0.30) (2026-02-15)
 
 

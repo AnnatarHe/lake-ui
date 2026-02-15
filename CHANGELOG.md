@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.30](https://github.com/AnnatarHe/lake-ui/compare/v0.0.29...v0.0.30) (2026-02-15)
+
+
+### Bug Fixes
+
+* **build:** exclude dev files from npm package ([72bdec5](https://github.com/AnnatarHe/lake-ui/commit/72bdec5159d6af03796714cb86106e156a5e90dc))
+
 ## [0.0.29](https://github.com/AnnatarHe/lake-ui/compare/v0.0.28...v0.0.29) (2026-02-15)
 
 

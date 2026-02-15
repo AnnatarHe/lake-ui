@@ -6,3 +6,6 @@ vitest.config.ts
 tests/
 coverage/
 codecov*
+.claude/
+.storybook/
+doctor-storybook.log

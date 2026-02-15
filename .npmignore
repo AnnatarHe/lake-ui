@@ -1,6 +1,6 @@
 .github/
 .vscode/
-src/
+src/*
 CHANGELOG.md
 vitest.config.ts
 tests/

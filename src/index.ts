@@ -10,7 +10,7 @@ import {
 } from './form'
 import Modal from './modal'
 import { NavbarContainer } from './navbar'
-import Table from './table'
+import Table, { TableEmpty, TableEnd, TableLoadMore, TableLoading } from './table'
 import Tooltip from './tooltip'
 
 export {
@@ -24,6 +24,10 @@ export {
   SelectField,
   SwitchField,
   Table,
+  TableEmpty,
+  TableEnd,
+  TableLoadMore,
+  TableLoading,
   TextareaField,
   Tooltip,
 }

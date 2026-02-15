@@ -71,7 +71,7 @@ function Table<T extends Record<string, any>>({
                 <th
                   key={column.key as string}
                   className={cn(
-                    'px-4 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-300',
+                    'px-3 py-2 sm:px-4 sm:py-3 text-left text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300',
                     column.sortable && 'cursor-pointer select-none hover:bg-gray-100 dark:hover:bg-gray-700',
                     column.align === 'center' && 'text-center',
                     column.align === 'right' && 'text-right',
@@ -89,7 +89,7 @@ function Table<T extends Record<string, any>>({
                             'h-3 w-3 -mb-1',
                             sortKey === column.key && sortDirection === 'asc'
                               ? 'text-blue-500'
-                              : 'text-gray-400',
+                              : 'text-gray-400 dark:text-gray-600',
                           )}
                         />
                         <ChevronDown
@@ -97,7 +97,7 @@ function Table<T extends Record<string, any>>({
                             'h-3 w-3',
                             sortKey === column.key && sortDirection === 'desc'
                               ? 'text-blue-500'
-                              : 'text-gray-400',
+                              : 'text-gray-400 dark:text-gray-600',
                           )}
                         />
                       </span>
@@ -130,7 +130,7 @@ function Table<T extends Record<string, any>>({
                           <td
                             key={column.key as string}
                             className={cn(
-                              'px-4 py-3 text-sm text-gray-700 dark:text-gray-300',
+                              'px-3 py-2 sm:px-4 sm:py-3 text-xs sm:text-sm text-gray-700 dark:text-gray-300',
                               column.align === 'center' && 'text-center',
                               column.align === 'right' && 'text-right',
                             )}

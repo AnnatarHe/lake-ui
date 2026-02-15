@@ -151,3 +151,19 @@ export const InfiniteScrollEnd: Story = {
     total: 5,
   },
 }
+
+export const DarkMode: Story = {
+  args: {
+    data: sampleData,
+    columns: sortableColumns,
+    sortKey: 'id',
+    sortDirection: 'asc',
+  },
+  decorators: [
+    Story => (
+      <div className='dark bg-gray-950 p-8 rounded-lg'>
+        <Story />
+      </div>
+    ),
+  ],
+}

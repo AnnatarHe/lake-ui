@@ -9,7 +9,7 @@ function TableEnd({ message, className, total }: TableEndProps) {
   return (
     <div
       className={cn(
-        'py-4 text-center text-sm text-gray-400 dark:text-gray-500',
+        'py-3 sm:py-4 text-center text-xs sm:text-sm text-gray-400 dark:text-gray-500',
         className,
       )}
     >

@@ -11,7 +11,7 @@ function TableLoadMore({ onLoadMore, loading, className }: TableLoadMoreProps) {
       className={cn('flex items-center justify-center py-4', className)}
     >
       {loading && (
-        <div className='h-5 w-5 animate-spin rounded-full border-2 border-gray-300 border-t-blue-500' />
+        <div className='h-5 w-5 animate-spin rounded-full border-2 border-gray-300 dark:border-gray-700 border-t-blue-500' />
       )}
     </div>
   )

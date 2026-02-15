@@ -11,7 +11,7 @@ function TableEmpty({
       <td
         colSpan={colSpan}
         className={cn(
-          'px-4 py-8 text-center text-gray-500 dark:text-gray-400',
+          'px-3 py-4 sm:px-4 sm:py-8 text-center text-gray-500 dark:text-gray-400',
           className,
         )}
       >

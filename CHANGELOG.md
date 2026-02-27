@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.0](https://github.com/AnnatarHe/lake-ui/compare/v0.0.31...v0.1.0) (2026-02-27)
+
+
+### Features
+
+* **dropdown-button:** add split button with dropdown menu ([80bad1c](https://github.com/AnnatarHe/lake-ui/commit/80bad1c578bf641bc10a84654061c0f9065ab9c3))
+* **form:** add modern RadioGroup component with card-style options ([4a8ded0](https://github.com/AnnatarHe/lake-ui/commit/4a8ded077395063067a3fcd7e32de731038f626e))
+* **sheet:** add slide-in drawer component with left/right support ([68125cb](https://github.com/AnnatarHe/lake-ui/commit/68125cb4cfdf7beb93438e3f7c8251c5cc9e3bd2))
+
+
+### Bug Fixes
+
+* **tooltip:** animate from anchor direction instead of always from top ([4c88b81](https://github.com/AnnatarHe/lake-ui/commit/4c88b81db5121c8febce0c3cf8d3744af058e23e))
+
 ## [0.0.31](https://github.com/AnnatarHe/lake-ui/compare/v0.0.30...v0.0.31) (2026-02-15)
 
 

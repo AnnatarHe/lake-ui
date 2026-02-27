@@ -63,6 +63,18 @@
     "./hooks/use-in-viewport": {
       "import": "./dist/hooks/useInViewport.js",
       "types": "./dist/src/hooks/useInViewport.d.ts"
+    },
+    "./sheet": {
+      "import": "./dist/sheet/index.js",
+      "types": "./dist/src/sheet/index.d.ts"
+    },
+    "./dropdown-button": {
+      "import": "./dist/dropdown-button/index.js",
+      "types": "./dist/src/dropdown-button/index.d.ts"
+    },
+    "./form-radio-group": {
+      "import": "./dist/form/radio-group.js",
+      "types": "./dist/src/form/radio-group.d.ts"
     }
   },
   "scripts": {

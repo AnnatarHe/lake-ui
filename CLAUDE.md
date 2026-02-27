@@ -46,10 +46,10 @@ Components follow a consistent pattern with each having:
 - `[component].test.tsx` - Vitest tests using React Testing Library
 
 ### Component Categories
-- **Form Components** (`src/form/`): InputField, NumberField, SelectField, MultiSelect, SwitchField, TextareaField
-- **Layout Components**: Card, Modal, NavbarContainer  
+- **Form Components** (`src/form/`): InputField, NumberField, SelectField, MultiSelect, SwitchField, TextareaField, RadioGroup
+- **Layout Components**: Card, Modal, Sheet, NavbarContainer
 - **Data Visualization**: ContributionWall (GitHub-style activity chart)
-- **Interactive Components**: Tooltip, Table
+- **Interactive Components**: Tooltip, Table, DropdownButton
 - **Utilities**: `src/utils/cn.ts` for className merging, `src/hooks/` for custom hooks
 
 ### Export Pattern
@@ -57,6 +57,9 @@ Each component is exported as a separate package entry point:
 ```typescript
 import { Card } from '@annatarhe/lake-ui/card'
 import { InputField } from '@annatarhe/lake-ui/form-input-field'
+import { Sheet } from '@annatarhe/lake-ui/sheet'
+import { DropdownButton } from '@annatarhe/lake-ui/dropdown-button'
+import { RadioGroup } from '@annatarhe/lake-ui/form-radio-group'
 ```
 
 CSS must be imported separately:

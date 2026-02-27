@@ -29,7 +29,7 @@ function Tooltip(props: TooltipProps) {
   const { content, disabled, children, noWrap, className } = props
   const [isOpen, setIsOpen] = React.useState(false)
   const arrowRef = React.useRef(null)
-  const { refs, floatingStyles, context } = useFloating({
+  const { refs, floatingStyles, context, placement } = useFloating({
     placement: props.side ?? 'top',
     open: isOpen && !disabled,
     onOpenChange: setIsOpen,
@@ -46,6 +46,14 @@ function Tooltip(props: TooltipProps) {
       }),
     ].filter(x => x),
   })
+
+  const slideClass: Record<string, string> = {
+    top: 'slide-in-from-bottom-1',
+    bottom: 'slide-in-from-top-1',
+    left: 'slide-in-from-right-1',
+    right: 'slide-in-from-left-1',
+  }
+  const slideAnimation = slideClass[placement.split('-')[0]] ?? 'slide-in-from-bottom-1'
 
   const rootDom
     = typeof window === 'undefined'
@@ -66,7 +74,7 @@ function Tooltip(props: TooltipProps) {
       </div>
       {isOpen && !disabled && (
         <FloatingPortal root={rootDom}>
-          <div ref={refs.setFloating} style={floatingStyles} className='z-50 animate-in fade-in-50'>
+          <div ref={refs.setFloating} style={floatingStyles} className='z-50'>
             <FloatingArrow
               ref={arrowRef}
               context={context}
@@ -81,7 +89,7 @@ function Tooltip(props: TooltipProps) {
                 'transition-all duration-200',
                 className,
                 noWrap && 'whitespace-nowrap',
-                'animate-in fade-in-50 slide-in-from-top-1',
+                `animate-in fade-in-50 ${slideAnimation}`,
               )}
             >
               {content}

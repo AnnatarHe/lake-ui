@@ -81,6 +81,25 @@ import '@annatarhe/lake-ui/style.css'
 </Modal>
 ```
 
+#### Sheet
+A slide-in drawer panel from the side of the screen with backdrop overlay.
+
+```tsx
+import { Sheet } from '@annatarhe/lake-ui/sheet'
+import '@annatarhe/lake-ui/style.css'
+
+// Add <div data-st-role="sheet"></div> to your HTML body
+
+<Sheet
+  isOpen={isOpen}
+  onClose={handleClose}
+  title="Settings"
+  side="right"
+>
+  <p>Sheet content goes here</p>
+</Sheet>
+```
+
 #### Navbar Container
 A responsive navigation container with glass morphism styling.
 
@@ -206,6 +225,49 @@ import '@annatarhe/lake-ui/style.css'
   rows={4}
   maxLength={500}
 />
+```
+
+#### Radio Group
+Modern styled radio group for single selection with card-style options.
+
+```tsx
+import { RadioGroup } from '@annatarhe/lake-ui/form-radio-group'
+import '@annatarhe/lake-ui/style.css'
+
+const plans = [
+  { value: 'free', label: 'Free', description: 'Basic features for personal use' },
+  { value: 'pro', label: 'Pro', description: 'Advanced features for professionals' },
+  { value: 'enterprise', label: 'Enterprise', description: 'Custom solutions for teams' }
+]
+
+<RadioGroup
+  label="Select a plan"
+  options={plans}
+  value={selectedPlan}
+  onChange={setSelectedPlan}
+/>
+```
+
+### Interactive Components
+
+#### Dropdown Button
+A split button with a dropdown menu for alternative actions.
+
+```tsx
+import { DropdownButton } from '@annatarhe/lake-ui/dropdown-button'
+import '@annatarhe/lake-ui/style.css'
+
+<DropdownButton
+  onClick={() => handleDownload('default')}
+  onSelect={(value) => handleDownload(value)}
+  options={[
+    { label: 'Download 7 days', value: '7d' },
+    { label: 'Download 30 days', value: '30d' },
+    { label: 'Download 90 days', value: '90d' }
+  ]}
+>
+  Download
+</DropdownButton>
 ```
 
 ### Data Display Components

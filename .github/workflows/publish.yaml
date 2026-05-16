@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [24.x]
+        node-version: [26.x]
     steps:
       - uses: googleapis/release-please-action@v4
         id: release

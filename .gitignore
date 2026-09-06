@@ -26,3 +26,6 @@ dist-ssr
 coverage/
 codecov*
 *storybook.log
+
+storybook-static/
+*.tgz

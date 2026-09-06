@@ -1,53 +1,46 @@
 import react from '@vitejs/plugin-react-swc'
-import { glob } from 'glob'
-import preserveDirectives from 'rollup-preserve-directives'
-
+import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
-import { extname, relative } from 'path'
-import { Plugin, defineConfig } from 'vite'
+import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 
-// https://vite.dev/config/
+const manifest = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8'))
+const sourceRoot = fileURLToPath(new URL('./src/', import.meta.url))
+const externals = Object.keys({ ...manifest.peerDependencies, ...manifest.dependencies })
+
 export default defineConfig({
   plugins: [
     react(),
-    preserveDirectives() as Plugin,
     dts({
-      rollupTypes: false,
       tsconfigPath: 'tsconfig.app.json',
+      entryRoot: 'src',
+      include: ['src'],
+      exclude: ['src/**/*.test.*', 'src/**/*.stories.*'],
     }),
   ],
-  resolve: {
-    alias: {
-      '@': '/src',
-    },
-  },
+  resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
   build: {
     cssCodeSplit: false,
-    lib: {
-      entry: 'src/index.ts',
-      fileName: 'index',
-      formats: ['es'],
-    },
-    rollupOptions: {
-      external: ['react', 'react/jsx-runtime', 'lucide-react'],
-      input: Object.fromEntries(
-        glob
-          .sync('src/**/*.{ts,tsx}', {
-            ignore: [
-              'src/**/*.d.ts',
-              'src/**/*.stories.tsx',
-              'src/**/*.test.tsx',
-            ],
-          })
-          .map((file) => [
-            relative('src', file.slice(0, file.length - extname(file).length)),
-            fileURLToPath(new URL(file, import.meta.url)),
-          ]),
-      ),
+    lib: { entry: 'src/index.ts', formats: ['es'], cssFileName: 'index' },
+    rolldownOptions: {
+      external: (id) => externals.some(dependency => id === dependency || id.startsWith(`${dependency}/`)),
       output: {
-        assetFileNames: 'assets/[name][extname]',
+        preserveModules: true,
+        preserveModulesRoot: 'src',
         entryFileNames: '[name].js',
+        assetFileNames: 'assets/[name][extname]',
+        // Preserve source boundaries without turning static components into client entries.
+        banner: (chunk) => {
+          const id = chunk.facadeModuleId
+          if (!id?.startsWith(sourceRoot) || !/\.tsx?$/.test(id)) return ''
+          return /^['"]use client['"]/.test(readFileSync(id, 'utf8').trimStart())
+            ? "'use client';"
+            : ''
+        },
+      },
+      input: {
+        index: 'src/index.ts',
+        'hooks/useInViewport': 'src/hooks/useInViewport.ts',
       },
     },
   },

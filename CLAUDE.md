@@ -55,11 +55,11 @@ Components follow a consistent pattern with each having:
 ### Export Pattern
 Each component is exported as a separate package entry point:
 ```typescript
-import { Card } from '@annatarhe/lake-ui/card'
-import { InputField } from '@annatarhe/lake-ui/form-input-field'
-import { Sheet } from '@annatarhe/lake-ui/sheet'
-import { DropdownButton } from '@annatarhe/lake-ui/dropdown-button'
-import { RadioGroup } from '@annatarhe/lake-ui/form-radio-group'
+import Card from '@annatarhe/lake-ui/card'
+import InputField from '@annatarhe/lake-ui/form-input-field'
+import Sheet from '@annatarhe/lake-ui/sheet'
+import DropdownButton from '@annatarhe/lake-ui/dropdown-button'
+import RadioGroup from '@annatarhe/lake-ui/form-radio-group'
 ```
 
 CSS must be imported separately:

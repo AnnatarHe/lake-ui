@@ -1,7 +1,8 @@
 'use client'
 
+import useBodyScrollLock from '@/hooks/useBodyScrollLock'
 import { X } from 'lucide-react'
-import { JSX, useEffect } from 'react'
+import { JSX } from 'react'
 import ReactDOM from 'react-dom'
 
 type Props = {
@@ -14,18 +15,7 @@ type Props = {
 
 function ModalInner(props: Props): JSX.Element | null {
   const { isOpen, onClose, children, title } = props
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden'
-    }
-    else {
-      document.body.style.overflow = 'unset'
-    }
-
-    return () => {
-      document.body.style.overflow = 'unset'
-    }
-  }, [isOpen])
+  useBodyScrollLock(isOpen)
 
   if (!isOpen) return null
 
@@ -37,6 +27,8 @@ function ModalInner(props: Props): JSX.Element | null {
             {title}
           </h3>
           <button
+            type='button'
+            aria-label='Close'
             onClick={onClose}
             className='rounded-lg p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-colors dark:text-gray-400 dark:hover:text-gray-300 dark:hover:bg-gray-700'
           >

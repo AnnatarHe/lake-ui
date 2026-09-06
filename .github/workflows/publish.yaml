@@ -1,62 +1,51 @@
 name: Publish
 on:
   push:
-    branches:
-      - master
-  #   tags:
-  #     - '*'
+    branches: [master]
 permissions: {}
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
 jobs:
-  publish:
+  validate:
+    uses: ./.github/workflows/ci.yml
     permissions:
-      contents: write # to create release commit (google-github-actions/release-please-action)
-      # contents: read
-      pull-requests: write # to create release PR (google-github-actions/release-please-action)
-      id-token: write
+      contents: read
+    secrets: inherit
+  release:
+    needs: validate
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [26.x]
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    outputs:
+      created: ${{ steps.release.outputs.release_created }}
     steps:
       - uses: googleapis/release-please-action@v4
         id: release
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
-          manifest-file: ./packages.manifest.json
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+  publish:
+    needs: release
+    if: needs.release.outputs.created == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: ${{ matrix.node-version }}
-          registry-url: "https://registry.npmjs.org"
-          cache: "pnpm"
-      - name: Build
-        run: pnpm install && pnpm run build
-      - run: pnpm run test:coverage
-      - name: Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: AnnatarHe/lake-ui
-      - name: Publish to NPM
-        run: pnpm publish --access public --no-git-checks
-        if: ${{ steps.release.outputs.release_created }}
+          node-version-file: .node-version
+          registry-url: https://registry.npmjs.org
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile --strict-peer-dependencies
+      - run: pnpm build
+      - run: pnpm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-      # - name: Upgrade JSR Version
-        # if: ${{ steps.release.outputs.release_created }}
-        # run: |
-          # export VERSION=$(jq -r '.version' package.json)
-          # echo `jq --arg v "$VERSION" '.version=$v' jsr.json` > jsr.json
-      - name: Update resources
-        uses: test-room-7/action-update-file@v1
-        if: ${{ steps.release.outputs.release_created }}
-        with:
-          file-path: jsr.json
-          commit-msg: "chore(jsr): update jsr version"
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Publish to JSR
-        # if: ${{ steps.release.outputs.release_created }}
-        # run: pnpm dlx jsr publish --allow-dirty

@@ -17,29 +17,29 @@ function getColor(
   count: number,
   percentiles: ReturnType<typeof percentilesOf>,
   colorScheme: string = 'green',
-  isDark: boolean = false
+  isDark: boolean = false,
 ): string {
   const schemes = {
     green: {
       light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
-      dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353']
+      dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
     },
     blue: {
       light: ['#ebedf0', '#c1e0ff', '#79b8ff', '#2188ff', '#0366d6'],
-      dark: ['#161b22', '#0c2d6b', '#0860ca', '#1f6feb', '#58a6ff']
+      dark: ['#161b22', '#0c2d6b', '#0860ca', '#1f6feb', '#58a6ff'],
     },
     purple: {
       light: ['#ebedf0', '#e1bee7', '#ba68c8', '#9c27b0', '#6a1b9a'],
-      dark: ['#161b22', '#4a148c', '#6a1b9a', '#8e24aa', '#ab47bc']
+      dark: ['#161b22', '#4a148c', '#6a1b9a', '#8e24aa', '#ab47bc'],
     },
     orange: {
       light: ['#ebedf0', '#ffcc80', '#ffb74d', '#ff9800', '#f57c00'],
-      dark: ['#161b22', '#e65100', '#ef6c00', '#f57c00', '#ff9800']
-    }
+      dark: ['#161b22', '#e65100', '#ef6c00', '#f57c00', '#ff9800'],
+    },
   }
-  
+
   const colors = isDark ? schemes[colorScheme as keyof typeof schemes].dark : schemes[colorScheme as keyof typeof schemes].light
-  
+
   if (count === 0) return colors[0]
   if (count < percentiles.p25) return colors[1]
   if (count < percentiles.p50) return colors[2]
@@ -99,8 +99,9 @@ function DailyActivityChart(props: Props) {
       'bg-white dark:bg-gray-900',
       'border border-gray-200 dark:border-gray-700',
       'shadow-sm hover:shadow-md transition-shadow duration-200',
-      className
-    )}>
+      className,
+    )}
+    >
       <div className='overflow-x-auto'>
         <div className='min-w-full w-fit'>
           <svg

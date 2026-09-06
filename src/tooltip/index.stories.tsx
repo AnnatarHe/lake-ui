@@ -80,14 +80,14 @@ export const WithCustomContent: Story = {
   render: () => (
     <div className='flex items-center justify-center p-20'>
       <Tooltip
-        content={
+        content={(
           <div>
             <strong className='block'>Custom Title</strong>
             <span className='text-xs text-gray-500 dark:text-gray-400'>
               With a subtitle underneath
             </span>
           </div>
-        }
+        )}
       >
         <button className='rounded bg-blue-500 px-4 py-2 text-white'>
           Rich content tooltip

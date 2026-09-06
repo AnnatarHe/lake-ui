@@ -37,3 +37,6 @@ export {
   TextareaField,
   Tooltip,
 }
+
+export type { ModalProps } from './modal'
+export type { SheetProps } from './sheet'

@@ -134,3 +134,20 @@ export const WithLongContent: Story = {
     )
   },
 }
+
+export const AccessibleNavigation: Story = {
+  render: () => {
+    const [open, setOpen] = useState(false)
+    return (
+      <>
+        <div id='navigation-sheet-host' />
+        <button onClick={() => setOpen(true)}>Open navigation</button>
+        <Sheet selector='#navigation-sheet-host' title='Documentation' side='left' isOpen={open} onClose={() => setOpen(false)} initialFocus='a'>
+          <nav aria-label='Documentation'>
+            {['Overview', 'Quickstart', 'API reference'].map(label => <a key={label} href={`#${label}`} className='block p-3' onClick={() => setOpen(false)}>{label}</a>)}
+          </nav>
+        </Sheet>
+      </>
+    )
+  },
+}

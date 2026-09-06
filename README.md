@@ -390,3 +390,42 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 ## License
 
 MIT © [AnnatarHe](https://github.com/AnnatarHe)
+
+
+### Accessible overlays
+
+`Modal` and `Sheet` share keyboard focus containment, focus restoration, Escape and
+backdrop dismissal, and a reference-counted body scroll lock. Existing portal
+selectors remain `[data-st-role=modal]` and `[data-st-role=sheet]`; pass `selector`
+to share a custom host. Portals resolve after mounting, so server rendering stays
+safe. Keep the host mounted alongside your application.
+
+Both components accept optional `locked`, `role`, `ariaLabel`, `descriptionId`,
+`initialFocus`, `closeLabel`, `className`, `overlayClassName`, `headerClassName`, and
+`bodyClassName` props. `initialFocus` is a CSS selector inside the panel; a missing
+match focuses the panel. `locked` disables the close button and blocks Escape and
+backdrop dismissal; an explicit action in your content can still update `isOpen`.
+Use it while submitting or displaying a one-time credential. Untitled sheets use
+`ariaLabel` (default `Panel`). `Sheet` retains its `side` and `width` props.
+
+```tsx
+<Modal
+  title="Confirm archive"
+  isOpen={open}
+  onClose={() => setOpen(false)}
+  locked={pending}
+  role="alertdialog"
+  descriptionId="archive-description"
+  initialFocus="[data-cancel]"
+>
+  <p id="archive-description">This will archive the selected item.</p>
+  <button data-cancel disabled={pending} onClick={() => setOpen(false)}>Cancel</button>
+  <button disabled={pending} onClick={archive}>Archive</button>
+</Modal>
+```
+
+For Tailwind CSS 4, the stylesheet supports a layered CSS import:
+
+```css
+@import "@annatarhe/lake-ui/style.css" layer(components);
+```

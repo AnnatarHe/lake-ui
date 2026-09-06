@@ -82,3 +82,38 @@ export const WithCustomContent: Story = {
     )
   },
 }
+
+export const ProtectedResult: Story = {
+  render: () => {
+    const [open, setOpen] = useState(false)
+    const [locked, setLocked] = useState(false)
+    return (
+      <>
+        <div id='protected-modal-host' />
+        <button onClick={() => {
+          setLocked(false)
+          setOpen(true)
+        }}
+        >
+          Open protected form
+        </button>
+        <Modal selector='#protected-modal-host' title='Create credential' isOpen={open} onClose={() => setOpen(false)} locked={locked} initialFocus='input' descriptionId='protected-description'>
+          <p id='protected-description'>Escape and backdrop dismissal are blocked while the result is displayed.</p>
+          {locked
+            ? (
+                <>
+                  <code>example-credential</code>
+                  <button onClick={() => setOpen(false)}>Done</button>
+                </>
+              )
+            : (
+                <>
+                  <input aria-label='Name' />
+                  <button onClick={() => setLocked(true)}>Create example credential</button>
+                </>
+              )}
+        </Modal>
+      </>
+    )
+  },
+}

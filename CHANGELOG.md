@@ -1,5 +1,45 @@
 # Changelog
 
+## [0.0.32](https://github.com/AnnatarHe/lake-ui/compare/v0.0.31...v0.0.32) (2026-09-06)
+
+
+### Features
+
+* **dropdown-button:** add split button with dropdown menu ([80bad1c](https://github.com/AnnatarHe/lake-ui/commit/80bad1c578bf641bc10a84654061c0f9065ab9c3))
+* **form:** add modern RadioGroup component with card-style options ([4a8ded0](https://github.com/AnnatarHe/lake-ui/commit/4a8ded077395063067a3fcd7e32de731038f626e))
+* **sheet:** add slide-in drawer component with left/right support ([68125cb](https://github.com/AnnatarHe/lake-ui/commit/68125cb4cfdf7beb93438e3f7c8251c5cc9e3bd2))
+
+
+### Bug Fixes
+
+* **overlays:** share accessible modal and sheet behavior ([e201eb9](https://github.com/AnnatarHe/lake-ui/commit/e201eb96ea3412ce15ea8f59396cff9011cf673e))
+* **overlays:** share accessible modal and sheet behavior ([fdb8935](https://github.com/AnnatarHe/lake-ui/commit/fdb8935b8bc8a2c6a4c79d93118d1a9f9542c2bf))
+* **tooltip:** animate from anchor direction instead of always from top ([4c88b81](https://github.com/AnnatarHe/lake-ui/commit/4c88b81db5121c8febce0c3cf8d3744af058e23e))
+
+
+### Code Refactoring
+
+* reorganize lake UI components and workflows ([13eef2c](https://github.com/AnnatarHe/lake-ui/commit/13eef2c9a388bc9bb7d3f9363079afd82231c4aa))
+
+
+### Documentation
+
+* register new components and update documentation ([c2b43f1](https://github.com/AnnatarHe/lake-ui/commit/c2b43f18ef21af0002e179204d3b77b657029a59))
+
+
+### Miscellaneous
+
+* **deps:** upgrade node to 26 ([aa2de4d](https://github.com/AnnatarHe/lake-ui/commit/aa2de4df33cd82c85067910bf5be603b6bd0b0e3))
+* **deps:** upgrade node to 26 ([a844fbb](https://github.com/AnnatarHe/lake-ui/commit/a844fbb271a76abd76066de9aecbe73cb090aa0f))
+* release 0.0.32 ([e30b2fd](https://github.com/AnnatarHe/lake-ui/commit/e30b2fdc68c61166bf474f6002652505b35cb218))
+* rename default branch to main ([cdd2e0c](https://github.com/AnnatarHe/lake-ui/commit/cdd2e0cc12be21c6eeb4dccfec785120d29a87b8))
+* upgrade dependencies and tighten library maintenance ([fe20ed6](https://github.com/AnnatarHe/lake-ui/commit/fe20ed630f9496984b13586a223c9647316d8832))
+
+
+### Continuous Integration
+
+* configure patch-only release please ([9fc967c](https://github.com/AnnatarHe/lake-ui/commit/9fc967cbe179f33822b6f9f3c9dd62bb44847f9c))
+
 ## [0.0.31](https://github.com/AnnatarHe/lake-ui/compare/v0.0.30...v0.0.31) (2026-02-15)
 
 

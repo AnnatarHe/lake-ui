@@ -380,7 +380,7 @@ Validate the distributable after building with `pnpm check:package --matrix`.
 This packs the library and checks isolated consumer installs against the retained
 and current peer versions, including TypeScript resolution and server rendering.
 The command downloads public npm dependencies into temporary directories.
-CI runs on pull requests and, through the publish workflow, on `master` pushes.
+CI runs on pull requests and, through the publish workflow, on `main` pushes.
 Publishing remains gated on validation and a newly created release.
 
 ## Contributing

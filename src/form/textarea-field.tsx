@@ -1,7 +1,8 @@
+import { FieldLabel, FieldError, fieldClassName, useFieldIds } from './field'
 import { cn } from '@/utils/cn'
 import { Loader2 } from 'lucide-react'
 
-interface TextareaFieldProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+export interface TextareaFieldProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string | React.ReactNode
   error?: string
   loading?: boolean
@@ -10,6 +11,9 @@ interface TextareaFieldProps extends React.TextareaHTMLAttributes<HTMLTextAreaEl
 function TextareaField(props: TextareaFieldProps) {
   const {
     className,
+    id,
+    'aria-describedby': describedBy,
+    'aria-invalid': ariaInvalid,
     value,
     onChange,
     label,
@@ -20,39 +24,22 @@ function TextareaField(props: TextareaFieldProps) {
     ...rest
   } = props
 
+  const ids = useFieldIds(id, describedBy, error)
+
   return (
     <div className='w-full'>
-      {label && (
-        <label
-          className={cn(
-            'block text-sm font-medium mb-1.5 transition-colors text-gray-700 dark:text-gray-300',
-            disabled && 'opacity-60',
-          )}
-        >
-          {label}
-        </label>
-      )}
+      <FieldLabel label={label} id={ids.id} disabled={disabled} />
       <div className='relative'>
         <textarea
           value={value}
           onChange={onChange}
           disabled={disabled || loading}
           rows={rows}
-          className={cn(
-            'w-full rounded-lg border py-2.5 px-3.5 transition-all duration-200 resize-vertical min-h-[80px]',
-            'border-gray-200 bg-white text-gray-900 placeholder-gray-400',
-            'hover:border-gray-300 hover:shadow-sm',
-            'dark:border-gray-700 dark:bg-gray-800/50 dark:text-gray-200 dark:placeholder-gray-500',
-            'focus:outline-none focus:ring-2 focus:border-transparent',
-            'focus:ring-blue-500/20 focus:border-blue-500 focus:shadow-md',
-            'dark:focus:ring-blue-500/30 dark:focus:border-blue-400',
-            error
-            && 'border-red-400 focus:ring-red-400/20 focus:border-red-400 dark:border-red-500/70 dark:focus:ring-red-500/30',
-            (disabled || loading)
-            && 'opacity-60 cursor-not-allowed bg-gray-50 hover:border-gray-200 hover:shadow-none dark:bg-gray-700/50',
-            className,
-          )}
+          className={fieldClassName(error, disabled || loading, cn('resize-vertical min-h-[80px]', className))}
           {...rest}
+          id={ids.id}
+          aria-describedby={ids.describedBy}
+          aria-invalid={ariaInvalid ?? (error ? true : undefined)}
         />
         {loading && (
           <div className='absolute right-3 top-4'>
@@ -60,9 +47,7 @@ function TextareaField(props: TextareaFieldProps) {
           </div>
         )}
       </div>
-      {error && (
-        <p className='mt-1.5 text-sm text-red-500 dark:text-red-400'>{error}</p>
-      )}
+      <FieldError error={error} id={ids.errorId} />
     </div>
   )
 }

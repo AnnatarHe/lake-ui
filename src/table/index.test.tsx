@@ -271,7 +271,7 @@ describe('TableLoadMore', () => {
 
   beforeEach(() => {
     mockObserverInstances = []
-    vi.stubGlobal('IntersectionObserver', vi.fn((callback: IntersectionObserverCallback) => {
+    vi.stubGlobal('IntersectionObserver', vi.fn(function (callback: IntersectionObserverCallback) {
       const instance = {
         observe: vi.fn(),
         disconnect: vi.fn(),
@@ -339,7 +339,7 @@ describe('useInViewport', () => {
 
   beforeEach(() => {
     mockObserverInstances = []
-    vi.stubGlobal('IntersectionObserver', vi.fn((callback: IntersectionObserverCallback) => {
+    vi.stubGlobal('IntersectionObserver', vi.fn(function (callback: IntersectionObserverCallback) {
       const instance = {
         observe: vi.fn(),
         disconnect: vi.fn(),

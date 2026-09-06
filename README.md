@@ -36,8 +36,8 @@ import '@annatarhe/lake-ui/style.css'
 Then import and use components as needed:
 
 ```tsx
-import { Card } from '@annatarhe/lake-ui/card'
-import { InputField } from '@annatarhe/lake-ui/form-input-field'
+import Card from '@annatarhe/lake-ui/card'
+import InputField from '@annatarhe/lake-ui/form-input-field'
 
 function App() {
   return (
@@ -56,7 +56,7 @@ function App() {
 A versatile container component with glass morphism effects.
 
 ```tsx
-import { Card } from '@annatarhe/lake-ui/card'
+import Card from '@annatarhe/lake-ui/card'
 import '@annatarhe/lake-ui/style.css'
 
 <Card className="p-6">
@@ -69,8 +69,10 @@ import '@annatarhe/lake-ui/style.css'
 A flexible modal dialog component with portal rendering.
 
 ```tsx
-import { Modal } from '@annatarhe/lake-ui/modal'
+import Modal from '@annatarhe/lake-ui/modal'
 import '@annatarhe/lake-ui/style.css'
+
+// Add <div data-st-role="modal"></div> to your HTML body
 
 <Modal
   isOpen={isOpen}
@@ -85,7 +87,7 @@ import '@annatarhe/lake-ui/style.css'
 A slide-in drawer panel from the side of the screen with backdrop overlay.
 
 ```tsx
-import { Sheet } from '@annatarhe/lake-ui/sheet'
+import Sheet from '@annatarhe/lake-ui/sheet'
 import '@annatarhe/lake-ui/style.css'
 
 // Add <div data-st-role="sheet"></div> to your HTML body
@@ -104,7 +106,7 @@ import '@annatarhe/lake-ui/style.css'
 A responsive navigation container with glass morphism styling.
 
 ```tsx
-import { NavbarContainer } from '@annatarhe/lake-ui/navbar'
+import NavbarContainer from '@annatarhe/lake-ui/navbar-container'
 import '@annatarhe/lake-ui/style.css'
 
 <NavbarContainer>
@@ -124,29 +126,29 @@ import '@annatarhe/lake-ui/style.css'
 Text input with label, error state, and validation support.
 
 ```tsx
-import { InputField } from '@annatarhe/lake-ui/form-input-field'
+import InputField from '@annatarhe/lake-ui/form-input-field'
 import '@annatarhe/lake-ui/style.css'
 
 <InputField 
   label="Username"
   value={value}
-  onChange={setValue}
+  onChange={(event) => setValue(event.target.value)}
   error="Username is required"
   required
 />
 ```
 
 #### Number Field
-Numeric input with increment/decrement controls.
+Native numeric input with min, max, and step support.
 
 ```tsx
-import { NumberField } from '@annatarhe/lake-ui/form-number-field'
+import NumberField from '@annatarhe/lake-ui/form-number-field'
 import '@annatarhe/lake-ui/style.css'
 
 <NumberField 
   label="Amount"
   value={amount}
-  onChange={setAmount}
+  onChange={(event) => setAmount(event.target.valueAsNumber)}
   min={0}
   max={100}
   step={5}
@@ -154,10 +156,10 @@ import '@annatarhe/lake-ui/style.css'
 ```
 
 #### Select Field
-Customizable dropdown select with search functionality.
+Native select with styled options and loading support.
 
 ```tsx
-import { SelectField } from '@annatarhe/lake-ui/form-select-field'
+import SelectField from '@annatarhe/lake-ui/form-select-field'
 import '@annatarhe/lake-ui/style.css'
 
 const options = [
@@ -170,7 +172,7 @@ const options = [
   label="Framework"
   options={options}
   value={selected}
-  onChange={setSelected}
+  onChange={(event) => setSelected(event.target.value)}
   placeholder="Choose a framework"
 />
 ```
@@ -179,7 +181,7 @@ const options = [
 Multiple selection dropdown with tag display.
 
 ```tsx
-import { MultiSelect } from '@annatarhe/lake-ui/form-multi-select'
+import MultiSelect from '@annatarhe/lake-ui/form-multi-select'
 import '@annatarhe/lake-ui/style.css'
 
 const tags = [
@@ -191,8 +193,9 @@ const tags = [
 <MultiSelect 
   label="Skills"
   options={tags}
+  ref={() => {}}
   value={selectedTags}
-  onChange={setSelectedTags}
+  onChange={(value) => setSelectedTags(Array.isArray(value) ? value : [])}
   placeholder="Select your skills"
 />
 ```
@@ -201,21 +204,21 @@ const tags = [
 Toggle switch for boolean values.
 
 ```tsx
-import { SwitchField } from '@annatarhe/lake-ui/form-switch-field'
+import SwitchField from '@annatarhe/lake-ui/form-switch-field'
 import '@annatarhe/lake-ui/style.css'
 
 <SwitchField
   label="Enable notifications"
-  checked={isEnabled}
+  value={isEnabled}
   onChange={setIsEnabled}
 />
 ```
 
 #### Textarea Field
-Multi-line text input with auto-resize option.
+Multi-line text input with configurable rows.
 
 ```tsx
-import { TextareaField } from '@annatarhe/lake-ui/form-textarea-field'
+import TextareaField from '@annatarhe/lake-ui/form-textarea-field'
 import '@annatarhe/lake-ui/style.css'
 
 <TextareaField
@@ -231,7 +234,7 @@ import '@annatarhe/lake-ui/style.css'
 Modern styled radio group for single selection with card-style options.
 
 ```tsx
-import { RadioGroup } from '@annatarhe/lake-ui/form-radio-group'
+import RadioGroup from '@annatarhe/lake-ui/form-radio-group'
 import '@annatarhe/lake-ui/style.css'
 
 const plans = [
@@ -254,7 +257,7 @@ const plans = [
 A split button with a dropdown menu for alternative actions.
 
 ```tsx
-import { DropdownButton } from '@annatarhe/lake-ui/dropdown-button'
+import DropdownButton from '@annatarhe/lake-ui/dropdown-button'
 import '@annatarhe/lake-ui/style.css'
 
 <DropdownButton
@@ -276,7 +279,7 @@ import '@annatarhe/lake-ui/style.css'
 Sortable data table with customizable columns.
 
 ```tsx
-import { Table } from '@annatarhe/lake-ui/table'
+import Table from '@annatarhe/lake-ui/table'
 import '@annatarhe/lake-ui/style.css'
 
 const columns = [
@@ -301,10 +304,10 @@ const data = [
 Contextual information overlay on hover or focus.
 
 ```tsx
-import { Tooltip } from '@annatarhe/lake-ui/tooltip'
+import Tooltip from '@annatarhe/lake-ui/tooltip'
 import '@annatarhe/lake-ui/style.css'
 
-<Tooltip content="Save your changes" position="top">
+<Tooltip content="Save your changes" side="top">
   <button>💾 Save</button>
 </Tooltip>
 ```
@@ -313,18 +316,18 @@ import '@annatarhe/lake-ui/style.css'
 GitHub-style activity heatmap visualization.
 
 ```tsx
-import { ContributionWall } from '@annatarhe/lake-ui/contribution-wall'
+import ContributionWall from '@annatarhe/lake-ui/contribution-wall'
 import '@annatarhe/lake-ui/style.css'
 
 const contributions = [
-  { date: '2024-01-01', count: 5 },
-  { date: '2024-01-02', count: 12 },
+  { date: Date.UTC(2024, 0, 1) / 1000, count: 5 },
+  { date: Date.UTC(2024, 0, 2) / 1000, count: 12 },
   // ... more data
 ]
 
 <ContributionWall
   data={contributions}
-  year={2024}
+  startDate={new Date(Date.UTC(2024, 0, 1))}
   colorScheme="green"
 />
 ```
@@ -340,6 +343,19 @@ const MyInput: React.FC<InputFieldProps> = (props) => {
   // Your custom wrapper
 }
 ```
+
+## Toolchain compatibility
+
+Development and CI use Node 26 and the exact pnpm version in `packageManager`.
+React and React DOM remain React 19 peers. Lucide supports the retained 0.475.x
+range, 0.539.x, and 1.41.x or newer within major 1; development uses 1.41.
+Runtime utilities remain regular dependencies and are externalized in the build.
+
+ESLint stays on 9.x because `eslint-plugin-react` does not support ESLint 10.
+TypeScript stays on 5.9.x because the declaration tooling's `tsconfck` dependency
+requires TypeScript 5. These compatibility holds should be revisited when their
+upstream peer ranges change; installation does not override peer requirements.
+The pnpm build-script allowlist covers only SWC and esbuild.
 
 ## Development
 
@@ -359,6 +375,13 @@ pnpm build
 # Run Storybook
 pnpm storybook
 ```
+
+Validate the distributable after building with `pnpm check:package --matrix`.
+This packs the library and checks isolated consumer installs against the retained
+and current peer versions, including TypeScript resolution and server rendering.
+The command downloads public npm dependencies into temporary directories.
+CI runs on pull requests and, through the publish workflow, on `master` pushes.
+Publishing remains gated on validation and a newly created release.
 
 ## Contributing
 

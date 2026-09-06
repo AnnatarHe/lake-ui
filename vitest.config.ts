@@ -1,12 +1,13 @@
-import react from '@vitejs/plugin-react'
-import tsconfigPaths from 'vite-tsconfig-paths'
+import react from '@vitejs/plugin-react-swc'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
-  plugins: [tsconfigPaths(), react()],
+  plugins: [react()],
+  resolve: { tsconfigPaths: true },
   test: {
     coverage: {
       include: ['src/**/*.{ts,tsx}'],
+      exclude: ['src/**/*.stories.*', 'src/**/*.test.*', 'src/**/*.d.ts'],
     },
     globals: true,
     setupFiles: ['./tests/setup.ts'],

@@ -1,5 +1,6 @@
 'use client'
 
+import useBodyScrollLock from '@/hooks/useBodyScrollLock'
 import { X } from 'lucide-react'
 import { JSX, useEffect } from 'react'
 import ReactDOM from 'react-dom'
@@ -28,18 +29,7 @@ function SheetInner(props: SheetProps): JSX.Element | null {
     width = 'max-w-md',
   } = props
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden'
-    }
-    else {
-      document.body.style.overflow = 'unset'
-    }
-
-    return () => {
-      document.body.style.overflow = 'unset'
-    }
-  }, [isOpen])
+  useBodyScrollLock(isOpen)
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -86,6 +76,8 @@ function SheetInner(props: SheetProps): JSX.Element | null {
             </h3>
           )}
           <button
+            type='button'
+            aria-label='Close'
             onClick={onClose}
             className={cn(
               'rounded-lg p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-colors',

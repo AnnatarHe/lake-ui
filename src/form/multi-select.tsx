@@ -253,9 +253,9 @@ function MultiSelect(props: MultiSelectProps) {
                     filteredOptions.map((option) => {
                       const isSelected = value.includes(option.value)
                       let isDisabled
-                    = !isSelected
-                      && maxSelections
-                      && value.length >= maxSelections
+                        = !isSelected
+                          && maxSelections
+                          && value.length >= maxSelections
 
                       if (isSingleSelect) {
                         isDisabled = false

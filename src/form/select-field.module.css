@@ -7,25 +7,10 @@
   overflow-y: auto;
 }
 
-/* Custom scrollbar styling */
-.select::picker(select)::-webkit-scrollbar {
-  width: 4px;
-  background-color: transparent;
-}
-
-.select::picker(select)::-webkit-scrollbar-thumb {
-  background-color: rgba(156, 163, 175, 0.4);
-  border-radius: 8px;
-  transition: background-color 0.2s ease;
-}
-
-.select::picker(select)::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(156, 163, 175, 0.6);
-}
-
-.select::picker(select)::-webkit-scrollbar-track {
-  background-color: rgba(229, 231, 235, 0.1);
-  border-radius: 8px;
+/* Standard scrollbar styling also works on the picker pseudo-element. */
+.select::picker(select) {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(156, 163, 175, 0.4) transparent;
 }
 
 /* Select button appearance */

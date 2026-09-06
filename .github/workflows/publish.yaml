@@ -27,7 +27,8 @@ jobs:
         id: release
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          release-type: node
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
   publish:
     needs: release
     if: needs.release.outputs.created == 'true'

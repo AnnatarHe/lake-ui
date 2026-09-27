@@ -27,11 +27,22 @@ yarn add @annatarhe/lake-ui
 
 ## Getting Started
 
-First, import the required CSS file in your application entry point:
+Lake UI ships Tailwind CSS class names plus a small theme file; your Tailwind CSS v4
+build compiles them. Import the theme once, at the top level of your Tailwind entry
+stylesheet (not inside `@layer`):
 
-```tsx
-import '@annatarhe/lake-ui/style.css'
+```css
+/* app.css */
+@import 'tailwindcss';
+@import 'tw-animate-css'; /* optional: entrance animations (animate-in, fade-in, …) */
+@import '@annatarhe/lake-ui/theme.css';
+
+/* Components no longer use `dark:` variants, but your own code may. */
+@custom-variant dark (&:where(.dark, .dark *));
 ```
+
+`theme.css` registers its own `@source` for the built components, so you do not need
+an `@source` pointing into `node_modules`.
 
 Then import and use components as needed:
 
@@ -48,6 +59,69 @@ function App() {
 }
 ```
 
+> **Upgrading from 0.0.32 or earlier:** `@annatarhe/lake-ui/style.css` is now an empty,
+> deprecated file. Replace it with the `theme.css` import above; without it the
+> `lake-*` utilities are not generated and components render unstyled.
+
+## Theming
+
+Every component reads semantic tokens instead of hard-coded palette colors. The
+defaults reproduce the previous gray/blue look in light and dark mode. Dark values
+apply under `.dark` or `[data-theme=dark]` (on `<html>` or any subtree).
+
+| Group | Tokens (`--lake-*` variable → `*-lake-*` utility) |
+| --- | --- |
+| Surfaces | `canvas`, `surface`, `surface-raised`, `surface-muted`, `field`, `overlay` |
+| Text | `fg`, `fg-muted`, `fg-subtle` |
+| Lines | `line`, `line-strong`, `ring` |
+| Accent | `accent`, `accent-hover`, `accent-fg`, `accent-text`, `accent-soft` |
+| Status | `danger`, `danger-fg`, `danger-soft`, `success`, `success-soft`, `warning`, `warning-soft` |
+| Shape | `--lake-radius-control` → `rounded-lake-control`, `--lake-radius-panel` → `rounded-lake-panel` |
+| Depth | `--lake-shadow-card` → `shadow-lake-card`, `--lake-shadow-overlay` → `shadow-lake-overlay`, `--lake-blur` → `backdrop-blur-lake` |
+
+Color tokens work with every color utility and opacity modifier, for example
+`bg-lake-surface`, `text-lake-fg-muted`, `border-lake-line`, `ring-lake-ring`,
+`fill-lake-accent/25`.
+
+The defaults live in a zero-specificity rule inside `@layer base`, so any override
+wins. Override the variables, not the utilities:
+
+```css
+:root {
+  --lake-canvas: #f7f5f0;
+  --lake-surface: #fffefb;
+  --lake-fg: #1c1a17;
+  --lake-accent: #60a5fa;
+  --lake-accent-fg: #0b1526;
+  --lake-radius-control: 8px;
+  --lake-blur: 0px;
+}
+
+.dark {
+  --lake-canvas: #141311;
+  --lake-surface: #1b1a17;
+  --lake-fg: #ece7df;
+}
+```
+
+Storybook's theme toolbar switches between the default light/dark tokens and an
+"editorial" preset (`.storybook/editorial.css`) that shows a full override.
+
+### Merging classes
+
+`@annatarhe/lake-ui/utils` exports the `cn()` helper the components use. It extends
+`tailwind-merge` so the theme scales conflict correctly (`rounded-lg` vs
+`rounded-lake-control`, `shadow-sm` vs `shadow-lake-card`, `backdrop-blur-md` vs
+`backdrop-blur-lake`). Components merge your `className` last, so it always wins.
+
+```ts
+import { cn, lakeMergeConfig } from '@annatarhe/lake-ui/utils'
+import { extendTailwindMerge } from 'tailwind-merge'
+
+cn('rounded-lg shadow-sm', 'rounded-lake-control') // 'shadow-sm rounded-lake-control'
+const twMerge = extendTailwindMerge(lakeMergeConfig) // combine with your own config
+```
+
 ## Available Components
 
 ### Layout Components
@@ -57,10 +131,9 @@ A versatile container component with glass morphism effects.
 
 ```tsx
 import Card from '@annatarhe/lake-ui/card'
-import '@annatarhe/lake-ui/style.css'
 
-<Card className="p-6">
-  <h2>Welcome</h2>
+<Card as="section" aria-labelledby="welcome" className="p-6">
+  <h2 id="welcome">Welcome</h2>
   <p>Your content goes here</p>
 </Card>
 ```
@@ -70,14 +143,15 @@ A flexible modal dialog component with portal rendering.
 
 ```tsx
 import Modal from '@annatarhe/lake-ui/modal'
-import '@annatarhe/lake-ui/style.css'
 
-// Add <div data-st-role="modal"></div> to your HTML body
+// Optional: add <div data-st-role="modal"></div> to your body (falls back to document.body)
 
 <Modal
   isOpen={isOpen}
   onClose={handleClose}
   title="Confirm Action"
+  size="sm"
+  footer={<button onClick={handleClose}>Done</button>}
 >
   <p>Are you sure you want to proceed?</p>
 </Modal>
@@ -88,9 +162,8 @@ A slide-in drawer panel from the side of the screen with backdrop overlay.
 
 ```tsx
 import Sheet from '@annatarhe/lake-ui/sheet'
-import '@annatarhe/lake-ui/style.css'
 
-// Add <div data-st-role="sheet"></div> to your HTML body
+// Optional: add <div data-st-role="sheet"></div> to your body (falls back to document.body)
 
 <Sheet
   isOpen={isOpen}
@@ -107,9 +180,8 @@ A responsive navigation container with glass morphism styling.
 
 ```tsx
 import NavbarContainer from '@annatarhe/lake-ui/navbar-container'
-import '@annatarhe/lake-ui/style.css'
 
-<NavbarContainer>
+<NavbarContainer animated={false} innerClassName="max-w-5xl">
   <nav className="flex items-center justify-between">
     <h1>Logo</h1>
     <ul className="flex gap-4">
@@ -127,7 +199,6 @@ Text input with label, error state, and validation support.
 
 ```tsx
 import InputField from '@annatarhe/lake-ui/form-input-field'
-import '@annatarhe/lake-ui/style.css'
 
 <InputField 
   label="Username"
@@ -143,7 +214,6 @@ Native numeric input with min, max, and step support.
 
 ```tsx
 import NumberField from '@annatarhe/lake-ui/form-number-field'
-import '@annatarhe/lake-ui/style.css'
 
 <NumberField 
   label="Amount"
@@ -160,7 +230,6 @@ Native select with styled options and loading support.
 
 ```tsx
 import SelectField from '@annatarhe/lake-ui/form-select-field'
-import '@annatarhe/lake-ui/style.css'
 
 const options = [
   { value: 'react', label: 'React' },
@@ -177,12 +246,15 @@ const options = [
 />
 ```
 
+`placeholder` renders a disabled empty first option. The closed select is styled with
+Tailwind only; browsers that support `appearance: base-select` also get a themed
+picker. `className` styles the wrapper, `selectClassName` the `<select>`.
+
 #### Multi Select
 Multiple selection dropdown with tag display.
 
 ```tsx
 import MultiSelect from '@annatarhe/lake-ui/form-multi-select'
-import '@annatarhe/lake-ui/style.css'
 
 const tags = [
   { value: 'javascript', label: 'JavaScript' },
@@ -193,10 +265,12 @@ const tags = [
 <MultiSelect 
   label="Skills"
   options={tags}
-  ref={() => {}}
   value={selectedTags}
   onChange={(value) => setSelectedTags(Array.isArray(value) ? value : [])}
   placeholder="Select your skills"
+  searchPlaceholder="Search skills"
+  noResultsLabel="No skills found"
+  clearLabel="Clear skills"
 />
 ```
 
@@ -205,7 +279,6 @@ Toggle switch for boolean values.
 
 ```tsx
 import SwitchField from '@annatarhe/lake-ui/form-switch-field'
-import '@annatarhe/lake-ui/style.css'
 
 <SwitchField
   label="Enable notifications"
@@ -219,7 +292,6 @@ Multi-line text input with configurable rows.
 
 ```tsx
 import TextareaField from '@annatarhe/lake-ui/form-textarea-field'
-import '@annatarhe/lake-ui/style.css'
 
 <TextareaField
   label="Description"
@@ -235,7 +307,6 @@ Modern styled radio group for single selection with card-style options.
 
 ```tsx
 import RadioGroup from '@annatarhe/lake-ui/form-radio-group'
-import '@annatarhe/lake-ui/style.css'
 
 const plans = [
   { value: 'free', label: 'Free', description: 'Basic features for personal use' },
@@ -258,7 +329,6 @@ A split button with a dropdown menu for alternative actions.
 
 ```tsx
 import DropdownButton from '@annatarhe/lake-ui/dropdown-button'
-import '@annatarhe/lake-ui/style.css'
 
 <DropdownButton
   onClick={() => handleDownload('default')}
@@ -273,6 +343,9 @@ import '@annatarhe/lake-ui/style.css'
 </DropdownButton>
 ```
 
+The chevron button is named by `menuLabel` (default `More options`); Escape closes the
+menu.
+
 ### Data Display Components
 
 #### Table
@@ -280,7 +353,6 @@ Sortable data table with customizable columns.
 
 ```tsx
 import Table from '@annatarhe/lake-ui/table'
-import '@annatarhe/lake-ui/style.css'
 
 const columns = [
   { key: 'name', header: 'Name', sortable: true },
@@ -297,6 +369,10 @@ const data = [
   data={data}
   columns={columns}
   onSort={handleSort}
+  rowKey={row => row.email}
+  emptyMessage="No members yet"
+  endMessage="That's everyone"
+  loadingLabel="Loading members"
 />
 ```
 
@@ -305,19 +381,24 @@ Contextual information overlay on hover or focus.
 
 ```tsx
 import Tooltip from '@annatarhe/lake-ui/tooltip'
-import '@annatarhe/lake-ui/style.css'
 
-<Tooltip content="Save your changes" side="top">
+<Tooltip content="Save your changes" side="top" delay={300}>
   <button>💾 Save</button>
 </Tooltip>
 ```
+
+A single element child becomes the trigger directly (no wrapper element); it must
+accept `ref` and spread props onto a DOM node, as native elements and
+`forwardRef`/React 19 ref-forwarding components do. Other children are wrapped in an
+`inline-flex` span. The tooltip opens on hover and focus, closes on Escape, and sets
+`aria-describedby` on the trigger only while open. It portals into
+`[data-st-role=tooltip]` when present, else `document.body`.
 
 #### Contribution Wall
 GitHub-style activity heatmap visualization.
 
 ```tsx
 import ContributionWall from '@annatarhe/lake-ui/contribution-wall'
-import '@annatarhe/lake-ui/style.css'
 
 const contributions = [
   { date: Date.UTC(2024, 0, 1) / 1000, count: 5 },
@@ -328,9 +409,16 @@ const contributions = [
 <ContributionWall
   data={contributions}
   startDate={new Date(Date.UTC(2024, 0, 1))}
-  colorScheme="green"
+  colorScheme="accent"
+  labels={{ less: 'Less', more: 'More', utc: '(UTC)' }}
+  formatTooltip={(date, count) => `${count} highlights on ${date.toDateString()}`}
+  locale="en-US"
 />
 ```
+
+`accent` follows the theme tokens and is recommended. `green` (the default), `blue`,
+`purple` and `orange` read their light and dark palettes from `--lake-wall-*`
+variables in `theme.css`, so the chart renders the same on the server and client.
 
 ## TypeScript Support
 
@@ -397,16 +485,21 @@ MIT © [AnnatarHe](https://github.com/AnnatarHe)
 `Modal` and `Sheet` share keyboard focus containment, focus restoration, Escape and
 backdrop dismissal, and a reference-counted body scroll lock. Existing portal
 selectors remain `[data-st-role=modal]` and `[data-st-role=sheet]`; pass `selector`
-to share a custom host. Portals resolve after mounting, so server rendering stays
-safe. Keep the host mounted alongside your application.
+to share a custom host. When no element matches, the overlay portals into
+`document.body`. Portals resolve after mounting, so server rendering stays safe.
 
-Both components accept optional `locked`, `role`, `ariaLabel`, `descriptionId`,
-`initialFocus`, `closeLabel`, `className`, `overlayClassName`, `headerClassName`, and
-`bodyClassName` props. `initialFocus` is a CSS selector inside the panel; a missing
-match focuses the panel. `locked` disables the close button and blocks Escape and
-backdrop dismissal; an explicit action in your content can still update `isOpen`.
-Use it while submitting or displaying a one-time credential. Untitled sheets use
-`ariaLabel` (default `Panel`). `Sheet` retains its `side` and `width` props.
+Both components accept optional `footer`, `hideCloseButton`, `locked`, `role`,
+`ariaLabel`, `descriptionId`, `initialFocus`, `closeLabel`, `className`,
+`overlayClassName`, `headerClassName`, `bodyClassName`, and `footerClassName` props.
+`footer` renders a row pinned below the scrolling body, which suits action buttons.
+Initial focus goes to the `initialFocus` selector, else an element with
+`data-autofocus`, else the first enabled input, textarea or select in the body, else
+the panel itself (never the close button). `locked` disables the close button and
+blocks Escape and backdrop dismissal; an explicit action in your content can still
+update `isOpen`. Use it while submitting or displaying a one-time credential.
+Untitled sheets use `ariaLabel` (default `Panel`). `Sheet` retains its `side` and
+`width` props; `Modal` adds `size` (`sm`, `md`, `lg`, `xl` (default, `max-w-4xl`),
+`full`).
 
 ```tsx
 <Modal
@@ -424,8 +517,3 @@ Use it while submitting or displaying a one-time credential. Untitled sheets use
 </Modal>
 ```
 
-For Tailwind CSS 4, the stylesheet supports a layered CSS import:
-
-```css
-@import "@annatarhe/lake-ui/style.css" layer(components);
-```

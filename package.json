@@ -4,6 +4,10 @@
   "version": "0.0.33",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnnatarHe/lake-ui.git"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

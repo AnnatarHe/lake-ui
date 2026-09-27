@@ -1,5 +1,64 @@
 # Changelog
 
+## [0.0.33](https://github.com/AnnatarHe/lake-ui/compare/v0.0.32...v0.0.33) (2026-09-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **theme:** consumers must add `@import '@annatarhe/lake-ui/theme.css';` to their Tailwind v4 entry; `style.css` no longer contains any styles.
+
+### Features
+
+* **avatar:** add Avatar with initials fallback and accent/premium rings ([d7d29b7](https://github.com/AnnatarHe/lake-ui/commit/d7d29b7279f5d2b8fc21e19c0a7f896923b390ba))
+* **badge:** add Badge with tones, variants and sizes ([59db8ca](https://github.com/AnnatarHe/lake-ui/commit/59db8ca87b28cbc43147e4fc59fa9901a91e70d9))
+* **button:** add Button with variants, loading state and render polymorphism ([daa22c4](https://github.com/AnnatarHe/lake-ui/commit/daa22c41958cadf8cc3e171a8a3c0425dbbea836))
+* **card:** add `as` and pass through HTML attributes ([77c161e](https://github.com/AnnatarHe/lake-ui/commit/77c161e1914463045a37f19e72ec11131c2ff01d))
+* **components:** add button, menu, tabs and other primitives ([f6e47c3](https://github.com/AnnatarHe/lake-ui/commit/f6e47c3098e9fd3716aef25242c142d059b86335))
+* **confirm-dialog:** add ConfirmDialog with async confirm handling ([320ec89](https://github.com/AnnatarHe/lake-ui/commit/320ec892e913f3af02fbb49e942a6d95ebe67f62))
+* **empty-state:** add EmptyState with icon, description and action ([a9a867f](https://github.com/AnnatarHe/lake-ui/commit/a9a867f3bc6e428ce7ffa979613f8390efb134c6))
+* **empty-state:** allow headingLevel 1 for full-page states ([6dc51e7](https://github.com/AnnatarHe/lake-ui/commit/6dc51e7734d302cd16fb43a1a0d09e40d103a767))
+* **form:** add CheckboxField with description, error and indeterminate state ([97454cd](https://github.com/AnnatarHe/lake-ui/commit/97454cd44d97a572663db22b665598bb2999fb49))
+* **icon-button:** add a square IconButton named by its label ([bdd9844](https://github.com/AnnatarHe/lake-ui/commit/bdd9844b91a945a0b5411da8f6918cb0a6d7242d))
+* **index:** export cn and component prop types from the root entry ([51088c3](https://github.com/AnnatarHe/lake-ui/commit/51088c3cc51370bad4d79f93055a1c27d20640f7))
+* **index:** export the new primitives as package entries ([1f59667](https://github.com/AnnatarHe/lake-ui/commit/1f59667a82b5777ed4355b107483eac8eae2bf2a))
+* **kbd:** add a Kbd keyboard hint ([50f60ac](https://github.com/AnnatarHe/lake-ui/commit/50f60ace4d7f13ba4ad58d9caef29f300096b2be))
+* **menu:** add an accessible Menu built on floating-ui ([7883108](https://github.com/AnnatarHe/lake-ui/commit/78831085b0059dda34e321fbe340c4be6102ac2e))
+* **nav-tabs:** add server-safe NavTabs for route-driven navigation ([c692863](https://github.com/AnnatarHe/lake-ui/commit/c692863930b049edc7ae73978c9e8a37741644e2))
+* **navbar:** add `as`, `innerClassName`, `animated` and attribute passthrough ([4386c0e](https://github.com/AnnatarHe/lake-ui/commit/4386c0ea2e057c0e91a5d818fb5d6bd3af52e43e))
+* **overlay:** add footer, hideCloseButton, modal size and smarter initial focus ([7f59036](https://github.com/AnnatarHe/lake-ui/commit/7f590363d2c78ee14a5bbef371988d9a6a42939c))
+* **popover:** add a click-triggered Popover dialog ([af26bc3](https://github.com/AnnatarHe/lake-ui/commit/af26bc3e46952d6f7123d10cf3c7ca92164a550f))
+* **progress:** add Progress with determinate and indeterminate bars ([6763e13](https://github.com/AnnatarHe/lake-ui/commit/6763e13ddc282ecc0a7d01a4177519d7e7606f56))
+* **segmented-control:** add a radiogroup SegmentedControl with arrow-key selection ([f682d72](https://github.com/AnnatarHe/lake-ui/commit/f682d7278f316c1acb0f7ed375f1a4e76e52852c))
+* **skeleton:** add Skeleton with rect, text and circle shapes ([8045421](https://github.com/AnnatarHe/lake-ui/commit/80454217369f338b5c9eecd99c9e78e7fbaeec47))
+* **spinner:** add a server-safe Spinner with an accessible label ([7ab4877](https://github.com/AnnatarHe/lake-ui/commit/7ab487716dab085314c13aaae122ef2e9e5c5d3b))
+* **tabs:** add Tabs and TabPanel implementing the ARIA tabs pattern ([3d4f86b](https://github.com/AnnatarHe/lake-ui/commit/3d4f86bd33ea24d8a4b9f3ae4d9dbe9972ae4ba0))
+* **theme:** add semantic token layer and theme.css export ([73ae88c](https://github.com/AnnatarHe/lake-ui/commit/73ae88cb07a2eacee7025a64d00674931893890e))
+
+
+### Bug Fixes
+
+* **contribution-wall:** drop matchMedia dark detection and add an accent scheme ([6182ebe](https://github.com/AnnatarHe/lake-ui/commit/6182ebed813d09fde259da9ee7460e7cb9eaa4b4))
+* **dropdown-button:** close on Escape and name the menu button ([be553bb](https://github.com/AnnatarHe/lake-ui/commit/be553bbcb5b0a872ee2ada3306e2546d2c4fa3f8))
+* **form:** link labels and errors in every field and make SelectField Tailwind-only ([8e7b46a](https://github.com/AnnatarHe/lake-ui/commit/8e7b46ac87666b8fea249a0c121c5b5d2fbee417))
+* **table:** use theme tokens, stable row keys and overridable labels ([56995c4](https://github.com/AnnatarHe/lake-ui/commit/56995c42725d8399af1f3b73b8ce032eda2d72b7))
+* **tooltip:** attach to the child directly and wire up accessible interactions ([5459744](https://github.com/AnnatarHe/lake-ui/commit/54597444bd3eaf1b5dcbd1c04664d98772c590f2))
+
+
+### Code Refactoring
+
+* **dropdown-button:** rebuild the menu on Menu ([4af5c37](https://github.com/AnnatarHe/lake-ui/commit/4af5c378ab3defec7709b9faa91a8eb7ded1c25c))
+
+
+### Documentation
+
+* **readme:** document the new primitives ([9143646](https://github.com/AnnatarHe/lake-ui/commit/9143646c12abe1699dd91c4cb8b8ddb916a25878))
+* **readme:** document theme.css, tokens, overrides and the utils entry ([389f86e](https://github.com/AnnatarHe/lake-ui/commit/389f86e8665084cbb2ec5593c5ae7106b2d6c991))
+
+
+### Build System
+
+* **storybook:** compile Tailwind with @tailwindcss/vite and add a theme toolbar ([9f4f106](https://github.com/AnnatarHe/lake-ui/commit/9f4f1063b5d6728b60c65711cf76d94bae836d54))
+
 ## [0.0.32](https://github.com/AnnatarHe/lake-ui/compare/v0.0.31...v0.0.32) (2026-09-06)
 
 

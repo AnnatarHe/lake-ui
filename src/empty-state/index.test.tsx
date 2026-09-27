@@ -23,4 +23,9 @@ describe('EmptyState', () => {
     expect(screen.getByRole('heading', { level: 2, name: 'Empty' })).toHaveClass('text-sm')
     expect(container.firstElementChild).toHaveClass('py-8', 'border')
   })
+
+  it('renders an h1 for full-page states', () => {
+    render(<EmptyState title='Page not found' headingLevel={1} />)
+    expect(screen.getByRole('heading', { level: 1, name: 'Page not found' })).toBeInTheDocument()
+  })
 })

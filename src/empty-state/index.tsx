@@ -7,12 +7,13 @@ export interface EmptyStateProps {
   description?: ReactNode
   action?: ReactNode
   size?: 'sm' | 'md'
-  headingLevel?: 2 | 3
+  /** Use 1 for full-page states such as not-found pages. */
+  headingLevel?: 1 | 2 | 3
   className?: string
 }
 
 function EmptyState({ icon, title, description, action, size = 'md', headingLevel = 3, className }: EmptyStateProps) {
-  const Heading = headingLevel === 2 ? 'h2' : 'h3'
+  const Heading = (['h1', 'h2', 'h3'] as const)[headingLevel - 1]
   const small = size === 'sm'
   return (
     <div className={cn('flex flex-col items-center justify-center text-center', small ? 'gap-2 px-4 py-8' : 'gap-3 px-6 py-16', className)}>

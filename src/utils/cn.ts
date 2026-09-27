@@ -13,6 +13,7 @@ export const lakeMergeConfig = {
       radius: ['lake-control', 'lake-panel'],
       shadow: ['lake-card', 'lake-overlay'],
       blur: ['lake'],
+      animate: ['lake-indeterminate'],
     },
   },
 }

@@ -151,3 +151,16 @@
   --shadow-lake-overlay: var(--lake-shadow-overlay);
   --blur-lake: var(--lake-blur);
 }
+
+@theme {
+  --animate-lake-indeterminate: lake-indeterminate 1.4s ease-in-out infinite;
+
+  @keyframes lake-indeterminate {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(300%);
+    }
+  }
+}

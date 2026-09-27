@@ -131,3 +131,23 @@ describe('DropdownButton accessibility', () => {
     expect(toggle).toHaveFocus()
   })
 })
+
+describe('DropdownButton menu', () => {
+  it('renders a portaled role=menu with keyboard navigation', async () => {
+    const { default: userEvent } = await import('@testing-library/user-event')
+    const { waitFor } = await import('@testing-library/react')
+    const user = userEvent.setup()
+    const onSelect = vi.fn()
+    const { container } = render(
+      <DropdownButton onSelect={onSelect} options={defaultOptions}>
+        Download
+      </DropdownButton>,
+    )
+    await user.click(screen.getByRole('button', { name: 'More options' }))
+    const menu = await screen.findByRole('menu', { name: 'More options' })
+    expect(container).not.toContainElement(menu)
+    await waitFor(() => expect(screen.getByRole('menuitem', { name: 'Option A' })).toHaveFocus())
+    await user.keyboard('{ArrowDown}{Enter}')
+    expect(onSelect).toHaveBeenCalledWith('b')
+  })
+})

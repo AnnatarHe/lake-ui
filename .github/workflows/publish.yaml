@@ -43,10 +43,8 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
-          registry-url: https://registry.npmjs.org
           cache: pnpm
       - run: pnpm install --frozen-lockfile --strict-peer-dependencies
       - run: pnpm build
+      # Authenticates through npm trusted publishing (OIDC); no npm token secret is used.
       - run: pnpm publish --access public --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

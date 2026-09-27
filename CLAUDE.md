@@ -46,10 +46,15 @@ Components follow a consistent pattern with each having:
 - `[component].test.tsx` - Vitest tests using React Testing Library
 
 ### Component Categories
-- **Form Components** (`src/form/`): InputField, NumberField, SelectField, MultiSelect, SwitchField, TextareaField, RadioGroup
+- **Form Components** (`src/form/`): InputField, NumberField, SelectField, MultiSelect, SwitchField, TextareaField, RadioGroup, CheckboxField
+- **Actions**: Button (+ `buttonStyles`), IconButton — share `src/button/shared.tsx`
 - **Layout Components**: Card, Modal, Sheet, NavbarContainer
+- **Overlays**: Popover, ConfirmDialog (built on Modal), Tooltip
+- **Navigation**: Tabs + TabPanel, NavTabs (share `src/tabs/shared.tsx`), SegmentedControl, Menu, DropdownButton (built on Menu)
+- **Feedback & display**: Spinner, Skeleton, Progress, EmptyState, Badge, Kbd, Avatar
 - **Data Visualization**: ContributionWall (GitHub-style activity chart)
-- **Interactive Components**: Tooltip, Table, DropdownButton
+- **Interactive Components**: Table
+- Server-safe (no `'use client'`): Button, IconButton, Spinner, Skeleton, Badge, Kbd, EmptyState, Progress, NavTabs, Card, NavbarContainer. Polymorphism uses a `render` element that is cloned without adding function props.
 - **Utilities**: `src/utils/cn.ts` for className merging, `src/hooks/` for custom hooks
 
 ### Export Pattern

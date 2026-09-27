@@ -420,6 +420,177 @@ const contributions = [
 `purple` and `orange` read their light and dark palettes from `--lake-wall-*`
 variables in `theme.css`, so the chart renders the same on the server and client.
 
+### Actions
+
+#### Button
+Server-safe button with `primary`, `secondary`, `ghost`, `danger` and `link` variants,
+`sm`/`md`/`lg` sizes, `loading`, `leadingIcon`, `trailingIcon` and `fullWidth`. Pass an
+element as `render` to style a link instead: it is cloned with the merged `className`
+and children (plus `aria-disabled` when disabled or loading) and no function props, so
+it works from React Server Components. `buttonStyles(options)` returns the class
+string for any other element. Icons render as given, so size them (`className="size-4"`).
+
+```tsx
+import Button, { buttonStyles } from '@annatarhe/lake-ui/button'
+import Link from 'next/link'
+
+<Button leadingIcon={<Plus className="size-4" />} loading={saving}>Save</Button>
+<Button variant="secondary" render={<Link href="/books" />}>Books</Button>
+<a className={buttonStyles({ variant: 'ghost', size: 'sm' })} href="/help">Help</a>
+```
+
+#### IconButton
+Square icon-only button; `label` becomes its `aria-label`. Supports `variant`
+(`ghost` default, `secondary`, `primary`, `danger`), `size`, `loading` and `render`.
+
+```tsx
+import IconButton from '@annatarhe/lake-ui/icon-button'
+
+<IconButton label="Settings" icon={<Settings className="size-4" />} />
+```
+
+### Feedback
+
+```tsx
+import Spinner from '@annatarhe/lake-ui/spinner'
+import Skeleton from '@annatarhe/lake-ui/skeleton'
+import Progress from '@annatarhe/lake-ui/progress'
+import EmptyState from '@annatarhe/lake-ui/empty-state'
+
+<Spinner size="md" label="Syncing" />           {/* role=status; label="" is decorative */}
+<Skeleton shape="text" lines={3} />              {/* rect | text | circle, animated by default */}
+<Progress label="Import" value={42} showValue /> {/* value={null} is indeterminate */}
+<EmptyState
+  icon={<BookOpen />}
+  title="No highlights yet"
+  description="Upload your clippings to get started."
+  action={<Button>Upload</Button>}
+/>
+```
+
+### Data display
+
+```tsx
+import Avatar from '@annatarhe/lake-ui/avatar'
+import Badge from '@annatarhe/lake-ui/badge'
+import Kbd from '@annatarhe/lake-ui/kbd'
+
+<Avatar src={user.avatar} name={user.name} size="lg" ring="premium" /> {/* initials when missing or broken */}
+<Badge tone="success" variant="soft">Synced</Badge>                     {/* neutral | accent | success | warning | danger */}
+<Kbd>⌘K</Kbd>
+```
+
+### Navigation
+
+#### NavTabs (server-safe)
+Route-driven tabs rendered as a `<nav>` of your link elements; the active item gets
+`aria-current="page"`.
+
+```tsx
+import NavTabs from '@annatarhe/lake-ui/nav-tabs'
+
+<NavTabs
+  aria-label="Library"
+  items={[
+    { key: 'books', label: 'Books', count: 24, active: path === '/books', render: <Link href="/books" /> },
+    { key: 'clips', label: 'Clippings', active: path === '/clips', render: <Link href="/clips" /> },
+  ]}
+/>
+```
+
+#### Tabs
+In-page tabs implementing the ARIA tabs pattern (roving tabindex, Arrow keys,
+Home/End, `activation="auto" | "manual"`). Share `idBase` with `TabPanel` to link tabs
+and panels.
+
+```tsx
+import Tabs, { TabPanel } from '@annatarhe/lake-ui/tabs'
+
+<Tabs aria-label="Book" idBase="book" items={items} value={tab} onValueChange={setTab} variant="underline" />
+<TabPanel idBase="book" value="notes" activeValue={tab}>…</TabPanel>
+```
+
+#### SegmentedControl
+A `radiogroup` of mutually exclusive options with arrow-key selection.
+
+```tsx
+import SegmentedControl from '@annatarhe/lake-ui/segmented-control'
+
+<SegmentedControl aria-label="Layout" value={layout} onValueChange={setLayout} options={[{ value: 'grid', label: 'Grid' }, { value: 'list', label: 'List' }]} />
+```
+
+#### Menu
+Accessible menu button built on floating-ui: click to open, focus moves to the first
+item, Arrow keys, typeahead, Escape returns focus to the trigger, and selecting an item
+closes the menu. Entries can be items (optionally rendered as links via `render`),
+`radio` items, `separator`s and `label`s. The menu portals into
+`[data-st-role=popover]` when present, else `document.body` (`portal={false}` renders
+inline). The trigger must accept `ref` and spread props (Button and IconButton do).
+
+```tsx
+import Menu from '@annatarhe/lake-ui/menu'
+
+<Menu
+  trigger={<IconButton label="Clipping actions" icon={<MoreHorizontal className="size-4" />} />}
+  header={<UserSummary />}
+  items={[
+    { key: 'edit', label: 'Edit', shortcut: 'E', onSelect: edit },
+    { key: 'open', label: 'Open book', render: <Link href={bookUrl} /> },
+    { type: 'separator', key: 'sep' },
+    { key: 'delete', label: 'Delete', tone: 'danger', onSelect: remove },
+  ]}
+/>
+```
+
+### Overlays
+
+#### Popover
+Click-triggered `dialog` that closes on Escape or outside click. Children can be a
+function receiving `{ close }`. Options: `placement`, `label`, `modal`, `initialFocus`,
+`portal`, `arrow`, controlled `open`/`onOpenChange`.
+
+```tsx
+import Popover from '@annatarhe/lake-ui/popover'
+
+<Popover label="Filters" trigger={<Button variant="secondary">Filters</Button>}>
+  {({ close }) => <Button size="sm" onClick={close}>Apply</Button>}
+</Popover>
+```
+
+#### ConfirmDialog
+A small `alertdialog` built on Modal. When `onConfirm` returns a promise the confirm
+button shows a spinner and the dialog is locked until it settles; a rejection keeps it
+open. `tone="danger"` uses a destructive confirm button and focuses Cancel first.
+
+```tsx
+import ConfirmDialog from '@annatarhe/lake-ui/confirm-dialog'
+
+<ConfirmDialog
+  isOpen={open}
+  onClose={() => setOpen(false)}
+  onConfirm={() => deleteBook(id)}
+  tone="danger"
+  title="Delete this book?"
+  description="All highlights will be removed."
+  confirmLabel="Delete"
+/>
+```
+
+### More form controls
+
+#### Checkbox Field
+
+```tsx
+import CheckboxField from '@annatarhe/lake-ui/form-checkbox-field'
+
+<CheckboxField label="Email me a digest" description="Weekly" checked={on} onChange={setOn} />
+<CheckboxField label="All books" checked={all} indeterminate={some} onChange={toggleAll} />
+```
+
+#### DropdownButton
+The split button's menu now uses `Menu`: it is portaled, keyboard navigable and
+exposed as `role="menu"`. Its props are unchanged.
+
 ## TypeScript Support
 
 All components are fully typed with TypeScript. Type definitions are automatically included when you install the package.

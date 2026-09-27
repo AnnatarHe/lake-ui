@@ -161,7 +161,7 @@ export const DarkMode: Story = {
   },
   decorators: [
     Story => (
-      <div className='dark bg-gray-950 p-8 rounded-lg'>
+      <div className='dark bg-lake-canvas p-8 rounded-lg'>
         <Story />
       </div>
     ),

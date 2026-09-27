@@ -1,3 +1,5 @@
+'use client'
+
 import { cn } from '@/utils/cn'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import TableEmpty from './table-empty'
@@ -8,28 +10,28 @@ import type { Column, TableProps } from './types'
 
 const variantClasses = {
   default: {
-    table: 'bg-white dark:bg-gray-900',
-    header: 'bg-gray-50 dark:bg-gray-800',
-    row: 'hover:bg-gray-50/50 dark:hover:bg-gray-800/50',
-    border: 'border-gray-200 dark:border-gray-700',
+    table: 'bg-lake-surface',
+    header: 'bg-lake-surface-muted',
+    row: 'hover:bg-lake-surface-muted/60',
+    border: 'border-lake-line',
   },
   bordered: {
-    table: 'bg-white dark:bg-gray-900 border-2',
-    header: 'bg-gray-100 dark:bg-gray-800',
-    row: 'hover:bg-gray-50 dark:hover:bg-gray-800/50 border',
-    border: 'border-gray-300 dark:border-gray-600',
+    table: 'bg-lake-surface border-2',
+    header: 'bg-lake-surface-muted',
+    row: 'hover:bg-lake-surface-muted border',
+    border: 'border-lake-line-strong',
   },
   striped: {
-    table: 'bg-white dark:bg-gray-900',
-    header: 'bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-850',
-    row: 'odd:bg-gray-50/30 even:bg-white hover:bg-blue-50/30 dark:odd:bg-gray-800/30 dark:even:bg-gray-900 dark:hover:bg-gray-700/50',
-    border: 'border-gray-200 dark:border-gray-700',
+    table: 'bg-lake-surface',
+    header: 'bg-gradient-to-r from-lake-surface-muted to-lake-line/50',
+    row: 'odd:bg-lake-surface-muted/60 even:bg-lake-surface hover:bg-lake-accent-soft/50',
+    border: 'border-lake-line',
   },
   glass: {
-    table: 'bg-white/60 dark:bg-gray-900/60 backdrop-blur-sm',
-    header: 'bg-white/40 dark:bg-gray-800/40',
-    row: 'hover:bg-white/30 dark:hover:bg-gray-700/30',
-    border: 'border-white/20 dark:border-gray-700/50',
+    table: 'bg-lake-surface/60 backdrop-blur-lake',
+    header: 'bg-lake-surface/40',
+    row: 'hover:bg-lake-surface-muted/60',
+    border: 'border-lake-line/50',
   },
 }
 
@@ -43,11 +45,14 @@ function Table<T extends Record<string, any>>({
   sortDirection,
   loading,
   emptyMessage = 'No data available',
+  endMessage,
+  loadingLabel,
   variant = 'default',
   total,
   hasMore,
   onLoadMore,
   loadingMore,
+  rowKey,
 }: TableProps<T>) {
   const handleSort = (column: Column<T>) => {
     if (!column.sortable || !onSort) return
@@ -63,7 +68,7 @@ function Table<T extends Record<string, any>>({
 
   return (
     <div className={cn('w-full', className)}>
-      <div className={cn('overflow-x-auto rounded-lg border', styles.border)}>
+      <div className={cn('overflow-x-auto rounded-lake-control border', styles.border)}>
         <table className={cn('w-full', styles.table)}>
           <thead className={styles.header}>
             <tr>
@@ -71,33 +76,44 @@ function Table<T extends Record<string, any>>({
                 <th
                   key={column.key as string}
                   className={cn(
-                    'px-3 py-2 sm:px-4 sm:py-3 text-left text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300',
-                    column.sortable && 'cursor-pointer select-none hover:bg-gray-100 dark:hover:bg-gray-700',
+                    'px-3 py-2 sm:px-4 sm:py-3 text-left text-xs sm:text-sm font-semibold text-lake-fg-muted',
+                    column.sortable && 'cursor-pointer select-none hover:bg-lake-surface-muted outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-lake-ring',
                     column.align === 'center' && 'text-center',
                     column.align === 'right' && 'text-right',
                     column.width,
                   )}
                   style={{ width: column.width }}
+                  aria-sort={column.sortable
+                    ? sortKey === column.key ? (sortDirection === 'desc' ? 'descending' : 'ascending') : 'none'
+                    : undefined}
+                  tabIndex={column.sortable && onSort ? 0 : undefined}
                   onClick={() => handleSort(column)}
+                  onKeyDown={(event) => {
+                    if (event.key !== 'Enter' && event.key !== ' ') return
+                    event.preventDefault()
+                    handleSort(column)
+                  }}
                 >
                   <div className='flex items-center gap-1'>
                     {column.header}
                     {column.sortable && (
                       <span className='ml-1 inline-flex flex-col'>
                         <ChevronUp
+                          aria-hidden='true'
                           className={cn(
                             'h-3 w-3 -mb-1',
                             sortKey === column.key && sortDirection === 'asc'
-                              ? 'text-blue-500'
-                              : 'text-gray-400 dark:text-gray-600',
+                              ? 'text-lake-accent'
+                              : 'text-lake-fg-subtle/60',
                           )}
                         />
                         <ChevronDown
+                          aria-hidden='true'
                           className={cn(
                             'h-3 w-3',
                             sortKey === column.key && sortDirection === 'desc'
-                              ? 'text-blue-500'
-                              : 'text-gray-400 dark:text-gray-600',
+                              ? 'text-lake-accent'
+                              : 'text-lake-fg-subtle/60',
                           )}
                         />
                       </span>
@@ -110,7 +126,7 @@ function Table<T extends Record<string, any>>({
           <tbody>
             {loading
               ? (
-                  <TableLoading colSpan={columns.length} />
+                  <TableLoading colSpan={columns.length} label={loadingLabel} />
                 )
               : data.length === 0
                 ? (
@@ -119,7 +135,7 @@ function Table<T extends Record<string, any>>({
                 : (
                     data.map((row, rowIndex) => (
                       <tr
-                        key={rowIndex}
+                        key={rowKey ? rowKey(row, rowIndex) : rowIndex}
                         className={cn(
                           'transition-colors',
                           styles.row,
@@ -130,7 +146,7 @@ function Table<T extends Record<string, any>>({
                           <td
                             key={column.key as string}
                             className={cn(
-                              'px-3 py-2 sm:px-4 sm:py-3 text-xs sm:text-sm text-gray-700 dark:text-gray-300',
+                              'px-3 py-2 sm:px-4 sm:py-3 text-xs sm:text-sm text-lake-fg-muted',
                               column.align === 'center' && 'text-center',
                               column.align === 'right' && 'text-right',
                             )}
@@ -147,10 +163,10 @@ function Table<T extends Record<string, any>>({
         </table>
       </div>
       {!loading && data.length > 0 && hasMore && onLoadMore && (
-        <TableLoadMore onLoadMore={onLoadMore} loading={loadingMore} />
+        <TableLoadMore onLoadMore={onLoadMore} loading={loadingMore} label={loadingLabel} />
       )}
       {!loading && data.length > 0 && hasMore === false && (
-        <TableEnd total={total} />
+        <TableEnd total={total} message={endMessage} />
       )}
     </div>
   )

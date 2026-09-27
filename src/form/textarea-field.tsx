@@ -35,7 +35,7 @@ function TextareaField(props: TextareaFieldProps) {
           onChange={onChange}
           disabled={disabled || loading}
           rows={rows}
-          className={fieldClassName(error, disabled || loading, cn('resize-vertical min-h-[80px]', className))}
+          className={fieldClassName(error, disabled || loading, cn('resize-y min-h-[80px]', className))}
           {...rest}
           id={ids.id}
           aria-describedby={ids.describedBy}
@@ -43,7 +43,7 @@ function TextareaField(props: TextareaFieldProps) {
         />
         {loading && (
           <div className='absolute right-3 top-4'>
-            <Loader2 className='h-4 w-4 animate-spin text-gray-500 dark:text-gray-400' />
+            <Loader2 className='h-4 w-4 animate-spin text-lake-fg-subtle' aria-hidden='true' />
           </div>
         )}
       </div>

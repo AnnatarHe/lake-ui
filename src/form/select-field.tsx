@@ -1,8 +1,9 @@
-import { cn } from '@/utils/cn'
+import { ChevronDown, Loader2 } from 'lucide-react'
 import React from 'react'
-import styles from './select-field.module.css'
+import { cn } from '@/utils/cn'
+import { FieldError, FieldLabel, fieldClassName, useFieldIds } from './field'
 
-interface SelectFieldProps
+export interface SelectFieldProps
   extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label: string | React.ReactNode
   options: Array<{
@@ -14,65 +15,106 @@ interface SelectFieldProps
   disabled?: boolean
   error?: string
   loading?: boolean
+  /** Rendered as a disabled, empty first option. */
+  placeholder?: string
+  /** Applied to the outer wrapper. */
   className?: string
+  /** Applied to the `<select>` element. */
+  selectClassName?: string
 }
 
+// Browsers with customizable <select> (appearance: base-select) get a themed picker.
+// Never chain another pseudo-element after ::picker(select); some CSS minifiers reject it.
+const pickerClasses = [
+  'supports-[appearance:base-select]:[appearance:base-select]',
+  '[&::picker(select)]:[appearance:base-select]',
+  '[&::picker(select)]:mt-1',
+  '[&::picker(select)]:max-h-60',
+  '[&::picker(select)]:p-1',
+  '[&::picker(select)]:rounded-lake-control',
+  '[&::picker(select)]:border',
+  '[&::picker(select)]:border-lake-line',
+  '[&::picker(select)]:bg-lake-surface-raised',
+  '[&::picker(select)]:text-lake-fg',
+  '[&::picker(select)]:shadow-lake-overlay',
+  '[&::picker-icon]:hidden',
+  '[&_option]:rounded-[calc(var(--lake-radius-control)-2px)]',
+  '[&_option]:px-3',
+  '[&_option]:py-2',
+  '[&_option]:text-sm',
+  '[&_option]:bg-lake-surface-raised',
+  '[&_option]:text-lake-fg',
+  '[&_option:hover]:bg-lake-surface-muted',
+  '[&_option:checked]:bg-lake-accent-soft',
+  '[&_option:checked]:text-lake-accent-text',
+  '[&_option:disabled]:text-lake-fg-subtle',
+]
+
 function SelectField(props: SelectFieldProps) {
-  const { label, options, disabled, error, loading, className, ...rest } = props
+  const {
+    label,
+    options,
+    disabled,
+    error,
+    loading,
+    placeholder,
+    className,
+    selectClassName,
+    id,
+    'aria-describedby': describedBy,
+    'aria-invalid': ariaInvalid,
+    ...rest
+  } = props
+
+  const ids = useFieldIds(id, describedBy, error)
+  const Icon = loading ? Loader2 : ChevronDown
+  // An uncontrolled select would otherwise auto-select the first enabled option.
+  const defaultValue = placeholder && rest.value === undefined && rest.defaultValue === undefined && !rest.multiple
+    ? ''
+    : rest.defaultValue
 
   return (
     <div className={cn('w-full', className)}>
-      <label
-        className={cn(
-          'mb-1.5 block text-sm font-medium transition-colors text-gray-700 dark:text-gray-300',
-          (disabled || loading) && 'opacity-60',
-        )}
-      >
-        {label}
-      </label>
-      <div
-        className={cn(
-          'relative rounded-lg border transition-all duration-200',
-          'border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm',
-          'dark:border-gray-700 dark:bg-gray-800/50',
-          error && 'border-red-400 dark:border-red-500/70',
-          (disabled || loading) && 'opacity-60 hover:border-gray-200 hover:shadow-none',
-        )}
-      >
+      <FieldLabel label={label} id={ids.id} disabled={disabled || loading} />
+      <div className='relative'>
         <select
-          className={cn(
-            'w-full rounded-lg py-2.5 px-3.5 pr-8 transition-colors',
-            'text-gray-900 dark:text-gray-200',
-            'bg-transparent',
-            'focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500',
-            'dark:focus:ring-blue-500/30 dark:focus:border-blue-400',
-            'hover:bg-gray-50/50 dark:hover:bg-gray-700/50',
-            styles.select,
-            loading ? styles.loading : styles.normal,
-            error && 'focus:ring-red-400 dark:focus:ring-red-500',
-            (disabled || loading) && 'cursor-not-allowed',
-          )}
           disabled={disabled || loading}
           {...rest}
+          defaultValue={defaultValue}
+          id={ids.id}
+          aria-describedby={ids.describedBy}
+          aria-invalid={ariaInvalid ?? (error ? true : undefined)}
+          aria-busy={loading || undefined}
+          className={fieldClassName(
+            error,
+            disabled || loading,
+            cn('appearance-none bg-none pr-10 cursor-pointer disabled:cursor-not-allowed', pickerClasses, selectClassName),
+          )}
         >
+          {placeholder && (
+            <option value='' disabled>
+              {placeholder}
+            </option>
+          )}
           {options.map(option => (
             <option
               key={option.value}
               value={option.value}
               disabled={option.disabled}
-              className={cn(
-                'py-1',
-                option.disabled && 'text-gray-400 dark:text-gray-500',
-              )}
             >
               {option.label}
             </option>
           ))}
         </select>
+        <Icon
+          aria-hidden='true'
+          className={cn(
+            'pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-lake-fg-subtle',
+            loading && 'animate-spin',
+          )}
+        />
       </div>
-      {error && (
-        <p className='mt-1.5 text-sm text-red-500 dark:text-red-400'>{error}</p>
-      )}
+      <FieldError error={error} id={ids.errorId} />
     </div>
   )
 }

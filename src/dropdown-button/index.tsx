@@ -1,9 +1,9 @@
 'use client'
 
 import { ChevronDown } from 'lucide-react'
-import React, { useCallback, useEffect, useRef } from 'react'
+import React from 'react'
 
-import useClickOutside from '@/hooks/useClickOutside'
+import Menu from '@/menu'
 import { cn } from '@/utils/cn'
 
 export interface DropdownButtonOption {
@@ -53,27 +53,9 @@ function DropdownButton(props: DropdownButtonProps) {
   } = props
 
   const [isOpen, setIsOpen] = React.useState(false)
-  const toggleRef = useRef<HTMLButtonElement>(null)
-
-  const ref = useClickOutside(
-    useCallback(() => {
-      setIsOpen(false)
-    }, []),
-  )
-
-  useEffect(() => {
-    if (!isOpen) return
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== 'Escape') return
-      setIsOpen(false)
-      toggleRef.current?.focus()
-    }
-    document.addEventListener('keydown', onKeyDown)
-    return () => document.removeEventListener('keydown', onKeyDown)
-  }, [isOpen])
 
   return (
-    <div className={cn('relative inline-flex', className)} ref={ref}>
+    <div className={cn('relative inline-flex', className)}>
       <div
         className={cn(
           'inline-flex rounded-lake-control border shadow-lake-card transition-all duration-200',
@@ -96,69 +78,44 @@ function DropdownButton(props: DropdownButtonProps) {
           {children}
         </button>
         {/* Divider + Chevron */}
-        <button
-          ref={toggleRef}
-          type='button'
-          className={cn(
-            'px-2 py-2 rounded-r-lake-control transition-colors',
-            'border-l',
-            dividerClasses[variant],
-            hoverClasses[variant],
-            'outline-none focus-visible:ring-2 focus-visible:ring-lake-ring',
-            disabled && 'cursor-not-allowed',
-          )}
-          onClick={() => !disabled && setIsOpen(!isOpen)}
-          disabled={disabled}
-          aria-label={menuLabel}
-          aria-haspopup='listbox'
-          aria-expanded={isOpen}
-        >
-          <ChevronDown
-            aria-hidden='true'
-            className={cn(
-              'h-4 w-4 transition-transform duration-200',
-              isOpen && 'rotate-180',
-            )}
-          />
-        </button>
-      </div>
-      {/* Dropdown menu */}
-      {isOpen && (
-        <div
-          className={cn(
-            'absolute right-0 top-full z-20 mt-1 min-w-[12rem] rounded-lake-control border shadow-lake-overlay',
-            'animate-in fade-in-50 slide-in-from-top-2 motion-reduce:animate-none',
-            'border-lake-line bg-lake-surface-raised',
-          )}
-          role='listbox'
-          aria-label={menuLabel}
-        >
-          {options.map(option => (
+        <Menu
+          open={isOpen && !disabled}
+          onOpenChange={setIsOpen}
+          label={menuLabel}
+          placement='bottom-end'
+          className='min-w-[12rem]'
+          items={options.map(option => ({
+            key: option.value,
+            label: option.label,
+            icon: option.icon,
+            disabled: option.disabled,
+            onSelect: () => onSelect(option.value),
+          }))}
+          trigger={(
             <button
-              key={option.value}
               type='button'
               className={cn(
-                'flex w-full items-center gap-2 px-3.5 py-2 text-sm text-left transition-colors',
-                'text-lake-fg-muted hover:bg-lake-surface-muted hover:text-lake-fg',
-                'first:rounded-t-lake-control last:rounded-b-lake-control',
-                option.disabled && 'opacity-50 cursor-not-allowed',
+                'px-2 py-2 rounded-r-lake-control transition-colors',
+                'border-l',
+                dividerClasses[variant],
+                hoverClasses[variant],
+                'outline-none focus-visible:ring-2 focus-visible:ring-lake-ring',
+                disabled && 'cursor-not-allowed',
               )}
-              onClick={() => {
-                if (!option.disabled) {
-                  onSelect(option.value)
-                  setIsOpen(false)
-                }
-              }}
-              disabled={option.disabled}
-              role='option'
-              aria-selected={false}
+              disabled={disabled}
+              aria-label={menuLabel}
             >
-              {option.icon && <span className='flex-shrink-0'>{option.icon}</span>}
-              {option.label}
+              <ChevronDown
+                aria-hidden='true'
+                className={cn(
+                  'h-4 w-4 transition-transform duration-200',
+                  isOpen && 'rotate-180',
+                )}
+              />
             </button>
-          ))}
-        </div>
-      )}
+          )}
+        />
+      </div>
     </div>
   )
 }

@@ -1,3 +1,4 @@
+import CheckboxField from './checkbox-field'
 import InputField from './input-field'
 import MultiSelect from './multi-select'
 import NumberField from './number-field'
@@ -7,6 +8,7 @@ import SwitchField from './switch-field'
 import TextareaField from './textarea-field'
 
 export {
+  CheckboxField,
   InputField,
   MultiSelect,
   NumberField,

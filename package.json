@@ -85,6 +85,70 @@
     "./form-radio-group": {
       "types": "./dist/form/radio-group.d.ts",
       "import": "./dist/form/radio-group.js"
+    },
+    "./avatar": {
+      "types": "./dist/avatar/index.d.ts",
+      "import": "./dist/avatar/index.js"
+    },
+    "./badge": {
+      "types": "./dist/badge/index.d.ts",
+      "import": "./dist/badge/index.js"
+    },
+    "./button": {
+      "types": "./dist/button/index.d.ts",
+      "import": "./dist/button/index.js"
+    },
+    "./confirm-dialog": {
+      "types": "./dist/confirm-dialog/index.d.ts",
+      "import": "./dist/confirm-dialog/index.js"
+    },
+    "./empty-state": {
+      "types": "./dist/empty-state/index.d.ts",
+      "import": "./dist/empty-state/index.js"
+    },
+    "./form-checkbox-field": {
+      "types": "./dist/form/checkbox-field.d.ts",
+      "import": "./dist/form/checkbox-field.js"
+    },
+    "./icon-button": {
+      "types": "./dist/icon-button/index.d.ts",
+      "import": "./dist/icon-button/index.js"
+    },
+    "./kbd": {
+      "types": "./dist/kbd/index.d.ts",
+      "import": "./dist/kbd/index.js"
+    },
+    "./menu": {
+      "types": "./dist/menu/index.d.ts",
+      "import": "./dist/menu/index.js"
+    },
+    "./nav-tabs": {
+      "types": "./dist/nav-tabs/index.d.ts",
+      "import": "./dist/nav-tabs/index.js"
+    },
+    "./popover": {
+      "types": "./dist/popover/index.d.ts",
+      "import": "./dist/popover/index.js"
+    },
+    "./progress": {
+      "types": "./dist/progress/index.d.ts",
+      "import": "./dist/progress/index.js"
+    },
+    "./segmented-control": {
+      "types": "./dist/segmented-control/index.d.ts",
+      "import": "./dist/segmented-control/index.js"
+    },
+    "./skeleton": {
+      "types": "./dist/skeleton/index.d.ts",
+      "import": "./dist/skeleton/index.js"
+    },
+    "./spinner": {
+      "types": "./dist/spinner/index.d.ts",
+      "import": "./dist/spinner/index.js"
+    },
+    "./tabs": {
+      "types": "./dist/tabs/index.d.ts",
+      "import": "./dist/tabs/index.js"
     }
   },
   "scripts": {

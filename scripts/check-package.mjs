@@ -28,6 +28,10 @@ try {
         hasDirective(readFileSync(source, 'utf8')), `Changed client boundary: ${entry.import}`)
     }
   }
+  // Server components import these directly, so they must not become client references.
+  for (const key of ['./button', './icon-button', './spinner', './skeleton', './badge', './kbd', './empty-state', './progress', './nav-tabs', './card', './navbar-container']) {
+    assert(!/^['"]use client['"]/.test(readFileSync(join(root, manifest.exports[key].import), 'utf8').trimStart()), `${key} must stay server-safe`)
+  }
   const theme = readFileSync(join(root, manifest.exports['./theme.css'].style), 'utf8')
   assert.equal(theme, readFileSync(join(root, 'src/theme.css'), 'utf8'), 'dist/theme.css is stale')
   for (const needle of ['@source "./**/*.js"', '@theme inline', '--lake-canvas:', '--color-lake-surface: var(--lake-surface)']) {
@@ -63,6 +67,9 @@ try {
         assert.match(html, /<svg/);
       }
       for (const Overlay of [Modal, Sheet]) assert.equal(renderToString(createElement(Overlay, { isOpen: false, title: 'Test', onClose() {} })), '');
+      const { default: Button } = await import('${manifest.name}/button');
+      const link = renderToString(createElement(Button, { render: createElement('a', { href: '#x' }), variant: 'secondary' }, 'Go'));
+      assert(link.startsWith('<a href="#x" class="') && link.endsWith('>Go</a>') && link.includes('bg-lake-surface-raised'), link);
       const { cn } = await import('${manifest.name}/utils');
       assert.equal(cn('rounded-lg shadow-sm', 'rounded-lake-control shadow-lake-card'), 'rounded-lake-control shadow-lake-card');
     `)

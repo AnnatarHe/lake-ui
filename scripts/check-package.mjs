@@ -19,7 +19,7 @@ try {
   for (const entry of Object.values(manifest.exports)) {
     for (const target of Object.values(entry)) assert(files.has(target.slice(2)), `Missing export ${target}`)
     if (entry.types) assert.equal(Object.keys(entry)[0], 'types')
-    if (entry.import.endsWith('.js')) {
+    if (entry.import?.endsWith('.js')) {
       const sourceBase = join(root, entry.import.replace('./dist/', './src/').replace(/\.js$/, ''))
       const source = ['.tsx', '.ts'].map(extension => sourceBase + extension).find(existsSync)
       assert(source, `Missing source for ${entry.import}`)
@@ -27,6 +27,11 @@ try {
       assert.equal(hasDirective(readFileSync(join(root, entry.import), 'utf8')),
         hasDirective(readFileSync(source, 'utf8')), `Changed client boundary: ${entry.import}`)
     }
+  }
+  const theme = readFileSync(join(root, manifest.exports['./theme.css'].style), 'utf8')
+  assert.equal(theme, readFileSync(join(root, 'src/theme.css'), 'utf8'), 'dist/theme.css is stale')
+  for (const needle of ['@source "./**/*.js"', '@theme inline', '--lake-canvas:', '--color-lake-surface: var(--lake-surface)']) {
+    assert(theme.includes(needle), `theme.css is missing ${needle}`)
   }
 
   // Each case uses an isolated real installation, with no peer-dependency bypass.
@@ -41,7 +46,7 @@ try {
       `@types/react@${manifest.devDependencies['@types/react']}`,
       `@types/react-dom@${manifest.devDependencies['@types/react-dom']}`,
       `typescript@${manifest.devDependencies.typescript}`], consumer)
-    const imports = Object.keys(manifest.exports).filter(key => key !== './style.css').map(key =>
+    const imports = Object.keys(manifest.exports).filter(key => !key.endsWith('.css')).map(key =>
       manifest.name + (key === '.' ? '' : key.slice(1)))
     writeFileSync(join(consumer, 'smoke.ts'), imports.map((name, index) =>
       `import * as entry${index} from '${name}';\nvoid entry${index};`).join('\n'))
@@ -58,6 +63,8 @@ try {
         assert.match(html, /<svg/);
       }
       for (const Overlay of [Modal, Sheet]) assert.equal(renderToString(createElement(Overlay, { isOpen: false, title: 'Test', onClose() {} })), '');
+      const { cn } = await import('${manifest.name}/utils');
+      assert.equal(cn('rounded-lg shadow-sm', 'rounded-lake-control shadow-lake-card'), 'rounded-lake-control shadow-lake-card');
     `)
     run(process.execPath, ['smoke.mjs'], consumer)
     console.log(`Package imports, declarations, SSR, and icons pass: React ${react}, Lucide ${lucide}`)

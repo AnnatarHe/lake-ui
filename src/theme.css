@@ -1,0 +1,153 @@
+/*
+ * Lake UI theme for Tailwind CSS v4.
+ *
+ * Import once, at the top level of your Tailwind entry (not inside @layer):
+ *
+ *   @import 'tailwindcss';
+ *   @import '@annatarhe/lake-ui/theme.css';
+ *
+ * The raw `--lake-*` variables live in a zero-specificity rule inside the base
+ * layer, so any override you write (layered or not) wins. `@theme inline`
+ * exposes them as utilities such as `bg-lake-surface`, `text-lake-fg-muted`,
+ * `rounded-lake-control` and `shadow-lake-card`; because they reference the
+ * variables directly, `.dark` subtrees and `/opacity` modifiers keep working.
+ */
+@source "./**/*.js";
+
+@layer base {
+  :where(:root) {
+    --lake-canvas: oklch(98.5% 0.002 247.839);
+    --lake-surface: oklch(100% 0 0);
+    --lake-surface-raised: oklch(100% 0 0);
+    --lake-surface-muted: oklch(98.5% 0.002 247.839);
+    --lake-field: oklch(100% 0 0);
+    --lake-fg: oklch(21% 0.034 264.665);
+    --lake-fg-muted: oklch(37.3% 0.034 259.733);
+    --lake-fg-subtle: oklch(55.1% 0.027 264.364);
+    --lake-line: oklch(92.8% 0.006 264.531);
+    --lake-line-strong: oklch(87.2% 0.01 258.338);
+    --lake-accent: oklch(62.3% 0.214 259.815);
+    --lake-accent-hover: oklch(54.6% 0.245 262.881);
+    --lake-accent-fg: oklch(100% 0 0);
+    --lake-accent-text: oklch(54.6% 0.245 262.881);
+    --lake-accent-soft: oklch(97% 0.014 254.604);
+    --lake-ring: oklch(62.3% 0.214 259.815 / 0.2);
+    --lake-danger: oklch(63.7% 0.237 25.331);
+    --lake-danger-fg: oklch(100% 0 0);
+    --lake-danger-soft: oklch(97.1% 0.013 17.38);
+    --lake-success: oklch(62.7% 0.194 149.214);
+    --lake-success-soft: oklch(98.2% 0.018 155.826);
+    --lake-warning: oklch(76.9% 0.188 70.08);
+    --lake-warning-soft: oklch(98.7% 0.022 95.277);
+    --lake-overlay: oklch(0% 0 0 / 0.2);
+
+    --lake-radius-control: 0.5rem;
+    --lake-radius-panel: 0.75rem;
+    --lake-shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --lake-shadow-overlay: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    --lake-blur: 12px;
+
+    /* ContributionWall palettes, levels 0 (empty) to 4. */
+    --lake-wall-green-0: #ebedf0;
+    --lake-wall-green-1: #9be9a8;
+    --lake-wall-green-2: #40c463;
+    --lake-wall-green-3: #30a14e;
+    --lake-wall-green-4: #216e39;
+    --lake-wall-blue-0: #ebedf0;
+    --lake-wall-blue-1: #c1e0ff;
+    --lake-wall-blue-2: #79b8ff;
+    --lake-wall-blue-3: #2188ff;
+    --lake-wall-blue-4: #0366d6;
+    --lake-wall-purple-0: #ebedf0;
+    --lake-wall-purple-1: #e1bee7;
+    --lake-wall-purple-2: #ba68c8;
+    --lake-wall-purple-3: #9c27b0;
+    --lake-wall-purple-4: #6a1b9a;
+    --lake-wall-orange-0: #ebedf0;
+    --lake-wall-orange-1: #ffcc80;
+    --lake-wall-orange-2: #ffb74d;
+    --lake-wall-orange-3: #ff9800;
+    --lake-wall-orange-4: #f57c00;
+  }
+
+  :where(.dark, [data-theme=dark]) {
+    --lake-canvas: oklch(13% 0.028 261.692);
+    --lake-surface: oklch(21% 0.034 264.665);
+    --lake-surface-raised: oklch(27.8% 0.033 256.848);
+    --lake-surface-muted: oklch(37.3% 0.034 259.733 / 0.5);
+    --lake-field: oklch(27.8% 0.033 256.848 / 0.5);
+    --lake-fg: oklch(100% 0 0);
+    --lake-fg-muted: oklch(87.2% 0.01 258.338);
+    --lake-fg-subtle: oklch(70.7% 0.022 261.325);
+    --lake-line: oklch(37.3% 0.034 259.733);
+    --lake-line-strong: oklch(44.6% 0.03 256.802);
+    --lake-accent: oklch(62.3% 0.214 259.815);
+    --lake-accent-hover: oklch(70.7% 0.165 254.624);
+    --lake-accent-fg: oklch(100% 0 0);
+    --lake-accent-text: oklch(70.7% 0.165 254.624);
+    --lake-accent-soft: oklch(62.3% 0.214 259.815 / 0.15);
+    --lake-ring: oklch(62.3% 0.214 259.815 / 0.3);
+    --lake-danger: oklch(70.4% 0.191 22.216);
+    --lake-danger-fg: oklch(100% 0 0);
+    --lake-danger-soft: oklch(63.7% 0.237 25.331 / 0.15);
+    --lake-success: oklch(79.2% 0.209 151.711);
+    --lake-success-soft: oklch(72.3% 0.219 149.579 / 0.15);
+    --lake-warning: oklch(82.8% 0.189 84.429);
+    --lake-warning-soft: oklch(76.9% 0.188 70.08 / 0.15);
+    --lake-overlay: oklch(0% 0 0 / 0.5);
+
+    --lake-wall-green-0: #161b22;
+    --lake-wall-green-1: #0e4429;
+    --lake-wall-green-2: #006d32;
+    --lake-wall-green-3: #26a641;
+    --lake-wall-green-4: #39d353;
+    --lake-wall-blue-0: #161b22;
+    --lake-wall-blue-1: #0c2d6b;
+    --lake-wall-blue-2: #0860ca;
+    --lake-wall-blue-3: #1f6feb;
+    --lake-wall-blue-4: #58a6ff;
+    --lake-wall-purple-0: #161b22;
+    --lake-wall-purple-1: #4a148c;
+    --lake-wall-purple-2: #6a1b9a;
+    --lake-wall-purple-3: #8e24aa;
+    --lake-wall-purple-4: #ab47bc;
+    --lake-wall-orange-0: #161b22;
+    --lake-wall-orange-1: #e65100;
+    --lake-wall-orange-2: #ef6c00;
+    --lake-wall-orange-3: #f57c00;
+    --lake-wall-orange-4: #ff9800;
+  }
+}
+
+@theme inline {
+  --color-lake-canvas: var(--lake-canvas);
+  --color-lake-surface: var(--lake-surface);
+  --color-lake-surface-raised: var(--lake-surface-raised);
+  --color-lake-surface-muted: var(--lake-surface-muted);
+  --color-lake-field: var(--lake-field);
+  --color-lake-fg: var(--lake-fg);
+  --color-lake-fg-muted: var(--lake-fg-muted);
+  --color-lake-fg-subtle: var(--lake-fg-subtle);
+  --color-lake-line: var(--lake-line);
+  --color-lake-line-strong: var(--lake-line-strong);
+  --color-lake-accent: var(--lake-accent);
+  --color-lake-accent-hover: var(--lake-accent-hover);
+  --color-lake-accent-fg: var(--lake-accent-fg);
+  --color-lake-accent-text: var(--lake-accent-text);
+  --color-lake-accent-soft: var(--lake-accent-soft);
+  --color-lake-ring: var(--lake-ring);
+  --color-lake-danger: var(--lake-danger);
+  --color-lake-danger-fg: var(--lake-danger-fg);
+  --color-lake-danger-soft: var(--lake-danger-soft);
+  --color-lake-success: var(--lake-success);
+  --color-lake-success-soft: var(--lake-success-soft);
+  --color-lake-warning: var(--lake-warning);
+  --color-lake-warning-soft: var(--lake-warning-soft);
+  --color-lake-overlay: var(--lake-overlay);
+
+  --radius-lake-control: var(--lake-radius-control);
+  --radius-lake-panel: var(--lake-radius-panel);
+  --shadow-lake-card: var(--lake-shadow-card);
+  --shadow-lake-overlay: var(--lake-shadow-overlay);
+  --blur-lake: var(--lake-blur);
+}

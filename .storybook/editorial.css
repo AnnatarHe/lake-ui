@@ -1,0 +1,65 @@
+/*
+ * Editorial reading-room preset, used by the Storybook "theme" toolbar to check
+ * that every component follows token overrides. Consumers override the same
+ * variables in their own CSS.
+ */
+[data-preset=editorial] {
+  --lake-canvas: #F7F5F0;
+  --lake-surface: #FFFEFB;
+  --lake-surface-raised: #FFFFFF;
+  --lake-surface-muted: #EFECE5;
+  --lake-field: #FFFFFF;
+  --lake-fg: #1C1A17;
+  --lake-fg-muted: #57524B;
+  --lake-fg-subtle: #736C63;
+  --lake-line: #E4DFD5;
+  --lake-line-strong: #D1CBBF;
+  --lake-accent: #60A5FA;
+  --lake-accent-hover: #3B82F6;
+  --lake-accent-fg: #0B1526;
+  --lake-accent-text: #2563EB;
+  --lake-accent-soft: rgb(96 165 250 / 0.14);
+  --lake-ring: rgb(96 165 250 / 0.45);
+  --lake-danger: #C2412D;
+  --lake-danger-fg: #FFFFFF;
+  --lake-danger-soft: rgb(194 65 45 / 0.1);
+  --lake-success: #3F7A4B;
+  --lake-success-soft: rgb(63 122 75 / 0.12);
+  --lake-warning: #A56A12;
+  --lake-warning-soft: rgb(165 106 18 / 0.12);
+  --lake-overlay: rgb(28 26 23 / 0.32);
+
+  --lake-radius-control: 8px;
+  --lake-radius-panel: 12px;
+  --lake-shadow-card: 0 1px 2px rgb(28 26 23 / 0.04);
+  --lake-shadow-overlay: 0 16px 40px -12px rgb(28 26 23 / 0.22);
+  --lake-blur: 0px;
+}
+
+[data-preset=editorial].dark,
+[data-preset=editorial] .dark {
+  --lake-canvas: #141311;
+  --lake-surface: #1B1A17;
+  --lake-surface-raised: #23211E;
+  --lake-surface-muted: #2A2824;
+  --lake-field: #1F1D1A;
+  --lake-fg: #ECE7DF;
+  --lake-fg-muted: #B4ADA2;
+  --lake-fg-subtle: #8A8378;
+  --lake-line: #302D29;
+  --lake-line-strong: #3F3B35;
+  --lake-accent: #60A5FA;
+  --lake-accent-hover: #93C5FD;
+  --lake-accent-fg: #0B1526;
+  --lake-accent-text: #60A5FA;
+  --lake-accent-soft: rgb(96 165 250 / 0.18);
+  --lake-ring: rgb(96 165 250 / 0.5);
+  --lake-danger: #F0806B;
+  --lake-danger-fg: #1B1A17;
+  --lake-danger-soft: rgb(240 128 107 / 0.14);
+  --lake-success: #7BC08A;
+  --lake-success-soft: rgb(123 192 138 / 0.14);
+  --lake-warning: #E3B45A;
+  --lake-warning-soft: rgb(227 180 90 / 0.14);
+  --lake-overlay: rgb(0 0 0 / 0.6);
+}

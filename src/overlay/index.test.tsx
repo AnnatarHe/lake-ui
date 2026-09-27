@@ -72,10 +72,45 @@ describe.each([Modal, Sheet])('accessible overlay: %s', (Component) => {
     expect(close).toHaveBeenCalledOnce()
   })
 
-  it('does not lock the page without a portal host', () => {
+  it('falls back to document.body without a portal host', async () => {
     render(<Component selector='#absent-host' title='Absent' isOpen onClose={vi.fn()}>Content</Component>)
-    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
-    expect(document.body.style.overflow).toBe('')
+    const dialog = await screen.findByRole('dialog', { name: 'Absent' })
+    expect(dialog.closest('#overlay-tests')).toBeNull()
+    expect(document.body).toContainElement(dialog)
+    expect(document.body.style.overflow).toBe('hidden')
+  })
+
+  it('focuses the first body field by default instead of the close button', async () => {
+    render(
+      <Component selector='#overlay-tests' title='Rename' isOpen onClose={vi.fn()}>
+        <button>Help</button>
+        <input aria-label='Title' />
+      </Component>,
+    )
+    await waitFor(() => expect(screen.getByRole('textbox', { name: 'Title' })).toHaveFocus())
+  })
+
+  it('prefers [data-autofocus] and falls back to the panel', async () => {
+    const { unmount } = render(
+      <Component selector='#overlay-tests' title='Choose' isOpen onClose={vi.fn()}>
+        <input aria-label='Name' />
+        <button data-autofocus>Primary</button>
+      </Component>,
+    )
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Primary' })).toHaveFocus())
+    unmount()
+    render(<Component selector='#overlay-tests' title='Read only' isOpen onClose={vi.fn()}><button>Only action</button></Component>)
+    await waitFor(() => expect(screen.getByRole('dialog', { name: 'Read only' })).toHaveFocus())
+  })
+
+  it('renders a pinned footer and can hide the close button', () => {
+    render(
+      <Component selector='#overlay-tests' title='Footer' isOpen onClose={vi.fn()} hideCloseButton footer={<button>Save</button>} footerClassName='custom-footer'>
+        Body
+      </Component>,
+    )
+    expect(screen.queryByRole('button', { name: 'Close' })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Save' }).parentElement).toHaveClass('custom-footer', 'border-t')
   })
 })
 

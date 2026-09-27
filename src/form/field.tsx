@@ -12,37 +12,44 @@ export function useFieldIds(id?: string, describedBy?: string, error?: string) {
   }
 }
 
-export function FieldLabel({ label, id, disabled }: { label?: ReactNode, id: string, disabled?: boolean }) {
+export function FieldLabel({ label, id, labelId, disabled, className, children }: {
+  label?: ReactNode
+  id?: string
+  labelId?: string
+  disabled?: boolean
+  className?: string
+  children?: ReactNode
+}) {
   return label
     ? (
         <label
+          id={labelId}
           htmlFor={id}
           className={cn(
-            'block text-sm font-medium mb-1.5 transition-colors text-gray-700 dark:text-gray-300',
+            'block text-sm font-medium mb-1.5 transition-colors text-lake-fg-muted',
             disabled && 'opacity-60',
+            className,
           )}
         >
           {label}
+          {children}
         </label>
       )
     : null
 }
 
 export function FieldError({ error, id }: { error?: string, id: string }) {
-  return error ? <p id={id} className='mt-1.5 text-sm text-red-500 dark:text-red-400'>{error}</p> : null
+  return error ? <p id={id} className='mt-1.5 text-sm text-lake-danger'>{error}</p> : null
 }
 
 export function fieldClassName(error?: string, disabled?: boolean, className?: string) {
   return cn(
-    'w-full rounded-lg border py-2.5 px-3.5 transition-all duration-200',
-    'border-gray-200 bg-white text-gray-900 placeholder-gray-400',
-    'hover:border-gray-300 hover:shadow-sm',
-    'dark:border-gray-700 dark:bg-gray-800/50 dark:text-gray-200 dark:placeholder-gray-500',
-    'focus:outline-none focus:ring-2 focus:border-transparent',
-    'focus:ring-blue-500/20 focus:border-blue-500 focus:shadow-md',
-    'dark:focus:ring-blue-500/30 dark:focus:border-blue-400',
-    error && 'border-red-400 focus:ring-red-400/20 focus:border-red-400 dark:border-red-500/70 dark:focus:ring-red-500/30',
-    disabled && 'opacity-60 cursor-not-allowed bg-gray-50 hover:border-gray-200 hover:shadow-none dark:bg-gray-700/50',
+    'w-full rounded-lake-control border py-2.5 px-3.5 transition-all duration-200',
+    'border-lake-line bg-lake-field text-lake-fg placeholder:text-lake-fg-subtle',
+    'hover:border-lake-line-strong',
+    'outline-none focus:ring-2 focus:ring-lake-ring focus:border-lake-accent',
+    error && 'border-lake-danger hover:border-lake-danger focus:border-lake-danger focus:ring-lake-danger/20',
+    disabled && 'opacity-60 cursor-not-allowed bg-lake-surface-muted hover:border-lake-line',
     className,
   )
 }

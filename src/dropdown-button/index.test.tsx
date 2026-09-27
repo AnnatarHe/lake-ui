@@ -113,3 +113,21 @@ describe('DropdownButton Component', () => {
     expect(screen.getByTestId('icon-csv')).toBeInTheDocument()
   })
 })
+
+describe('DropdownButton accessibility', () => {
+  it('names the menu button and closes on Escape', async () => {
+    const { default: userEvent } = await import('@testing-library/user-event')
+    const user = userEvent.setup()
+    render(
+      <DropdownButton onSelect={vi.fn()} options={defaultOptions} menuLabel='Export options'>
+        Download
+      </DropdownButton>,
+    )
+    const toggle = screen.getByRole('button', { name: 'Export options' })
+    await user.click(toggle)
+    expect(screen.getByText('Option A')).toBeInTheDocument()
+    await user.keyboard('{Escape}')
+    expect(screen.queryByText('Option A')).toBeNull()
+    expect(toggle).toHaveFocus()
+  })
+})

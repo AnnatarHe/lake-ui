@@ -3,77 +3,79 @@ import { addDays, fromUnixTime, startOfDay, toUnixTime } from '../utils/date'
 import { cn } from '@/utils/cn'
 import { percentilesOf } from '../utils/percentiles'
 
-interface Props {
+export type ContributionWallColorScheme = 'accent' | 'green' | 'blue' | 'purple' | 'orange'
+
+export interface ContributionWallProps {
   data: readonly {
     date: number
     count: number
   }[]
   startDate: Date
-  colorScheme?: 'green' | 'blue' | 'purple' | 'orange'
+  /** `accent` follows the theme tokens; the named palettes follow theme.css variables. */
+  colorScheme?: ContributionWallColorScheme
   className?: string
+  labels?: { less?: string, more?: string, utc?: string }
+  /** Title of each day cell. Defaults to "{count} activities on {date}". */
+  formatTooltip?: (date: Date, count: number) => string
+  /** BCP 47 locale for dates. Defaults to `en-US`. */
+  locale?: string
 }
 
-function getColor(
-  count: number,
-  percentiles: ReturnType<typeof percentilesOf>,
-  colorScheme: string = 'green',
-  isDark: boolean = false,
-): string {
-  const schemes = {
-    green: {
-      light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
-      dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
-    },
-    blue: {
-      light: ['#ebedf0', '#c1e0ff', '#79b8ff', '#2188ff', '#0366d6'],
-      dark: ['#161b22', '#0c2d6b', '#0860ca', '#1f6feb', '#58a6ff'],
-    },
-    purple: {
-      light: ['#ebedf0', '#e1bee7', '#ba68c8', '#9c27b0', '#6a1b9a'],
-      dark: ['#161b22', '#4a148c', '#6a1b9a', '#8e24aa', '#ab47bc'],
-    },
-    orange: {
-      light: ['#ebedf0', '#ffcc80', '#ffb74d', '#ff9800', '#f57c00'],
-      dark: ['#161b22', '#e65100', '#ef6c00', '#f57c00', '#ff9800'],
-    },
-  }
+type Level = 0 | 1 | 2 | 3 | 4
 
-  const colors = isDark ? schemes[colorScheme as keyof typeof schemes].dark : schemes[colorScheme as keyof typeof schemes].light
-
-  if (count === 0) return colors[0]
-  if (count < percentiles.p25) return colors[1]
-  if (count < percentiles.p50) return colors[2]
-  if (count < percentiles.p75) return colors[3]
-  return colors[4]
+// Class names are spelled out so Tailwind can find them in the built files.
+const levelClasses: Record<ContributionWallColorScheme, string[]> = {
+  accent: ['fill-lake-line', 'fill-lake-accent/25', 'fill-lake-accent/50', 'fill-lake-accent/75', 'fill-lake-accent'],
+  green: ['fill-(--lake-wall-green-0)', 'fill-(--lake-wall-green-1)', 'fill-(--lake-wall-green-2)', 'fill-(--lake-wall-green-3)', 'fill-(--lake-wall-green-4)'],
+  blue: ['fill-(--lake-wall-blue-0)', 'fill-(--lake-wall-blue-1)', 'fill-(--lake-wall-blue-2)', 'fill-(--lake-wall-blue-3)', 'fill-(--lake-wall-blue-4)'],
+  purple: ['fill-(--lake-wall-purple-0)', 'fill-(--lake-wall-purple-1)', 'fill-(--lake-wall-purple-2)', 'fill-(--lake-wall-purple-3)', 'fill-(--lake-wall-purple-4)'],
+  orange: ['fill-(--lake-wall-orange-0)', 'fill-(--lake-wall-orange-1)', 'fill-(--lake-wall-orange-2)', 'fill-(--lake-wall-orange-3)', 'fill-(--lake-wall-orange-4)'],
 }
 
-function DailyActivityChart(props: Props) {
-  const { data, startDate, colorScheme = 'green', className } = props
+// Light palettes as presentation attributes; the classes above override them.
+const fallbackFills: Record<ContributionWallColorScheme, string[]> = {
+  accent: ['#ebedf0', '#c1e0ff', '#79b8ff', '#2188ff', '#0366d6'],
+  green: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
+  blue: ['#ebedf0', '#c1e0ff', '#79b8ff', '#2188ff', '#0366d6'],
+  purple: ['#ebedf0', '#e1bee7', '#ba68c8', '#9c27b0', '#6a1b9a'],
+  orange: ['#ebedf0', '#ffcc80', '#ffb74d', '#ff9800', '#f57c00'],
+}
+
+function levelOf(count: number, percentiles: ReturnType<typeof percentilesOf>): Level {
+  if (count === 0) return 0
+  if (count < percentiles.p25) return 1
+  if (count < percentiles.p50) return 2
+  if (count < percentiles.p75) return 3
+  return 4
+}
+
+function DailyActivityChart(props: ContributionWallProps) {
+  const {
+    data,
+    startDate,
+    colorScheme = 'green',
+    className,
+    labels,
+    formatTooltip,
+    locale = 'en-US',
+  } = props
 
   const percentiles = percentilesOf(data.map(d => d.count))
 
   const processedData = useMemo(() => {
-    // Create an array for the last 365 days
-    const days: { date: number, count: number }[] = []
-    // Fill the array with the last 365 days
-    for (let i = 0; i <= 365; i++) {
-      const date = addDays(startDate, i)
-      days.push({
-        date: toUnixTime(date),
-        count: 0,
-      })
-    }
-    // Map the actual data to the days array
     const dataMap = new Map(
       data.map(item => [
         toUnixTime(startOfDay(fromUnixTime(item.date))),
         item.count,
       ]),
     )
-    return days.map(day => ({
-      ...day,
-      count: dataMap.get(day.date) || 0,
-    }))
+    // One cell per day for the 366 days from startDate.
+    const days: { date: number, count: number }[] = []
+    for (let i = 0; i <= 365; i++) {
+      const date = toUnixTime(addDays(startDate, i))
+      days.push({ date, count: dataMap.get(date) || 0 })
+    }
+    return days
   }, [data, startDate])
 
   const weeks = useMemo(() => {
@@ -84,21 +86,25 @@ function DailyActivityChart(props: Props) {
     return result
   }, [processedData])
 
-  const formatDate = (timestamp: number): string => {
-    const date = fromUnixTime(timestamp)
-    return date.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    })
-  }
+  // Days are UTC midnights; formatting in UTC keeps server and client output identical.
+  const formatDate = (timestamp: number): string => fromUnixTime(timestamp).toLocaleDateString(locale, {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC',
+  })
+  const tooltip = (day: { date: number, count: number }) => formatTooltip
+    ? formatTooltip(fromUnixTime(day.date), day.count)
+    : `${day.count} activities on ${formatDate(day.date)}`
+
+  const classes = levelClasses[colorScheme] ?? levelClasses.green
+  const fills = fallbackFills[colorScheme] ?? fallbackFills.green
 
   return (
     <div className={cn(
-      'w-full rounded-xl p-4 sm:p-6',
-      'bg-white dark:bg-gray-900',
-      'border border-gray-200 dark:border-gray-700',
-      'shadow-sm hover:shadow-md transition-shadow duration-200',
+      'w-full rounded-lake-panel p-4 sm:p-6',
+      'bg-lake-surface border border-lake-line',
+      'shadow-lake-card hover:shadow-md transition-shadow duration-200',
       className,
     )}
     >
@@ -113,45 +119,45 @@ function DailyActivityChart(props: Props) {
           >
             {weeks.map((week, weekIndex) => (
               <g key={weekIndex} transform={`translate(${weekIndex * 14}, 0)`}>
-                {week.map((day, dayIndex) => (
-                  <rect
-                    key={day.date}
-                    x='0'
-                    y={dayIndex * 13}
-                    width='10'
-                    height='10'
-                    fill={getColor(day.count, percentiles, colorScheme, typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches)}
-                    rx='2'
-                    ry='2'
-                    data-count={day.count}
-                    data-date={formatDate(day.date)}
-                    className='transition-colors duration-200 hover:stroke-gray-400 hover:stroke-1'
-                  >
-                    <title>
-                      {`${day.count} activities on ${formatDate(day.date)}`}
-                    </title>
-                  </rect>
-                ))}
+                {week.map((day, dayIndex) => {
+                  const level = levelOf(day.count, percentiles)
+                  return (
+                    <rect
+                      key={day.date}
+                      x='0'
+                      y={dayIndex * 13}
+                      width='10'
+                      height='10'
+                      fill={fills[level]}
+                      rx='2'
+                      ry='2'
+                      data-count={day.count}
+                      data-level={level}
+                      data-date={formatDate(day.date)}
+                      className={cn(classes[level], 'transition-colors duration-200 hover:stroke-lake-fg-subtle hover:stroke-1')}
+                    >
+                      <title>{tooltip(day)}</title>
+                    </rect>
+                  )
+                })}
               </g>
             ))}
           </svg>
         </div>
       </div>
 
-      <div className='mt-4 flex items-center justify-start text-xs text-gray-600 dark:text-gray-400 flex-wrap gap-2'>
+      <div className='mt-4 flex items-center justify-start text-xs text-lake-fg-subtle flex-wrap gap-2'>
         <div className='flex items-center'>
-          <span className='mr-2'>Less</span>
-          {[0, 5, 10, 20, 30].map(level => (
-            <div
-              key={level}
-              className='w-3 h-3 mr-1 rounded-sm'
-              style={{ backgroundColor: getColor(level, percentiles, colorScheme, typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) }}
-            />
-          ))}
-          <span className='ml-1'>More</span>
+          <span className='mr-2'>{labels?.less ?? 'Less'}</span>
+          <svg width='76' height='12' viewBox='0 0 76 12' aria-hidden='true'>
+            {classes.map((levelClass, level) => (
+              <rect key={level} x={level * 16} y='0' width='12' height='12' rx='2' fill={fills[level]} className={levelClass} />
+            ))}
+          </svg>
+          <span className='ml-1'>{labels?.more ?? 'More'}</span>
         </div>
 
-        <div className='ml-auto text-gray-500 dark:text-gray-400 text-xs'>
+        <div className='ml-auto text-xs'>
           {processedData[0] && processedData[processedData.length - 1] && (
             <span>
               {formatDate(processedData[0].date)}
@@ -159,7 +165,7 @@ function DailyActivityChart(props: Props) {
               -
               {' '}
               {formatDate(processedData[processedData.length - 1].date)}
-              <span className='ml-1 text-gray-400 dark:text-gray-500 text-xs'>(UTC)</span>
+              <span className='ml-1 text-lake-fg-subtle/80'>{labels?.utc ?? '(UTC)'}</span>
             </span>
           )}
         </div>

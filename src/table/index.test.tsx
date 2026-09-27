@@ -100,7 +100,7 @@ describe('Table', () => {
   it('renders with default variant', () => {
     const { container } = render(<Table data={data} columns={columns} />)
     const table = container.querySelector('table')
-    expect(table).toHaveClass('bg-white')
+    expect(table).toHaveClass('bg-lake-surface')
   })
 
   it('renders with bordered variant', () => {
@@ -118,7 +118,7 @@ describe('Table', () => {
   it('renders with glass variant', () => {
     const { container } = render(<Table data={data} columns={columns} variant='glass' />)
     const table = container.querySelector('table')
-    expect(table).toHaveClass('backdrop-blur-sm')
+    expect(table).toHaveClass('backdrop-blur-lake')
   })
 
   it('renders custom column renderer', () => {
@@ -158,6 +158,27 @@ describe('Table', () => {
   it('does not render footer when loading', () => {
     render(<Table data={[]} columns={columns} loading hasMore={false} />)
     expect(screen.queryByText('No more data')).not.toBeInTheDocument()
+  })
+
+  it('keys rows with rowKey and exposes labels', () => {
+    const rowKey = vi.fn((row: TestRow) => row.id)
+    render(<Table data={data} columns={columns} rowKey={rowKey} hasMore={false} endMessage='That is all' />)
+    expect(rowKey).toHaveBeenCalledWith(data[0], 0)
+    expect(screen.getByText('That is all')).toBeInTheDocument()
+  })
+
+  it('labels the loading spinner', () => {
+    render(<Table data={[]} columns={columns} loading loadingLabel='Fetching rows' />)
+    expect(screen.getByRole('status')).toHaveTextContent('Fetching rows')
+  })
+
+  it('exposes sort state and sorts from the keyboard', () => {
+    const onSort = vi.fn()
+    render(<Table data={data} columns={[{ key: 'name', header: 'Name', sortable: true }]} onSort={onSort} sortKey='name' sortDirection='desc' />)
+    const header = screen.getByRole('columnheader', { name: 'Name' })
+    expect(header).toHaveAttribute('aria-sort', 'descending')
+    fireEvent.keyDown(header, { key: 'Enter' })
+    expect(onSort).toHaveBeenCalledWith('name', 'asc')
   })
 
   it('does not render footer when data is empty', () => {

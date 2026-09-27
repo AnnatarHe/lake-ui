@@ -1,5 +1,6 @@
-import { render } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { render, screen } from '@testing-library/react'
+import { renderToString } from 'react-dom/server'
+import { describe, expect, it, vi } from 'vitest'
 import { fromUnixTime, startOfDay, toUnixTime } from '../utils/date'
 import DailyActivityChart from './index'
 
@@ -120,6 +121,7 @@ describe('DailyActivityChart Component', () => {
         month: 'short',
         day: 'numeric',
         year: 'numeric',
+        timeZone: 'UTC',
       },
     )
 
@@ -148,5 +150,41 @@ describe('DailyActivityChart Component', () => {
     // We should have around 52-53 weeks in a year
     expect(weekGroups.length).toBeGreaterThanOrEqual(52)
     expect(weekGroups.length).toBeLessThanOrEqual(54)
+  })
+
+  it('renders identically without touching matchMedia', () => {
+    const matchMedia = vi.fn()
+    vi.stubGlobal('matchMedia', matchMedia)
+    const html = renderToString(<DailyActivityChart data={[]} startDate={startDate} />)
+    expect(html).toContain('fill-(--lake-wall-green-0)')
+    expect(matchMedia).not.toHaveBeenCalled()
+    vi.unstubAllGlobals()
+  })
+
+  it('uses token classes for the accent scheme', () => {
+    const today = startOfDay(new Date())
+    render(<DailyActivityChart data={[{ date: toUnixTime(today), count: 3 }]} startDate={startDate} colorScheme='accent' />)
+    const rects = Array.from(document.querySelectorAll('svg rect'))
+    expect(rects.find(rect => rect.getAttribute('data-count') === '0')).toHaveClass('fill-lake-line')
+    expect(rects.find(rect => rect.getAttribute('data-count') === '3')).toHaveClass('fill-lake-accent')
+  })
+
+  it('accepts labels, a tooltip formatter and a locale', () => {
+    const today = startOfDay(new Date())
+    render(
+      <DailyActivityChart
+        data={[{ date: toUnixTime(today), count: 2 }]}
+        startDate={startDate}
+        labels={{ less: 'Fewer', more: 'Plenty', utc: 'UTC time' }}
+        formatTooltip={(date, count) => `${count} on ${date.toISOString().slice(0, 10)}`}
+        locale='de-DE'
+      />,
+    )
+    expect(screen.getByText('Fewer')).toBeInTheDocument()
+    expect(screen.getByText('Plenty')).toBeInTheDocument()
+    expect(screen.getByText('UTC time')).toBeInTheDocument()
+    const cell = Array.from(document.querySelectorAll('rect')).find(rect => rect.getAttribute('data-count') === '2')
+    expect(cell?.querySelector('title')?.textContent).toBe(`2 on ${today.toISOString().slice(0, 10)}`)
+    expect(cell?.getAttribute('data-date')).toBe(today.toLocaleDateString('de-DE', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }))
   })
 })

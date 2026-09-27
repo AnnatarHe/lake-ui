@@ -47,3 +47,13 @@ export const Empty: Story = {
     startDate: addDays(new Date(), -365),
   },
 }
+
+export const AccentScheme: Story = {
+  args: {
+    data: generateMockData(20),
+    startDate: addDays(new Date(), -365),
+    colorScheme: 'accent',
+    labels: { less: 'Less', more: 'More' },
+    formatTooltip: (date, count) => `${count} highlights · ${date.toISOString().slice(0, 10)}`,
+  },
+}

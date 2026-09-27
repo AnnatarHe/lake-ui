@@ -143,3 +143,15 @@ export const Loading: Story = {
     )
   },
 }
+
+export const WithPlaceholder: Story = {
+  args: {
+    label: 'Reading status',
+    placeholder: 'Choose a status',
+    options: [
+      { value: 'reading', label: 'Reading' },
+      { value: 'finished', label: 'Finished' },
+      { value: 'abandoned', label: 'Abandoned', disabled: true },
+    ],
+  },
+}

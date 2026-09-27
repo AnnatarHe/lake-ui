@@ -82,7 +82,7 @@ describe('Sheet Component', () => {
         <div>Sheet Content</div>
       </Sheet>,
     )
-    const backdrop = document.querySelector('.backdrop-blur-sm') as HTMLElement
+    const backdrop = document.querySelector('.bg-lake-overlay') as HTMLElement
     fireEvent.click(backdrop)
     expect(onClose).toHaveBeenCalledTimes(1)
   })

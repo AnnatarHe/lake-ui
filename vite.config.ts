@@ -41,6 +41,7 @@ export default defineConfig({
       input: {
         index: 'src/index.ts',
         'hooks/useInViewport': 'src/hooks/useInViewport.ts',
+        'utils/index': 'src/utils/index.ts',
       },
     },
   },

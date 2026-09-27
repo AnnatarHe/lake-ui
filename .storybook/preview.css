@@ -1,0 +1,13 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import '../src/theme.css';
+@import './editorial.css';
+
+@source '../src';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+body {
+  background-color: var(--lake-canvas);
+  color: var(--lake-fg);
+}

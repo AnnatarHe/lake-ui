@@ -41,7 +41,7 @@ function InputField(props: InputFieldProps) {
         />
         {loading && (
           <div className='absolute right-3 top-1/2 -translate-y-1/2'>
-            <Loader2 className='h-4 w-4 animate-spin text-gray-500 dark:text-gray-400' />
+            <Loader2 className='h-4 w-4 animate-spin text-lake-fg-subtle' aria-hidden='true' />
           </div>
         )}
       </div>

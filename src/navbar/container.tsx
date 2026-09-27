@@ -1,31 +1,47 @@
 import { cn } from '@/utils/cn'
+import type { ElementType, HTMLAttributes, ReactNode } from 'react'
 
-type Props = {
-  children: React.ReactNode
+export interface NavbarContainerProps extends Omit<HTMLAttributes<HTMLElement>, 'className' | 'children'> {
+  children: ReactNode
   className?: string
+  /** Class for the centered inner row (defaults to a `max-w-7xl` container). */
+  innerClassName?: string
+  /** Rendered element. Defaults to `header`. */
+  as?: ElementType
   variant?: 'default' | 'transparent' | 'solid'
+  /** Plays the slide-in entrance animation. */
+  animated?: boolean
 }
 
-function NavbarContainer(props: Props) {
-  const { children, className, variant = 'default' } = props
+const variantClasses = {
+  default: 'bg-lake-surface/95 border-lake-line',
+  transparent: 'bg-lake-surface/80 border-lake-line/50',
+  solid: 'bg-lake-surface border-lake-line-strong',
+}
 
-  const variantClasses = {
-    default: 'bg-white/95 dark:bg-gray-900/95 border-gray-200 dark:border-gray-800',
-    transparent: 'bg-white/80 dark:bg-gray-900/80 border-gray-200/50 dark:border-gray-800/50',
-    solid: 'bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700',
-  }
+function NavbarContainer(props: NavbarContainerProps) {
+  const {
+    children,
+    className,
+    innerClassName,
+    as: Component = 'header',
+    variant = 'default',
+    animated = true,
+    ...rest
+  } = props
 
   return (
-    <header className={cn(
-      'sticky top-0 z-20 border-b backdrop-blur-sm',
-      'animate-in fade-in-50 slide-in-from-top-2',
-      'shadow-sm',
-      variantClasses[variant],
-      className,
-    )}
+    <Component
+      {...rest}
+      className={cn(
+        'sticky top-0 z-20 border-b backdrop-blur-lake shadow-lake-card',
+        animated && 'animate-in fade-in-50 slide-in-from-top-2 motion-reduce:animate-none',
+        variantClasses[variant],
+        className,
+      )}
     >
-      <div className='mx-auto max-w-7xl px-4 py-3 sm:px-6'>{children}</div>
-    </header>
+      <div className={cn('mx-auto max-w-7xl px-4 py-3 sm:px-6', innerClassName)}>{children}</div>
+    </Component>
   )
 }
 

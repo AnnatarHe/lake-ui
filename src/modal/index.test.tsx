@@ -91,3 +91,23 @@ describe('Modal Component', () => {
     expect(screen.getByTestId('custom-title')).toBeInTheDocument()
   })
 })
+
+describe('Modal size', () => {
+  it.each([
+    ['sm', 'max-w-sm'],
+    ['md', 'max-w-lg'],
+    ['lg', 'max-w-2xl'],
+    [undefined, 'max-w-4xl'],
+    ['full', 'max-w-none'],
+  ] as const)('maps %s to %s', (size, expected) => {
+    render(<Modal isOpen onClose={vi.fn()} title='Sized' size={size}>Body</Modal>)
+    expect(screen.getByRole('dialog', { name: 'Sized' })).toHaveClass(expected)
+  })
+
+  it('lets className override the size', () => {
+    render(<Modal isOpen onClose={vi.fn()} title='Custom' size='sm' className='max-w-xl'>Body</Modal>)
+    const dialog = screen.getByRole('dialog', { name: 'Custom' })
+    expect(dialog).toHaveClass('max-w-xl')
+    expect(dialog).not.toHaveClass('max-w-sm')
+  })
+})

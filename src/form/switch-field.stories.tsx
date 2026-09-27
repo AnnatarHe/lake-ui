@@ -131,7 +131,7 @@ export const WithChildren: Story = {
         value={value}
         onChange={newValue => setValue(newValue)}
       >
-        <span className='ml-2 text-xs text-gray-500 dark:text-gray-400'>
+        <span className='ml-2 text-xs text-lake-fg-subtle'>
           {value ? 'Enabled' : 'Disabled'}
         </span>
       </SwitchField>

@@ -1,9 +1,10 @@
 import { Loader2 } from 'lucide-react'
-import React from 'react'
+import React, { useId } from 'react'
 
 import { cn } from '@/utils/cn'
+import { FieldError, FieldLabel, useFieldIds } from './field'
 
-interface SwitchFieldProps {
+export interface SwitchFieldProps {
   label: string | React.ReactNode
   loading?: boolean
   value: boolean
@@ -12,6 +13,8 @@ interface SwitchFieldProps {
   disabled?: boolean
   error?: string
   description?: string
+  id?: string
+  className?: string
 }
 
 function SwitchField(props: SwitchFieldProps) {
@@ -24,39 +27,36 @@ function SwitchField(props: SwitchFieldProps) {
     disabled,
     error,
     description,
+    id,
+    className,
   } = props
 
+  const descriptionId = useId()
+  const ids = useFieldIds(id, description ? descriptionId : undefined, error)
+
   return (
-    <div className='w-full'>
-      <div className='flex items-center justify-between'>
+    <div className={cn('w-full', className)}>
+      <div className='flex items-center justify-between gap-4'>
         <div className='flex flex-col'>
-          <label
-            className={cn(
-              'text-sm font-medium transition-colors text-gray-700 dark:text-gray-300',
-              disabled && 'opacity-60',
-            )}
-          >
-            {label}
-          </label>
+          <FieldLabel label={label} id={ids.id} disabled={disabled} className='mb-0' />
           {description && (
-            <p className='text-xs mt-0.5 text-gray-500 dark:text-gray-400'>
+            <p id={descriptionId} className='text-xs mt-0.5 text-lake-fg-subtle'>
               {description}
             </p>
           )}
         </div>
         <div className='flex items-center gap-3'>
           <button
+            id={ids.id}
             type='button'
             className={cn(
-              'relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-300',
+              'relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-all duration-300',
               value
-                ? 'bg-blue-500 shadow-md shadow-blue-500/20 dark:bg-blue-600 dark:shadow-blue-600/20'
-                : 'bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600',
-              'focus:outline-none focus:ring-2',
-              'focus:ring-blue-500/30 focus:ring-offset-2 focus:ring-offset-white',
-              'dark:focus:ring-blue-600/30 dark:focus:ring-offset-gray-900',
-              disabled && 'opacity-50 cursor-not-allowed hover:bg-gray-200',
-              error && 'ring-2 ring-red-400 dark:ring-red-500',
+                ? 'bg-lake-accent'
+                : 'bg-lake-line hover:bg-lake-line-strong',
+              'outline-none focus-visible:ring-2 focus-visible:ring-lake-ring focus-visible:ring-offset-2 focus-visible:ring-offset-lake-surface',
+              disabled && 'opacity-50 cursor-not-allowed hover:bg-lake-line',
+              error && 'ring-2 ring-lake-danger',
             )}
             role='switch'
             disabled={disabled || loading}
@@ -64,6 +64,9 @@ function SwitchField(props: SwitchFieldProps) {
               onChange(!value)
             }}
             aria-checked={value}
+            aria-describedby={ids.describedBy}
+            aria-invalid={error ? true : undefined}
+            aria-busy={loading || undefined}
           >
             <span
               className={cn(
@@ -72,17 +75,15 @@ function SwitchField(props: SwitchFieldProps) {
               )}
             />
             {loading && (
-              <div className='absolute left-0 top-0 z-10 flex h-full w-full items-center justify-center rounded-full bg-slate-300/55 dark:bg-slate-500/55 backdrop-blur-md'>
-                <Loader2 className='h-3 w-3 animate-spin text-white' />
+              <div className='absolute left-0 top-0 z-10 flex h-full w-full items-center justify-center rounded-full bg-lake-fg-subtle/50 backdrop-blur-lake'>
+                <Loader2 className='h-3 w-3 animate-spin text-white' aria-hidden='true' />
               </div>
             )}
           </button>
           {children}
         </div>
       </div>
-      {error && (
-        <p className='mt-1.5 text-sm text-red-500 dark:text-red-400'>{error}</p>
-      )}
+      <FieldError error={error} id={ids.errorId} />
     </div>
   )
 }

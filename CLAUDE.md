@@ -62,16 +62,22 @@ import DropdownButton from '@annatarhe/lake-ui/dropdown-button'
 import RadioGroup from '@annatarhe/lake-ui/form-radio-group'
 ```
 
-CSS must be imported separately:
-```typescript
-import '@annatarhe/lake-ui/style.css'
+Consumers import the theme once from their Tailwind v4 entry (top level, not inside `@layer`):
+```css
+@import 'tailwindcss';
+@import '@annatarhe/lake-ui/theme.css';
 ```
+`./style.css` is a deprecated empty file kept only so old imports resolve.
 
 ### Styling Approach
-- Uses Tailwind CSS with custom `cn()` utility (located in `src/utils/cn.ts`)
-- Dark mode support throughout all components using Tailwind's dark: variants
-- Glass morphism effects with backdrop-blur and transparency
-- Consistent design tokens for spacing, colors, and border radius
+- Components emit Tailwind class names only; the consumer's Tailwind build compiles them. `src/theme.css` (copied to `dist/theme.css` by `scripts/copy-theme.mjs`) adds `@source "./**/*.js"` so consumers need no `@source` of their own.
+- Colors, radii, shadows and blur come from semantic tokens: `--lake-*` variables in `@layer base` (zero specificity, dark values under `.dark, [data-theme=dark]`) exposed through `@theme inline` as `bg-lake-surface`, `text-lake-fg-muted`, `border-lake-line`, `ring-lake-ring`, `rounded-lake-control`, `shadow-lake-card`, `backdrop-blur-lake`, etc.
+- Never use raw palette classes (`gray-*`, `blue-*`, `red-*`) or `dark:` variants in components; add or reuse a token instead. Defaults must keep matching the previous gray/blue look.
+- Do not add custom `--text-*` size names: tailwind-merge would treat them as colors.
+- `cn()` (`src/utils/cn.ts`, exported from `./utils`) extends tailwind-merge with the `lake-*` radius/shadow/blur scales. Always merge `className` last.
+- Portaled UI resolves its host after mount (`src/hooks/usePortalHost.ts`) and falls back to `document.body`.
+- Every user-facing string must be overridable by a label prop with an English default.
+- Storybook compiles Tailwind through `@tailwindcss/vite` (`.storybook/preview.css`); the toolbar "Theme" switches Light / Dark / Editorial light / Editorial dark (`.storybook/editorial.css`).
 
 ### Testing Strategy
 - Vitest with React Testing Library and Happy DOM environment
@@ -103,10 +109,18 @@ interface ComponentProps {
 ```
 
 ### Error Handling in Forms
-Form components support error states with consistent error prop:
+Form components support error states with a consistent error prop, rendered through
+`FieldError` and linked with `aria-invalid`/`aria-describedby` via `useFieldIds`
+(`src/form/field.tsx`):
 ```typescript
-error?: string | boolean
+error?: string
 ```
+
+### Client Boundaries
+Only modules that use state, effects, refs or DOM event handlers start with `'use client'`.
+Server-safe components (Card, NavbarContainer, ContributionWall, the form inputs) must not.
+The Vite build re-emits the directive per module and `scripts/check-package.mjs` asserts
+that each package entry keeps the same boundary as its source.
 
 ### Styling Pattern
 Always use the `cn()` utility for combining classes:

@@ -17,7 +17,7 @@ export const Default: Story = {
     return (
       <>
         <button
-          className='rounded bg-blue-500 px-4 py-2 text-white'
+          className='rounded-lake-control bg-lake-accent px-4 py-2 text-lake-accent-fg'
           onClick={() => setIsOpen(true)}
         >
           Open Sheet
@@ -40,7 +40,7 @@ export const LeftSide: Story = {
     return (
       <>
         <button
-          className='rounded bg-blue-500 px-4 py-2 text-white'
+          className='rounded-lake-control bg-lake-accent px-4 py-2 text-lake-accent-fg'
           onClick={() => setIsOpen(true)}
         >
           Open Left Sheet
@@ -64,7 +64,7 @@ export const CustomWidth: Story = {
     return (
       <>
         <button
-          className='rounded bg-blue-500 px-4 py-2 text-white'
+          className='rounded-lake-control bg-lake-accent px-4 py-2 text-lake-accent-fg'
           onClick={() => setIsOpen(true)}
         >
           Open Wide Sheet
@@ -88,7 +88,7 @@ export const WithoutTitle: Story = {
     return (
       <>
         <button
-          className='rounded bg-blue-500 px-4 py-2 text-white'
+          className='rounded-lake-control bg-lake-accent px-4 py-2 text-lake-accent-fg'
           onClick={() => setIsOpen(true)}
         >
           Open Sheet (No Title)
@@ -110,7 +110,7 @@ export const WithLongContent: Story = {
     return (
       <>
         <button
-          className='rounded bg-blue-500 px-4 py-2 text-white'
+          className='rounded-lake-control bg-lake-accent px-4 py-2 text-lake-accent-fg'
           onClick={() => setIsOpen(true)}
         >
           Open Sheet (Long Content)

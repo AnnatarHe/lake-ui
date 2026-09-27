@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.34](https://github.com/AnnatarHe/lake-ui/compare/v0.0.33...v0.0.34) (2026-09-27)
+
+
+### Continuous Integration
+
+* **publish:** publish through npm trusted publishing ([812e619](https://github.com/AnnatarHe/lake-ui/commit/812e619b92f14237eb69f7d6fe1bd0cf1d07e928))
+* **publish:** publish through npm trusted publishing ([023bc86](https://github.com/AnnatarHe/lake-ui/commit/023bc863201d83bcc30ede4edb6774e8b5cf4055))
+
 ## [0.0.33](https://github.com/AnnatarHe/lake-ui/compare/v0.0.32...v0.0.33) (2026-09-27)
 
 
